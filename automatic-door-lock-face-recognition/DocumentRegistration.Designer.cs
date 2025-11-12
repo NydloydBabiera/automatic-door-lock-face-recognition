@@ -1,0 +1,234 @@
+﻿namespace automatic_door_lock_face_recognition
+{
+    partial class DocumentRegistration
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            groupBox1 = new GroupBox();
+            txtDocumentType = new TextBox();
+            groupBox2 = new GroupBox();
+            txtRFIDtag = new TextBox();
+            dgvDocument = new DataGridView();
+            document_information_id = new DataGridViewTextBoxColumn();
+            document_type = new DataGridViewTextBoxColumn();
+            document_rfid_tag = new DataGridViewTextBoxColumn();
+            btnAdd = new Button();
+            btnSave = new Button();
+            btnEdit = new Button();
+            btnDelete = new Button();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
+            SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(txtDocumentType);
+            groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(469, 58);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Document Type";
+            // 
+            // txtDocumentType
+            // 
+            txtDocumentType.Location = new Point(6, 23);
+            txtDocumentType.Name = "txtDocumentType";
+            txtDocumentType.Size = new Size(457, 29);
+            txtDocumentType.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(txtRFIDtag);
+            groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox2.Location = new Point(12, 86);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(469, 58);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "RFID Tag";
+            // 
+            // txtRFIDtag
+            // 
+            txtRFIDtag.Location = new Point(6, 23);
+            txtRFIDtag.Name = "txtRFIDtag";
+            txtRFIDtag.Size = new Size(457, 29);
+            txtRFIDtag.TabIndex = 0;
+            // 
+            // dgvDocument
+            // 
+            dgvDocument.AllowUserToAddRows = false;
+            dgvDocument.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, document_type, document_rfid_tag });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvDocument.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvDocument.Location = new Point(6, 201);
+            dgvDocument.Name = "dgvDocument";
+            dgvDocument.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvDocument.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvDocument.RowHeadersVisible = false;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvDocument.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.Size = new Size(475, 298);
+            dgvDocument.TabIndex = 2;
+            // 
+            // document_information_id
+            // 
+            document_information_id.DataPropertyName = "document_information_id";
+            document_information_id.HeaderText = "ID";
+            document_information_id.Name = "document_information_id";
+            document_information_id.ReadOnly = true;
+            document_information_id.Width = 150;
+            // 
+            // document_type
+            // 
+            document_type.DataPropertyName = "document_type";
+            document_type.HeaderText = "Type";
+            document_type.Name = "document_type";
+            document_type.ReadOnly = true;
+            document_type.Width = 150;
+            // 
+            // document_rfid_tag
+            // 
+            document_rfid_tag.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            document_rfid_tag.DataPropertyName = "document_rfid_tag";
+            document_rfid_tag.HeaderText = "RFID Tag";
+            document_rfid_tag.Name = "document_rfid_tag";
+            document_rfid_tag.ReadOnly = true;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdd.Location = new Point(26, 150);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(94, 37);
+            btnAdd.TabIndex = 3;
+            btnAdd.Text = "ADD";
+            btnAdd.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            btnSave.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSave.Location = new Point(126, 150);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(98, 37);
+            btnSave.TabIndex = 4;
+            btnSave.Text = "SAVE";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEdit.Location = new Point(230, 150);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(96, 37);
+            btnEdit.TabIndex = 5;
+            btnEdit.Text = "EDIT";
+            btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDelete.Location = new Point(332, 150);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(93, 37);
+            btnDelete.TabIndex = 6;
+            btnDelete.Text = "DELETE";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // DocumentRegistration
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(493, 511);
+            Controls.Add(btnDelete);
+            Controls.Add(btnEdit);
+            Controls.Add(btnSave);
+            Controls.Add(btnAdd);
+            Controls.Add(dgvDocument);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            Name = "DocumentRegistration";
+            Text = "DocumentRegistration";
+            Load += DocumentRegistration_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDocument).EndInit();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private GroupBox groupBox1;
+        private TextBox txtDocumentType;
+        private GroupBox groupBox2;
+        private TextBox txtRFIDtag;
+        private DataGridView dgvDocument;
+        private Button btnAdd;
+        private Button btnSave;
+        private Button btnEdit;
+        private Button btnDelete;
+        private DataGridViewTextBoxColumn document_information_id;
+        private DataGridViewTextBoxColumn document_type;
+        private DataGridViewTextBoxColumn document_rfid_tag;
+    }
+}
