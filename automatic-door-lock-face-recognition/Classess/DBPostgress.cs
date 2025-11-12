@@ -330,6 +330,30 @@ namespace automatic_door_lock_face_recognition.Classess
             return null;
         }
 
+        public void LoadDocumentLogs(DataGridView gridView)
+        {
+            using (var conn = new NpgsqlConnection(_connStr))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "WITH numbered AS (\r\n    SELECT \r\n\t\tinf.document_type,\r\n        logs.document_information_logs_id,\r\n        logs.document_information_id,\r\n        logs.time_log,\r\n        ROW_NUMBER() OVER (PARTITION BY logs.document_information_id ORDER BY time_log, document_information_logs_id) AS rn\r\n    FROM document_information_logs logs\r\n\tinner join document_information inf on inf.document_information_id = logs.document_information_id\r\n)\r\nSELECT \r\n\tdocument_type,\r\n    document_information_logs_id,\r\n    document_information_id,\r\n    time_log,\r\n    CASE WHEN rn % 2 = 1 THEN 'out' ELSE 'in' END AS log_type,\r\n    (rn + 1) / 2 AS pair_number\r\nFROM numbered\r\nORDER BY document_information_id, rn";
+                    using (var da = new NpgsqlDataAdapter(query, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        gridView.DataSource = dt;
+                        gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"❌ Error loading data:\n{ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
     }
 }

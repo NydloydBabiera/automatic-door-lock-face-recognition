@@ -28,18 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            dgvDocumentLogs = new DataGridView();
             document_type = new DataGridViewTextBoxColumn();
             time_log = new DataGridViewTextBoxColumn();
             log_type = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDocumentLogs).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dataGridView1);
+            groupBox1.Controls.Add(dgvDocumentLogs);
             groupBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
@@ -48,17 +53,47 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Document Logs";
             // 
-            // dataGridView1
+            // dgvDocumentLogs
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { document_type, time_log, log_type });
-            dataGridView1.Location = new Point(6, 42);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(596, 378);
-            dataGridView1.TabIndex = 0;
+            dgvDocumentLogs.AllowUserToAddRows = false;
+            dgvDocumentLogs.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocumentLogs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = SystemColors.Control;
+            dataGridViewCellStyle12.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
+            dgvDocumentLogs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dgvDocumentLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDocumentLogs.Columns.AddRange(new DataGridViewColumn[] { document_type, time_log, log_type });
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = SystemColors.Window;
+            dataGridViewCellStyle13.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle13.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.False;
+            dgvDocumentLogs.DefaultCellStyle = dataGridViewCellStyle13;
+            dgvDocumentLogs.Location = new Point(6, 42);
+            dgvDocumentLogs.Name = "dgvDocumentLogs";
+            dgvDocumentLogs.ReadOnly = true;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = SystemColors.Control;
+            dataGridViewCellStyle14.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle14.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
+            dgvDocumentLogs.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dgvDocumentLogs.RowHeadersVisible = false;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocumentLogs.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            dgvDocumentLogs.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocumentLogs.Size = new Size(596, 378);
+            dgvDocumentLogs.TabIndex = 0;
             // 
             // document_type
             // 
@@ -66,6 +101,7 @@
             document_type.HeaderText = "Document";
             document_type.Name = "document_type";
             document_type.ReadOnly = true;
+            document_type.Width = 150;
             // 
             // time_log
             // 
@@ -73,9 +109,11 @@
             time_log.HeaderText = "Time";
             time_log.Name = "time_log";
             time_log.ReadOnly = true;
+            time_log.Width = 150;
             // 
             // log_type
             // 
+            log_type.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             log_type.DataPropertyName = "log_type";
             log_type.HeaderText = "Log Type";
             log_type.Name = "log_type";
@@ -89,15 +127,16 @@
             Controls.Add(groupBox1);
             Name = "DocumentLogs";
             Text = "DocumentLogs";
+            Load += DocumentLogs_Load;
             groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDocumentLogs).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private GroupBox groupBox1;
-        private DataGridView dataGridView1;
+        private DataGridView dgvDocumentLogs;
         private DataGridViewTextBoxColumn document_type;
         private DataGridViewTextBoxColumn time_log;
         private DataGridViewTextBoxColumn log_type;
