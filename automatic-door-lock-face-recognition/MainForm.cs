@@ -165,30 +165,42 @@ namespace automatic_door_lock_face_recognition
                 lblFaceScan.Text = "Recognizing...";
                 while (_recognizing)
                 {
-                    if (pictureBox1.Image == null) { await System.Threading.Tasks.Task.Delay(100); continue; }
+                    if (pictureBox1.Image == null)
+                    {
+                        await Task.Delay(100);
+                        continue;
+                    }
+
                     using (var bmp = new Bitmap(pictureBox1.Image))
                     using (var mat = bmp.ToMat())
                     {
                         var faces = _faceService.DetectFaces(mat);
+
                         if (faces.Length > 0)
                         {
-                            var f = faces[0];
-                            using (var faceGray = _faceService.ExtractFace(mat, f))
+                            foreach (var f in faces)
                             {
-                                var (label, confidence) = _faceService.Predict(faceGray);
-                                string name = "Unknown";
-                                if (label >= 0 && _labelToName.ContainsKey(label))
-                                    name = _labelToName[label];
-
-                                Invoke(new Action(() =>
+                                using (var faceGray = _faceService.ExtractFace(mat, f))
                                 {
-                                    if(name != "unknown" && confidence > 65)
+                                    var (label, confidence) = _faceService.Predict(faceGray);
+
+                                    string name = "Unknown";
+                                    if (label >= 0 && _labelToName.ContainsKey(label))
+                                        name = _labelToName[label];
+
+                                    Invoke(new Action(() =>
                                     {
-                                        lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                        port.WriteLine("ON1");
-                                    }
-                                    
-                                }));
+                                        if (name != "Unknown" && confidence > 65)
+                                        {
+                                            lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
+                                            port.WriteLine("ON1");
+                                        }
+                                        else
+                                        {
+                                            lblFaceScan.Text = $"Unknown face (conf: {confidence:F1})";
+                                        }
+                                    }));
+                                }
                             }
                         }
                         else
@@ -196,7 +208,8 @@ namespace automatic_door_lock_face_recognition
                             Invoke(new Action(() => lblFaceScan.Text = "No face detected"));
                         }
                     }
-                    await System.Threading.Tasks.Task.Delay(300);
+
+                    await Task.Delay(300);
                 }
             }
             else
@@ -231,9 +244,9 @@ namespace automatic_door_lock_face_recognition
             recognizeFace2();
             System.Threading.Thread.Sleep(1000);
             cameraStream();
-            port = new SerialPort("COM6", 115200);
-            port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port = new SerialPort("COM6", 115200);
+            //port.DataReceived += SerialPort_DataReceived;
+            //port.Open();
 
         }
 
