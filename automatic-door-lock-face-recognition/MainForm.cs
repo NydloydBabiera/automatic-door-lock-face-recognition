@@ -256,7 +256,7 @@ namespace automatic_door_lock_face_recognition
             AppendTextToTextBox(data);
             var docInfo = _db.GetDocumentInformation(data.Trim());
             //MessageBox.Show("Document Type: " + docInfo.Value.id);
-            if(docInfo == null)
+            if (docInfo == null)
             {
                 return;
             }
@@ -290,7 +290,7 @@ namespace automatic_door_lock_face_recognition
             //    lblStatus.Text = "Serial port not open!";
             //}
         }
-       
+
 
         private void trainData()
         {
@@ -315,6 +315,17 @@ namespace automatic_door_lock_face_recognition
             _faceService.TrainFromFiles(labeledFiles);
 
             lblFaceScan.Text = $"Trained on {labeledFiles.Count} samples, {nameToLabel.Count} people.";
+        }
+
+        private void documentLogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void personnelLogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DocumentLogs documentLogs = new DocumentLogs();
+            documentLogs.ShowDialog();
         }
     }
 }

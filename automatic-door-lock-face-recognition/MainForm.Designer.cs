@@ -82,14 +82,16 @@
             // personnelLogsToolStripMenuItem
             // 
             personnelLogsToolStripMenuItem.Name = "personnelLogsToolStripMenuItem";
-            personnelLogsToolStripMenuItem.Size = new Size(158, 22);
+            personnelLogsToolStripMenuItem.Size = new Size(180, 22);
             personnelLogsToolStripMenuItem.Text = "Personnel Logs";
+            personnelLogsToolStripMenuItem.Click += personnelLogsToolStripMenuItem_Click;
             // 
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(158, 22);
+            documentLogsToolStripMenuItem.Size = new Size(180, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
+            documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
             // pictureBox1
             // 
