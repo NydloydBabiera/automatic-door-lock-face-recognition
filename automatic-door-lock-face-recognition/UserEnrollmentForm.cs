@@ -27,7 +27,7 @@ namespace automatic_door_lock_face_recognition
         public UserEnrollmentForm()
         {
             InitializeComponent();
-            lblCameraStream.Text = "http://192.168.68.115:81/stream";
+            lblCameraStream.Text = GlobalVariables.CameralUrl;
             _camera = new CameraService();
             _camera.OnFrame += Camera_OnFrame;
 

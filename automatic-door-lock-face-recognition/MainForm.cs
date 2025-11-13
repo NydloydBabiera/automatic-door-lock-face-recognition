@@ -21,7 +21,7 @@ namespace automatic_door_lock_face_recognition
         private DBPostgress _db;
         private CameraService _camera;
         private FaceRecognitionService _faceService;
-        string cameraUrl = "http://192.168.68.115:81/stream";
+        string cameraUrl = GlobalVariables.CameralUrl;
         private bool _recognizing = true;
         private string _samplesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples");
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
@@ -244,9 +244,9 @@ namespace automatic_door_lock_face_recognition
             recognizeFace2();
             System.Threading.Thread.Sleep(1000);
             cameraStream();
-            //port = new SerialPort("COM6", 115200);
-            //port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port = new SerialPort("COM6", 115200);
+            port.DataReceived += SerialPort_DataReceived;
+            port.Open();
 
         }
 
