@@ -41,13 +41,26 @@
             document_information_id = new DataGridViewTextBoxColumn();
             document_type = new DataGridViewTextBoxColumn();
             document_rfid_tag = new DataGridViewTextBoxColumn();
+            shelf_number = new DataGridViewTextBoxColumn();
+            student_name = new DataGridViewTextBoxColumn();
+            student_id = new DataGridViewTextBoxColumn();
             btnAdd = new Button();
             btnSave = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
+            btnCancel = new Button();
+            txtShelfNumber = new TextBox();
+            groupBox3 = new GroupBox();
+            txtStudentName = new TextBox();
+            groupBox4 = new GroupBox();
+            txtStudentID = new TextBox();
+            groupBox5 = new GroupBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
+            groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -56,7 +69,7 @@
             groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(469, 58);
+            groupBox1.Size = new Size(496, 58);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Document Type";
@@ -65,7 +78,7 @@
             // 
             txtDocumentType.Location = new Point(6, 23);
             txtDocumentType.Name = "txtDocumentType";
-            txtDocumentType.Size = new Size(457, 29);
+            txtDocumentType.Size = new Size(484, 29);
             txtDocumentType.TabIndex = 0;
             // 
             // groupBox2
@@ -74,7 +87,7 @@
             groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(12, 86);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(469, 58);
+            groupBox2.Size = new Size(496, 58);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "RFID Tag";
@@ -83,7 +96,7 @@
             // 
             txtRFIDtag.Location = new Point(6, 23);
             txtRFIDtag.Name = "txtRFIDtag";
-            txtRFIDtag.Size = new Size(457, 29);
+            txtRFIDtag.Size = new Size(484, 29);
             txtRFIDtag.TabIndex = 0;
             // 
             // dgvDocument
@@ -101,7 +114,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, document_type, document_rfid_tag });
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, document_type, document_rfid_tag, shelf_number, student_name, student_id });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -110,7 +123,7 @@
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvDocument.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvDocument.Location = new Point(6, 201);
+            dgvDocument.Location = new Point(6, 280);
             dgvDocument.Name = "dgvDocument";
             dgvDocument.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -125,8 +138,9 @@
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocument.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvDocument.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvDocument.Size = new Size(475, 298);
+            dgvDocument.Size = new Size(1024, 374);
             dgvDocument.TabIndex = 2;
+            dgvDocument.CellClick += dgvDocument_CellClick;
             // 
             // document_information_id
             // 
@@ -134,7 +148,6 @@
             document_information_id.HeaderText = "ID";
             document_information_id.Name = "document_information_id";
             document_information_id.ReadOnly = true;
-            document_information_id.Width = 150;
             // 
             // document_type
             // 
@@ -146,26 +159,50 @@
             // 
             // document_rfid_tag
             // 
-            document_rfid_tag.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             document_rfid_tag.DataPropertyName = "document_rfid_tag";
             document_rfid_tag.HeaderText = "RFID Tag";
             document_rfid_tag.Name = "document_rfid_tag";
             document_rfid_tag.ReadOnly = true;
+            document_rfid_tag.Width = 250;
+            // 
+            // shelf_number
+            // 
+            shelf_number.DataPropertyName = "shelf_number";
+            shelf_number.HeaderText = "Shelf No.";
+            shelf_number.Name = "shelf_number";
+            shelf_number.ReadOnly = true;
+            // 
+            // student_name
+            // 
+            student_name.DataPropertyName = "student_name";
+            student_name.HeaderText = "Student Name";
+            student_name.Name = "student_name";
+            student_name.ReadOnly = true;
+            student_name.Width = 250;
+            // 
+            // student_id
+            // 
+            student_id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            student_id.DataPropertyName = "student_id";
+            student_id.HeaderText = "Student ID";
+            student_id.Name = "student_id";
+            student_id.ReadOnly = true;
             // 
             // btnAdd
             // 
             btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdd.Location = new Point(26, 150);
+            btnAdd.Location = new Point(534, 177);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(94, 37);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSave.Location = new Point(126, 150);
+            btnSave.Location = new Point(634, 177);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(98, 37);
             btnSave.TabIndex = 4;
@@ -176,28 +213,98 @@
             // btnEdit
             // 
             btnEdit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEdit.Location = new Point(230, 150);
+            btnEdit.Location = new Point(738, 177);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(96, 37);
             btnEdit.TabIndex = 5;
             btnEdit.Text = "EDIT";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(332, 150);
+            btnDelete.Location = new Point(840, 177);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(93, 37);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "DELETE";
             btnDelete.UseVisualStyleBackColor = true;
             // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancel.Location = new Point(939, 177);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(93, 37);
+            btnCancel.TabIndex = 7;
+            btnCancel.Text = "CANCEL";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // txtShelfNumber
+            // 
+            txtShelfNumber.Location = new Point(6, 23);
+            txtShelfNumber.Name = "txtShelfNumber";
+            txtShelfNumber.Size = new Size(484, 29);
+            txtShelfNumber.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(txtShelfNumber);
+            groupBox3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox3.Location = new Point(12, 159);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(496, 58);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Shelf number";
+            // 
+            // txtStudentName
+            // 
+            txtStudentName.Location = new Point(6, 23);
+            txtStudentName.Name = "txtStudentName";
+            txtStudentName.Size = new Size(484, 29);
+            txtStudentName.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(txtStudentName);
+            groupBox4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox4.Location = new Point(525, 12);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(496, 58);
+            groupBox4.TabIndex = 3;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Student Name";
+            // 
+            // txtStudentID
+            // 
+            txtStudentID.Location = new Point(6, 23);
+            txtStudentID.Name = "txtStudentID";
+            txtStudentID.Size = new Size(484, 29);
+            txtStudentID.TabIndex = 0;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(txtStudentID);
+            groupBox5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox5.Location = new Point(525, 86);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(496, 58);
+            groupBox5.TabIndex = 4;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Student ID";
+            // 
             // DocumentRegistration
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(493, 511);
+            ClientSize = new Size(1042, 666);
+            Controls.Add(groupBox5);
+            Controls.Add(groupBox4);
+            Controls.Add(groupBox3);
+            Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
             Controls.Add(btnSave);
@@ -213,6 +320,12 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).EndInit();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -227,8 +340,18 @@
         private Button btnSave;
         private Button btnEdit;
         private Button btnDelete;
+        private Button btnCancel;
+        private TextBox txtShelfNumber;
+        private GroupBox groupBox3;
+        private TextBox txtStudentName;
+        private GroupBox groupBox4;
+        private TextBox txtStudentID;
+        private GroupBox groupBox5;
         private DataGridViewTextBoxColumn document_information_id;
         private DataGridViewTextBoxColumn document_type;
         private DataGridViewTextBoxColumn document_rfid_tag;
+        private DataGridViewTextBoxColumn shelf_number;
+        private DataGridViewTextBoxColumn student_name;
+        private DataGridViewTextBoxColumn student_id;
     }
 }

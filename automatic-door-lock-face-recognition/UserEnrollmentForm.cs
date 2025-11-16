@@ -24,6 +24,7 @@ namespace automatic_door_lock_face_recognition
         private string _samplesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples");
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
         private string _trainedModelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "trained_model.yml");
+        private bool isEditMode = false;
         public UserEnrollmentForm()
         {
             InitializeComponent();
@@ -50,19 +51,59 @@ namespace automatic_door_lock_face_recognition
 
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-            _db.AddRecord("personnel_information", new Dictionary<string, object>
+            if (isEditMode)
             {
-                { "first_name", txtFirstName.Text.Trim() },
-                { "middle_name", txtMiddleName.Text.Trim() },
-                { "last_name", txtLastName.Text.Trim() },
-                { "email_address", txtEmail.Text.Trim() },
-                { "phone_number", txtPhoneNo.Text.Trim() }
-            });
+                var columns = new Dictionary<string, object>
+                {
+                    { "first_name", txtFirstName.Text.Trim() },
+                    { "middle_name",txtMiddleName.Text.Trim() },
+                    { "last_name", txtLastName.Text.Trim() },
+                    { "email_address",txtEmail.Text.Trim() },
+                    { "phone_number",txtPhoneNo.Text.Trim() },
+                };
+                {
+
+                }
+                ;
+
+                int updated = await _db.UpdateRowAsync(
+                    "personnel_information",
+                    "personnel_information_id",
+                    GlobalVariables.SelectedPersonnelId,         // key value
+                    columns
+                );
+
+                if (updated == 1)
+                {
+                    MessageBox.Show("Data updated successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Update failed or no matching row.");
+                }
+            }
+            else
+            {
+                _db.AddRecord("personnel_information", new Dictionary<string, object>
+                {
+                    { "first_name", txtFirstName.Text.Trim() },
+                    { "middle_name", txtMiddleName.Text.Trim() },
+                    { "last_name", txtLastName.Text.Trim() },
+                    { "email_address", txtEmail.Text.Trim() },
+                    { "phone_number", txtPhoneNo.Text.Trim() }
+                });
+                MessageBox.Show("✅ Record successfully saved!", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             LoadUserGrid();
             btnImageSaving.Enabled = true;
-            cameraStream();
+            buttonsDefaultState();
+            textboxesDefaultState();
+            //cameraStream();
+
+
 
 
         }
@@ -238,12 +279,15 @@ namespace automatic_door_lock_face_recognition
 
         private void UserEnrollmentForm_Load(object sender, EventArgs e)
         {
+            dgvPersonnels.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
             btnAdd.Enabled = true;
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
             btnImageSaving.Enabled = false;
             btnSave.Enabled = false;
             btnReloadCamera.Enabled = false;
+            btnCancel.Enabled = false;
 
             txtEmail.Enabled = false;
             txtFirstName.Enabled = false;
@@ -270,6 +314,41 @@ namespace automatic_door_lock_face_recognition
             btnSave.Enabled = true;
             btnImageSaving.Enabled = true;
             btnReloadCamera.Enabled = true;
+            btnCancel.Enabled = true;
+
+            textboxesEnable();
+
+            clearTextBoxes();
+        }
+
+        private void dgvPersonnels_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvPersonnels_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            GlobalVariables.SelectedPersonnelId = Convert.ToInt32(dgvPersonnels.Rows[e.RowIndex].Cells["personnel_information_id"].Value);
+
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = true;
+            btnSave.Enabled = false;
+            btnDelete.Enabled = true;
+            btnImageSaving.Enabled = false;
+            btnReloadCamera.Enabled = false;
+
+            isEditMode = true;
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            txtFirstName.Text = dgvPersonnels.CurrentRow.Cells["first_name"].Value.ToString();
+            txtMiddleName.Text = dgvPersonnels.CurrentRow.Cells["middle_name"].Value.ToString();
+            txtLastName.Text = dgvPersonnels.CurrentRow.Cells["last_name"].Value.ToString();
+            txtEmail.Text = dgvPersonnels.CurrentRow.Cells["email_address"].Value.ToString();
+            txtPhoneNo.Text = dgvPersonnels.CurrentRow.Cells["phone_number"].Value.ToString();
 
             txtEmail.Enabled = true;
             txtFirstName.Enabled = true;
@@ -278,12 +357,90 @@ namespace automatic_door_lock_face_recognition
             txtPhoneNo.Enabled = true;
             txtEmail.Enabled = true;
 
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = true;
+            btnSave.Enabled = true;
+            btnImageSaving.Enabled = false;
+            btnReloadCamera.Enabled = false;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            buttonsDefaultState();
+
+            textboxesEnable();
+
+            textboxesDefaultState();
+
+            clearTextBoxes();
+
+            dgvPersonnels.Enabled = true;
+        }
+
+        private void clearTextBoxes()
+        {
             txtEmail.Text = "";
             txtFirstName.Text = "";
             txtMiddleName.Text = "";
             txtLastName.Text = "";
             txtPhoneNo.Text = "";
             txtEmail.Text = "";
+        }
+
+        private void buttonsDefaultState()
+        {
+            btnAdd.Enabled = true;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = false;
+            btnImageSaving.Enabled = false;
+            btnReloadCamera.Enabled = false;
+            btnCancel.Enabled = false;
+        }
+
+        private void textboxesDefaultState()
+        {
+            txtEmail.Enabled = false;
+            txtFirstName.Enabled = false;
+            txtMiddleName.Enabled = false;
+            txtLastName.Enabled = false;
+            txtPhoneNo.Enabled = false;
+            txtEmail.Enabled = false;
+        }
+
+        private void textboxesEnable()
+        {
+            txtEmail.Enabled = true;
+            txtFirstName.Enabled = true;
+            txtMiddleName.Enabled = true;
+            txtLastName.Enabled = true;
+            txtPhoneNo.Enabled = true;
+            txtEmail.Enabled = true;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var isConfirmed = MessageBox.Show(
+                "Are you sure you want to delete this record? This action cannot be undone.",
+                "Confirm Deletion",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if(isConfirmed.Equals(DialogResult.Yes))
+            {
+                MessageBox.Show($"Deleting:{GlobalVariables.SelectedPersonnelId}");
+                _db.DeletePersonRecordsAndFiles(GlobalVariables.SelectedPersonnelId);
+                LoadUserGrid();
+                buttonsDefaultState();
+            }
+            
         }
     }
 }

@@ -39,8 +39,12 @@
             label1 = new Label();
             lblFaceScan = new Label();
             txtTag = new TextBox();
+            dataGridView1 = new DataGridView();
+            textBox1 = new TextBox();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -82,20 +86,20 @@
             // personnelLogsToolStripMenuItem
             // 
             personnelLogsToolStripMenuItem.Name = "personnelLogsToolStripMenuItem";
-            personnelLogsToolStripMenuItem.Size = new Size(180, 22);
+            personnelLogsToolStripMenuItem.Size = new Size(158, 22);
             personnelLogsToolStripMenuItem.Text = "Personnel Logs";
             personnelLogsToolStripMenuItem.Click += personnelLogsToolStripMenuItem_Click;
             // 
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(180, 22);
+            documentLogsToolStripMenuItem.Size = new Size(158, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(271, 109);
+            pictureBox1.Location = new Point(61, 100);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(502, 337);
             pictureBox1.TabIndex = 1;
@@ -105,7 +109,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(424, 61);
+            label1.Location = new Point(193, 39);
             label1.Name = "label1";
             label1.Size = new Size(190, 45);
             label1.TabIndex = 2;
@@ -123,16 +127,43 @@
             // 
             // txtTag
             // 
-            txtTag.Location = new Point(300, 515);
+            txtTag.Location = new Point(104, 509);
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(569, 100);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(409, 432);
+            dataGridView1.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(569, 71);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(306, 23);
+            textBox1.TabIndex = 6;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(881, 71);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 7;
+            button1.Text = "Search";
+            button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1007, 578);
+            Controls.Add(button1);
+            Controls.Add(textBox1);
+            Controls.Add(dataGridView1);
             Controls.Add(txtTag);
             Controls.Add(lblFaceScan);
             Controls.Add(label1);
@@ -145,6 +176,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -162,5 +194,8 @@
         private Label label1;
         private Label lblFaceScan;
         private TextBox txtTag;
+        private DataGridView dataGridView1;
+        private TextBox textBox1;
+        private Button button1;
     }
 }

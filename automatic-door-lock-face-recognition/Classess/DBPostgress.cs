@@ -169,7 +169,7 @@ namespace automatic_door_lock_face_recognition.Classess
                                 insertedRow[reader.GetName(j)] = reader.GetValue(j);
                             }
 
-                            MessageBox.Show("✅ Record successfully saved!", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
 
                             if(tableName == "personnel_information")
                             {
@@ -355,5 +355,131 @@ namespace automatic_door_lock_face_recognition.Classess
             }
         }
 
+        public async Task<int> UpdateRowAsync(
+          string tableName,
+          string keyColumn,
+          object keyValue,
+          Dictionary<string, object> columnsToUpdate)
+            {
+                if (columnsToUpdate == null || columnsToUpdate.Count == 0)
+                    throw new ArgumentException("No columns provided to update.");
+
+                // Build SET clause dynamically: "col1 = @col1, col2 = @col2"
+                var setClauses = new List<string>();
+                foreach (var col in columnsToUpdate)
+                {
+                    setClauses.Add($"{col.Key} = @{col.Key}");
+                }
+
+                string query = $@"
+                UPDATE {tableName}
+                SET {string.Join(", ", setClauses)}
+                WHERE {keyColumn} = @keyValue;
+            ";
+
+                await using var conn = new NpgsqlConnection(_connStr);
+                await conn.OpenAsync();
+
+                await using var cmd = new NpgsqlCommand(query, conn);
+
+                // Add dynamic parameters
+                foreach (var col in columnsToUpdate)
+                {
+                    Console.WriteLine($"Updating {col.Key} to {col.Value}");
+                    if (col.Value is long)
+                    {
+                        cmd.Parameters.Add($"@{col.Key}", NpgsqlTypes.NpgsqlDbType.Bigint)
+                                      .Value = (long)col.Value;
+                    }
+                    else if (col.Value is int)
+                    {
+                        cmd.Parameters.Add($"@{col.Key}", NpgsqlTypes.NpgsqlDbType.Integer)
+                                      .Value = (int)col.Value;
+                    }
+                    else if (col.Value is DateTime)
+                    {
+                        cmd.Parameters.Add($"@{col.Key}", NpgsqlTypes.NpgsqlDbType.Timestamp)
+                                      .Value = (DateTime)col.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue($"@{col.Key}", col.Value ?? DBNull.Value);
+                    }
+            }
+
+                // Key parameter
+                cmd.Parameters.AddWithValue("@keyValue", keyValue);
+
+                return await cmd.ExecuteNonQueryAsync(); // returns number of affected rows
+        }
+
+        public bool DeletePersonRecordsAndFiles(int personnelInfoId)
+        {
+            try
+            {
+                List<string> filePaths = new List<string>();
+
+                using (var conn = new NpgsqlConnection(_connStr))
+                {
+                    conn.Open();
+
+                    // STEP 1: Get all file paths under that personnel_information_id
+                    using (var cmd = new NpgsqlCommand(
+                        "SELECT image_path FROM personnel_face_records WHERE personnel_information_id = @pid",
+                        conn))
+                    {
+                        cmd.Parameters.AddWithValue("@pid", personnelInfoId);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (!reader.IsDBNull(0))
+                                {
+                                    filePaths.Add(reader.GetString(0));
+                                }
+                            }
+                        }
+                    }
+
+                    // STEP 2: Delete the DB rows
+                    using (var cmd = new NpgsqlCommand(
+                        "DELETE FROM personnel_face_records WHERE personnel_information_id = @pid",
+                        conn))
+                    {
+                        cmd.Parameters.AddWithValue("@pid", personnelInfoId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using(var cmd = new NpgsqlCommand("DELETE FROM personnel_information WHERE personnel_information_id = @pid",
+                        conn))
+                    {
+                        cmd.Parameters.AddWithValue("@pid", personnelInfoId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                if(filePaths.Count == 0)
+                {
+                    return true;
+                }
+                // STEP 3: Delete all files from disk
+                foreach (var path in filePaths)
+                {
+                    if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Delete failed: " + ex.Message);
+                return false;
+            }
+        }
     }
+
 }

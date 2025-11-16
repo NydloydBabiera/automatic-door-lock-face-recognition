@@ -244,9 +244,9 @@ namespace automatic_door_lock_face_recognition
             recognizeFace2();
             System.Threading.Thread.Sleep(1000);
             cameraStream();
-            port = new SerialPort("COM6", 115200);
-            port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port = new SerialPort(GlobalVariables.SerialPortName, 115200);
+            //port.DataReceived += SerialPort_DataReceived;
+            //port.Open();
 
         }
 

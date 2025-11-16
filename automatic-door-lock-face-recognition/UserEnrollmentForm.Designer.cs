@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            btnCancel = new Button();
             btnReloadCamera = new Button();
             btnImageSaving = new Button();
             btnDelete = new Button();
@@ -50,7 +51,7 @@
             txtFirstName = new TextBox();
             lblCameraStream = new Label();
             dgvPersonnels = new DataGridView();
-            ID = new DataGridViewTextBoxColumn();
+            personnel_information_id = new DataGridViewTextBoxColumn();
             first_name = new DataGridViewTextBoxColumn();
             middle_name = new DataGridViewTextBoxColumn();
             last_name = new DataGridViewTextBoxColumn();
@@ -64,6 +65,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnCancel);
             groupBox1.Controls.Add(btnReloadCamera);
             groupBox1.Controls.Add(btnImageSaving);
             groupBox1.Controls.Add(btnDelete);
@@ -89,11 +91,23 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Personnel Registration";
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancel.Location = new Point(202, 252);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(129, 37);
+            btnCancel.TabIndex = 18;
+            btnCancel.Text = "CANCEL";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnReloadCamera
             // 
             btnReloadCamera.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReloadCamera.Location = new Point(252, 270);
+            btnReloadCamera.Location = new Point(252, 295);
             btnReloadCamera.Name = "btnReloadCamera";
             btnReloadCamera.Size = new Size(238, 31);
             btnReloadCamera.TabIndex = 17;
@@ -104,7 +118,7 @@
             // btnImageSaving
             // 
             btnImageSaving.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnImageSaving.Location = new Point(26, 270);
+            btnImageSaving.Location = new Point(26, 295);
             btnImageSaving.Name = "btnImageSaving";
             btnImageSaving.Size = new Size(220, 31);
             btnImageSaving.TabIndex = 15;
@@ -121,6 +135,7 @@
             btnDelete.TabIndex = 14;
             btnDelete.Text = "DELETE";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnEdit
             // 
@@ -131,6 +146,7 @@
             btnEdit.TabIndex = 13;
             btnEdit.Text = "EDIT";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnSave
             // 
@@ -278,20 +294,22 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvPersonnels.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvPersonnels.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPersonnels.Columns.AddRange(new DataGridViewColumn[] { ID, first_name, middle_name, last_name, email_address, phone_number });
+            dgvPersonnels.Columns.AddRange(new DataGridViewColumn[] { personnel_information_id, first_name, middle_name, last_name, email_address, phone_number });
             dgvPersonnels.Location = new Point(12, 441);
             dgvPersonnels.Name = "dgvPersonnels";
             dgvPersonnels.ReadOnly = true;
             dgvPersonnels.RowHeadersVisible = false;
             dgvPersonnels.Size = new Size(1067, 282);
             dgvPersonnels.TabIndex = 11;
+            dgvPersonnels.CellClick += dgvPersonnels_CellClick;
+            dgvPersonnels.CellContentClick += dgvPersonnels_CellContentClick;
             // 
-            // ID
+            // personnel_information_id
             // 
-            ID.DataPropertyName = "personnel_information_id";
-            ID.HeaderText = "ID";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
+            personnel_information_id.DataPropertyName = "personnel_information_id";
+            personnel_information_id.HeaderText = "ID";
+            personnel_information_id.Name = "personnel_information_id";
+            personnel_information_id.ReadOnly = true;
             // 
             // first_name
             // 
@@ -383,11 +401,12 @@
         private Button btnImageSaving;
         private Label lblCameraStream;
         private Button btnReloadCamera;
-        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn personnel_information_id;
         private DataGridViewTextBoxColumn first_name;
         private DataGridViewTextBoxColumn middle_name;
         private DataGridViewTextBoxColumn last_name;
         private DataGridViewTextBoxColumn email_address;
         private DataGridViewTextBoxColumn phone_number;
+        private Button btnCancel;
     }
 }

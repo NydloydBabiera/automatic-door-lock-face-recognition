@@ -46,3 +46,8 @@ CREATE TABLE document_information_logs(
 	log_type varchar(255),
 	time_log TIMESTAMPTZ DEFAULT now()
 );
+
+alter table document_information
+add column shelf_number  BIGINT,
+add column student_name  varchar(255),
+add column student_id  BIGINT
