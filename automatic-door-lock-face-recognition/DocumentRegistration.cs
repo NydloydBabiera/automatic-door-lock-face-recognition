@@ -185,6 +185,8 @@ namespace automatic_door_lock_face_recognition
             if (e.RowIndex < 0) return;
             GlobalVariables.SelectedDocumentId = Convert.ToInt32(dgvDocument.Rows[e.RowIndex].Cells["document_information_id"].Value);
 
+            MessageBox.Show("selected id:" + GlobalVariables.SelectedDocumentId);
+
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
             btnEdit.Enabled = true;
@@ -213,15 +215,16 @@ namespace automatic_door_lock_face_recognition
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var isConfirmed = MessageBox.Show(
-               "Are you sure you want to delete this record? This action cannot be undone.",
-               "Confirm Deletion",
-               MessageBoxButtons.YesNo,
-               MessageBoxIcon.Warning
-           );
+             "Are you sure you want to delete this record? This action cannot be undone.",
+             "Confirm Deletion",
+             MessageBoxButtons.YesNo,
+             MessageBoxIcon.Warning
+         );
 
             if (isConfirmed.Equals(DialogResult.Yes))
             {
-                _db.DeletePersonRecordsAndFiles(GlobalVariables.SelectedDocumentId);
+                MessageBox.Show($"Deleting:{GlobalVariables.SelectedDocumentId}");
+                _db.DeleteRowAsync("document_information", "document_information_id",GlobalVariables.SelectedDocumentId);
                 LoadUserGrid();
                 buttonsDefaultState();
             }

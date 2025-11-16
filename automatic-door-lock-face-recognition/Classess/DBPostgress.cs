@@ -478,6 +478,44 @@ namespace automatic_door_lock_face_recognition.Classess
                 return false;
             }
         }
+
+        public async Task<int> DeleteRowAsync(
+            string tableName,
+            string keyColumn,
+            object keyValue)
+                {
+                    if (string.IsNullOrWhiteSpace(tableName))
+                        throw new ArgumentException("Table name is required.");
+
+                    if (string.IsNullOrWhiteSpace(keyColumn))
+                        throw new ArgumentException("Key column is required.");
+
+                    string query = $@"
+                DELETE FROM {tableName}
+                WHERE {keyColumn} = @keyValue;
+            ";
+
+                    await using var conn = new NpgsqlConnection(_connStr);
+                    await conn.OpenAsync();
+
+                    await using var cmd = new NpgsqlCommand(query, conn);
+
+                    // Parameter typing
+                    if (keyValue is long)
+                    {
+                        cmd.Parameters.Add("@keyValue", NpgsqlTypes.NpgsqlDbType.Bigint).Value = keyValue;
+                    }
+                    else if (keyValue is int)
+                    {
+                        cmd.Parameters.Add("@keyValue", NpgsqlTypes.NpgsqlDbType.Integer).Value = keyValue;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@keyValue", keyValue);
+                    }
+
+                    return await cmd.ExecuteNonQueryAsync();
+                }
     }
 
 }
