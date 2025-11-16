@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             menuStrip1 = new MenuStrip();
             registrationToolStripMenuItem = new ToolStripMenuItem();
             personnelRegistrationToolStripMenuItem = new ToolStripMenuItem();
@@ -39,12 +44,17 @@
             label1 = new Label();
             lblFaceScan = new Label();
             txtTag = new TextBox();
-            dataGridView1 = new DataGridView();
+            dgvDocument = new DataGridView();
             textBox1 = new TextBox();
             button1 = new Button();
+            document_information_id = new DataGridViewTextBoxColumn();
+            student_name = new DataGridViewTextBoxColumn();
+            student_id = new DataGridViewTextBoxColumn();
+            shelf_number = new DataGridViewTextBoxColumn();
+            document_type = new DataGridViewTextBoxColumn();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -52,7 +62,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { registrationToolStripMenuItem, dataLogsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1007, 24);
+            menuStrip1.Size = new Size(1229, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -132,38 +142,109 @@
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
             // 
-            // dataGridView1
+            // dgvDocument
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(569, 100);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(409, 432);
-            dataGridView1.TabIndex = 5;
+            dgvDocument.AllowUserToAddRows = false;
+            dgvDocument.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, student_name, student_id, shelf_number, document_type });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvDocument.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvDocument.Location = new Point(569, 100);
+            dgvDocument.Name = "dgvDocument";
+            dgvDocument.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvDocument.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvDocument.RowHeadersVisible = false;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvDocument.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDocument.Size = new Size(648, 432);
+            dgvDocument.TabIndex = 5;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(569, 71);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(306, 23);
+            textBox1.Size = new Size(567, 23);
             textBox1.TabIndex = 6;
             // 
             // button1
             // 
-            button1.Location = new Point(881, 71);
+            button1.Location = new Point(1142, 71);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 7;
             button1.Text = "Search";
             button1.UseVisualStyleBackColor = true;
             // 
+            // document_information_id
+            // 
+            document_information_id.DataPropertyName = "document_information_id";
+            document_information_id.HeaderText = "ID";
+            document_information_id.Name = "document_information_id";
+            document_information_id.ReadOnly = true;
+            // 
+            // student_name
+            // 
+            student_name.DataPropertyName = "student_name";
+            student_name.HeaderText = "Student";
+            student_name.Name = "student_name";
+            student_name.ReadOnly = true;
+            student_name.Width = 200;
+            // 
+            // student_id
+            // 
+            student_id.DataPropertyName = "student_id";
+            student_id.HeaderText = "Student ID";
+            student_id.Name = "student_id";
+            student_id.ReadOnly = true;
+            // 
+            // shelf_number
+            // 
+            shelf_number.DataPropertyName = "shelf_number";
+            shelf_number.HeaderText = "Shelf number";
+            shelf_number.Name = "shelf_number";
+            shelf_number.ReadOnly = true;
+            // 
+            // document_type
+            // 
+            document_type.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            document_type.DataPropertyName = "document_type";
+            document_type.HeaderText = "Document";
+            document_type.Name = "document_type";
+            document_type.ReadOnly = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1007, 578);
+            ClientSize = new Size(1229, 578);
             Controls.Add(button1);
             Controls.Add(textBox1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvDocument);
             Controls.Add(txtTag);
             Controls.Add(lblFaceScan);
             Controls.Add(label1);
@@ -176,7 +257,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDocument).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -194,8 +275,13 @@
         private Label label1;
         private Label lblFaceScan;
         private TextBox txtTag;
-        private DataGridView dataGridView1;
+        private DataGridView dgvDocument;
         private TextBox textBox1;
         private Button button1;
+        private DataGridViewTextBoxColumn document_information_id;
+        private DataGridViewTextBoxColumn student_name;
+        private DataGridViewTextBoxColumn student_id;
+        private DataGridViewTextBoxColumn shelf_number;
+        private DataGridViewTextBoxColumn document_type;
     }
 }

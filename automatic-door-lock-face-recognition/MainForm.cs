@@ -238,16 +238,36 @@ namespace automatic_door_lock_face_recognition
             //else
             //{
             //    lblFaceScan.Text = "No trained model found. Please train first.";
-            //}
+            //}+
+            dgvDocument.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             trainData();
             System.Threading.Thread.Sleep(1000);
             recognizeFace2();
             System.Threading.Thread.Sleep(1000);
-            cameraStream();
+            //cameraStream();
             //port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             //port.DataReceived += SerialPort_DataReceived;
             //port.Open();
+            LoadUserGrid();
 
+        }
+
+        private void LoadUserGrid()
+        {
+            if (dgvDocument == null)
+            {
+                //MessageBox.Show("dgvDocument is null!");
+                return;
+            }
+
+            if (_db == null)
+            {
+                //MessageBox.Show("_db (database class) is null!");
+                return;
+            }
+
+            dgvDocument.AutoGenerateColumns = false;
+            _db.LoadData("document_information", dgvDocument);
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)

@@ -224,10 +224,21 @@ namespace automatic_door_lock_face_recognition
             if (isConfirmed.Equals(DialogResult.Yes))
             {
                 MessageBox.Show($"Deleting:{GlobalVariables.SelectedDocumentId}");
-                _db.DeleteRowAsync("document_information", "document_information_id",GlobalVariables.SelectedDocumentId);
+                _db.DeleteRowAsync("document_information", "document_information_id", GlobalVariables.SelectedDocumentId);
                 LoadUserGrid();
                 buttonsDefaultState();
             }
+        }
+
+        private async void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            var results = _db.Search(
+                "document_information",
+                new[] { "document_type", "document_rfid_tag", "shelf_number", "student_name", "student_id" }, 
+                textBox1.Text                       
+            );
+
+             dgvDocument.DataSource = results;
         }
     }
 }

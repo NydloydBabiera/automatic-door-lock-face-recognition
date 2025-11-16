@@ -483,7 +483,7 @@ namespace automatic_door_lock_face_recognition.Classess
             string tableName,
             string keyColumn,
             object keyValue)
-                {
+         {
                     if (string.IsNullOrWhiteSpace(tableName))
                         throw new ArgumentException("Table name is required.");
 
@@ -515,7 +515,41 @@ namespace automatic_door_lock_face_recognition.Classess
                     }
 
                     return await cmd.ExecuteNonQueryAsync();
-                }
+        }
+        public DataTable Search(string table, string[] columns, string searchText)
+        {
+            using var conn = new NpgsqlConnection(_connStr);
+            conn.Open();
+
+            var dt = new DataTable();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+
+            var whereParts = new List<string>();
+
+            for (int i = 0; i < columns.Length; i++)
+            {
+                var col = columns[i];
+
+                // Use safe param name
+                var paramName = $"@p{i}";
+
+                // If column is numeric, cast to text
+                whereParts.Add($"CAST({col} AS TEXT) ILIKE {paramName}");
+                cmd.Parameters.AddWithValue(paramName, "%" + searchText + "%");
+            }
+
+            cmd.CommandText = $@"
+                SELECT *
+                FROM {table}
+                WHERE {string.Join(" OR ", whereParts)}
+            ";
+
+            using var reader = cmd.ExecuteReader();
+            dt.Load(reader);
+
+            return dt;
+        }
     }
 
 }
