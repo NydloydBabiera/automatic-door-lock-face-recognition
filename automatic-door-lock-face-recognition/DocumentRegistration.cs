@@ -77,9 +77,9 @@ namespace automatic_door_lock_face_recognition
                 {
                     { "document_rfid_tag", txtRFIDtag.Text.Trim() },
                     { "document_type", txtDocumentType.Text.Trim() },
-                    {"shelf_number", txtShelfNumber.Text.Trim() },
-                    {"student_name", txtStudentName.Text.Trim() },
-                    {"student_id", txtStudentName.Text.Trim() }
+                    {"shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
+                        {"student_name", txtStudentName.Text.Trim() },
+                        {"student_id", long.Parse(txtStudentID.Text.Trim()) }
                 };
                 {
 
@@ -119,7 +119,7 @@ namespace automatic_door_lock_face_recognition
                         {"student_id", long.Parse(txtStudentID.Text.Trim()) }
                     });
             }
-               
+
             LoadUserGrid();
             buttonsDefaultState();
             textboxesDefaultState();
@@ -129,6 +129,9 @@ namespace automatic_door_lock_face_recognition
         {
             txtDocumentType.Text = "";
             txtRFIDtag.Text = "";
+            txtStudentName.Text = "";
+            txtShelfNumber.Text = "";
+            txtStudentID.Text = "";
         }
 
         private void buttonsDefaultState()
@@ -173,6 +176,7 @@ namespace automatic_door_lock_face_recognition
             btnSave.Enabled = true;
             btnCancel.Enabled = true;
             textboxesEnable();
+            clearTextBoxes();
             dgvDocument.Enabled = false;
         }
 
@@ -204,6 +208,23 @@ namespace automatic_door_lock_face_recognition
             btnDelete.Enabled = false;
             btnEdit.Enabled = true;
             btnSave.Enabled = true;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var isConfirmed = MessageBox.Show(
+               "Are you sure you want to delete this record? This action cannot be undone.",
+               "Confirm Deletion",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Warning
+           );
+
+            if (isConfirmed.Equals(DialogResult.Yes))
+            {
+                _db.DeletePersonRecordsAndFiles(GlobalVariables.SelectedDocumentId);
+                LoadUserGrid();
+                buttonsDefaultState();
+            }
         }
     }
 }

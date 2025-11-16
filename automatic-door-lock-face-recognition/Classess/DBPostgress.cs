@@ -385,7 +385,6 @@ namespace automatic_door_lock_face_recognition.Classess
                 // Add dynamic parameters
                 foreach (var col in columnsToUpdate)
                 {
-                    Console.WriteLine($"Updating {col.Key} to {col.Value}");
                     if (col.Value is long)
                     {
                         cmd.Parameters.Add($"@{col.Key}", NpgsqlTypes.NpgsqlDbType.Bigint)
@@ -406,7 +405,6 @@ namespace automatic_door_lock_face_recognition.Classess
                         cmd.Parameters.AddWithValue($"@{col.Key}", col.Value ?? DBNull.Value);
                     }
             }
-
                 // Key parameter
                 cmd.Parameters.AddWithValue("@keyValue", keyValue);
 
