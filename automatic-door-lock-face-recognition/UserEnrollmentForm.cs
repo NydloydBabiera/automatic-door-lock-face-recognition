@@ -101,7 +101,8 @@ namespace automatic_door_lock_face_recognition
             btnImageSaving.Enabled = true;
             buttonsDefaultState();
             textboxesDefaultState();
-            //cameraStream();
+            dgvPersonnels.Enabled = true;
+            cameraStream();
 
 
 

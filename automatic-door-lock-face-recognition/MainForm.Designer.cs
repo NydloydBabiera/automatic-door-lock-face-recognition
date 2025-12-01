@@ -45,13 +45,13 @@
             lblFaceScan = new Label();
             txtTag = new TextBox();
             dgvDocument = new DataGridView();
-            textBox1 = new TextBox();
-            button1 = new Button();
             document_information_id = new DataGridViewTextBoxColumn();
             student_name = new DataGridViewTextBoxColumn();
             student_id = new DataGridViewTextBoxColumn();
             shelf_number = new DataGridViewTextBoxColumn();
             document_type = new DataGridViewTextBoxColumn();
+            textBox1 = new TextBox();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
@@ -85,6 +85,7 @@
             documentRegistrationToolStripMenuItem.Name = "documentRegistrationToolStripMenuItem";
             documentRegistrationToolStripMenuItem.Size = new Size(196, 22);
             documentRegistrationToolStripMenuItem.Text = "Document Registration";
+            documentRegistrationToolStripMenuItem.Click += documentRegistrationToolStripMenuItem_Click;
             // 
             // dataLogsToolStripMenuItem
             // 
@@ -183,22 +184,7 @@
             dgvDocument.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocument.Size = new Size(648, 432);
             dgvDocument.TabIndex = 5;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(569, 71);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(567, 23);
-            textBox1.TabIndex = 6;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(1142, 71);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 7;
-            button1.Text = "Search";
-            button1.UseVisualStyleBackColor = true;
+            dgvDocument.CellClick += dgvDocument_CellClick;
             // 
             // document_information_id
             // 
@@ -236,6 +222,23 @@
             document_type.HeaderText = "Document";
             document_type.Name = "document_type";
             document_type.ReadOnly = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(569, 71);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(567, 23);
+            textBox1.TabIndex = 6;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(1142, 71);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 7;
+            button1.Text = "Search";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // MainForm
             // 

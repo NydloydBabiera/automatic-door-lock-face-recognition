@@ -245,9 +245,9 @@ namespace automatic_door_lock_face_recognition
             recognizeFace2();
             System.Threading.Thread.Sleep(1000);
             //cameraStream();
-            //port = new SerialPort(GlobalVariables.SerialPortName, 115200);
-            //port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port = new SerialPort(GlobalVariables.SerialPortName, 115200);
+            port.DataReceived += SerialPort_DataReceived;
+            port.Open();
             LoadUserGrid();
 
         }
@@ -346,6 +346,41 @@ namespace automatic_door_lock_face_recognition
         {
             DocumentLogs documentLogs = new DocumentLogs();
             documentLogs.ShowDialog();
+        }
+
+        private void dgvDocument_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            // Get the row data
+            DataGridViewRow row = dgvDocument.Rows[e.RowIndex];
+
+            string shelf_number = row.Cells["shelf_number"].Value?.ToString();
+            string student_name = row.Cells["student_name"].Value?.ToString();
+
+            var isConfirmed = MessageBox.Show(
+             $"Get document for student {student_name} in shelf number {shelf_number}",
+             "Confirm Deletion",
+             MessageBoxButtons.YesNo,
+             MessageBoxIcon.Warning
+             );
+
+            if (isConfirmed.Equals(DialogResult.Yes))
+            {
+                port.WriteLine($"ON{shelf_number}");
+            }
+        }
+
+        private void documentRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DocumentRegistration documentRegistration = new DocumentRegistration();
+            documentRegistration.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadUserGrid();
         }
     }
 }

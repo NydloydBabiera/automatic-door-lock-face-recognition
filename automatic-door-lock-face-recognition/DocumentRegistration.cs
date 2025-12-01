@@ -123,6 +123,7 @@ namespace automatic_door_lock_face_recognition
             LoadUserGrid();
             buttonsDefaultState();
             textboxesDefaultState();
+            dgvDocument.Enabled = true;
         }
 
         private void clearTextBoxes()
