@@ -193,7 +193,7 @@ namespace automatic_door_lock_face_recognition
                                         if (name != "Unknown" && confidence > 65)
                                         {
                                             lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                            port.WriteLine("ON1");
+                                            port.WriteLine("OPEN");
                                         }
                                         else
                                         {
@@ -242,7 +242,8 @@ namespace automatic_door_lock_face_recognition
             dgvDocument.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             trainData();
             System.Threading.Thread.Sleep(1000);
-            recognizeFace2();
+            
+            System.Threading.Thread.Sleep(1000);
             System.Threading.Thread.Sleep(1000);
             //cameraStream();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
@@ -369,6 +370,8 @@ namespace automatic_door_lock_face_recognition
             if (isConfirmed.Equals(DialogResult.Yes))
             {
                 port.WriteLine($"ON{shelf_number}");
+                cameraStream();
+                recognizeFace2();
             }
         }
 
