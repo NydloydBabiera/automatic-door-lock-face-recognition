@@ -1,3 +1,5 @@
+using automatic_door_lock_face_recognition.Services;
+
 namespace automatic_door_lock_face_recognition
 {
     internal static class Program
@@ -8,6 +10,8 @@ namespace automatic_door_lock_face_recognition
         [STAThread]
         static void Main()
         {
+
+            CameraService.Instance.Start(GlobalVariables.CameralUrl);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

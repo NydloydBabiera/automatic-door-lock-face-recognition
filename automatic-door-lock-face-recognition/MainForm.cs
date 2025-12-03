@@ -26,6 +26,7 @@ namespace automatic_door_lock_face_recognition
         private string _samplesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples");
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
         private SerialPort port;
+        private Image _latestImage;
         public MainForm()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace automatic_door_lock_face_recognition
             Directory.CreateDirectory(_samplesDir);
 
             _db = new DBPostgress(GlobalVariables.DbConnString);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         private void Camera_OnFrame(Mat frame)
@@ -71,8 +73,16 @@ namespace automatic_door_lock_face_recognition
 
         private void personnelRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UserEnrollmentForm enrollmentForm = new UserEnrollmentForm();
-            enrollmentForm.ShowDialog();
+            using (UserEnrollmentForm enrollmentForm = new UserEnrollmentForm())
+            {
+                CameraService.Instance.OnFrame -= Camera_OnFrame;
+                enrollmentForm.ShowDialog();
+            }
+            trainData();
+            System.Threading.Thread.Sleep(1000);
+            recognizeFace2();
+            CameraService.Instance.OnFrame += Camera_OnFrame;
+            ;
         }
 
         private async void recognizeFace()
@@ -193,9 +203,14 @@ namespace automatic_door_lock_face_recognition
                                         if (name != "Unknown" && confidence > 65)
                                         {
                                             lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                            port.WriteLine("OPEN");
-                                            DocumentDialog documentDialog = new DocumentDialog();
-                                            documentDialog.ShowDialog();
+                                            //port.WriteLine("OPEN");
+                                            System.Threading.Thread.Sleep(3000);
+                                            using(DocumentDialog documentDialog = new DocumentDialog())
+                                            {
+                                                CameraService.Instance.OnFrame -= Camera_OnFrame;
+                                                documentDialog.ShowDialog();
+                                            }
+                                            CameraService.Instance.OnFrame += Camera_OnFrame;
                                         }
                                         else
                                         {
@@ -222,54 +237,16 @@ namespace automatic_door_lock_face_recognition
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //string appData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FaceRecognitionApp");
-            //string modelPath = Path.Combine(appData, "trainedModel.yml");
-            //string labelsPath = Path.Combine(appData, "labels.json");
-
-            //_faceService = new FaceRecognitionService("haarcascade_frontalface_default.xml");
-
-            //if (File.Exists(modelPath))
-            //{
-            //    _faceService.LoadModel(modelPath);
-            //    _labelToName = File.Exists(labelsPath)
-            //        ? JsonSerializer.Deserialize<Dictionary<int, string>>(File.ReadAllText(labelsPath))
-            //        : new Dictionary<int, string>();
-
-            //    lblFaceScan.Text = "Trained model loaded successfully.";
-            //}
-            //else
-            //{
-            //    lblFaceScan.Text = "No trained model found. Please train first.";
-            //}+
-            dgvDocument.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             trainData();
             System.Threading.Thread.Sleep(1000);
-            //cameraStream();
+            CameraService.Instance.OnFrame += Camera_OnFrame;
             recognizeFace2();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
-            LoadUserGrid();
+            //port.Open();
 
         }
 
-        private void LoadUserGrid()
-        {
-            if (dgvDocument == null)
-            {
-                //MessageBox.Show("dgvDocument is null!");
-                return;
-            }
-
-            if (_db == null)
-            {
-                //MessageBox.Show("_db (database class) is null!");
-                return;
-            }
-
-            dgvDocument.AutoGenerateColumns = false;
-            _db.LoadData("document_information", dgvDocument);
-        }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -346,57 +323,34 @@ namespace automatic_door_lock_face_recognition
 
         private void personnelLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
-        }
 
-        private void dgvDocument_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            // Get the row data
-            DataGridViewRow row = dgvDocument.Rows[e.RowIndex];
-
-            string shelf_number = row.Cells["shelf_number"].Value?.ToString();
-            string student_name = row.Cells["student_name"].Value?.ToString();
-
-            var isConfirmed = MessageBox.Show(
-             $"Get document for student {student_name} in shelf number {shelf_number}",
-             "Confirm Deletion",
-             MessageBoxButtons.YesNo,
-             MessageBoxIcon.Warning
-             );
-
-            if (isConfirmed.Equals(DialogResult.Yes))
-            {
-                port.WriteLine($"ON{shelf_number}");
-                cameraStream();
-                recognizeFace2();
-            }
         }
 
         private void documentRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             port.Close();
-            using(DocumentRegistration documentRegistration = new DocumentRegistration())
+            using (DocumentRegistration documentRegistration = new DocumentRegistration())
             {
                 documentRegistration.ShowDialog();
             }
             this.Refresh();
-            
+
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            LoadUserGrid();
-        }
+            if (_latestImage == null) return;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            port.Close();
-            DocumentDialog documentDialog = new DocumentDialog();
-            documentDialog.ShowDialog();
+    int pbWidth = pictureBox1.Width;
+    int pbHeight = pictureBox1.Height;
+
+    int imgWidth = _latestImage.Width;
+    int imgHeight = _latestImage.Height;
+
+    int x = (pbWidth - imgWidth) / 2;
+    int y = (pbHeight - imgHeight) / 2;
+
+    e.Graphics.DrawImage(_latestImage, x, y, imgWidth, imgHeight);
         }
     }
 }

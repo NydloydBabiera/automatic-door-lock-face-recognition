@@ -97,13 +97,13 @@ namespace automatic_door_lock_face_recognition
             }
 
             LoadUserGrid();
+            CameraService.Instance.OnFrame += Camera_OnFrame;
             btnImageSaving.Enabled = true;
             btnReloadCamera.Enabled = true;
             buttonsDefaultState();
             textboxesDefaultState();
             dgvPersonnels.Enabled = true;
-            cameraStream();
-
+            //cameraStream();
 
 
 
@@ -287,8 +287,8 @@ namespace automatic_door_lock_face_recognition
             btnEdit.Enabled = false;
             btnImageSaving.Enabled = false;
             btnSave.Enabled = false;
-            //btnReloadCamera.Enabled = false;
-            //btnCancel.Enabled = false;
+            btnReloadCamera.Enabled = false;
+            btnCancel.Enabled = false;
 
             txtEmail.Enabled = false;
             txtFirstName.Enabled = false;
@@ -304,11 +304,14 @@ namespace automatic_door_lock_face_recognition
             txtPhoneNo.Text = "";
             txtEmail.Text = "";
 
+
+
         }
 
 
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
+            isEditMode = false;
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
@@ -400,9 +403,9 @@ namespace automatic_door_lock_face_recognition
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
-            btnImageSaving.Enabled = false;
+            //btnImageSaving.Enabled = false;
             //btnReloadCamera.Enabled = false;
-            //btnCancel.Enabled = false;
+            btnCancel.Enabled = false;
         }
 
         private void textboxesDefaultState()
@@ -434,14 +437,19 @@ namespace automatic_door_lock_face_recognition
                 MessageBoxIcon.Warning
             );
 
-            if(isConfirmed.Equals(DialogResult.Yes))
+            if (isConfirmed.Equals(DialogResult.Yes))
             {
                 MessageBox.Show($"Deleting:{GlobalVariables.SelectedPersonnelId}");
                 _db.DeletePersonRecordsAndFiles(GlobalVariables.SelectedPersonnelId);
                 LoadUserGrid();
                 buttonsDefaultState();
             }
-            
+
+        }
+
+        private void UserEnrollmentForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CameraService.Instance.OnFrame -= Camera_OnFrame;
         }
     }
 }

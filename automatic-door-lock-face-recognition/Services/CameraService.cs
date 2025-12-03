@@ -7,6 +7,7 @@ namespace automatic_door_lock_face_recognition.Services
 {
     internal class CameraService : IDisposable
     {
+        public static CameraService Instance { get; } = new CameraService();
         private VideoCapture _capture;
         private bool _running;
 

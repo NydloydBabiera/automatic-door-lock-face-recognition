@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            pictureBox1 = new PictureBox();
             btnCancel = new Button();
             btnReloadCamera = new Button();
             btnImageSaving = new Button();
@@ -38,7 +39,6 @@
             btnEdit = new Button();
             btnSave = new Button();
             btnAdd = new Button();
-            pictureBox1 = new PictureBox();
             label5 = new Label();
             txtPhoneNo = new TextBox();
             label4 = new Label();
@@ -92,6 +92,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Personnel Registration";
             groupBox1.Enter += groupBox1_Enter;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(538, 26);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(515, 356);
+            pictureBox1.TabIndex = 10;
+            pictureBox1.TabStop = false;
             // 
             // btnCancel
             // 
@@ -169,14 +177,6 @@
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click_1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(538, 26);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(515, 356);
-            pictureBox1.TabIndex = 10;
-            pictureBox1.TabStop = false;
             // 
             // label5
             // 
@@ -369,6 +369,7 @@
             Controls.Add(groupBox1);
             Name = "UserEnrollmentForm";
             Text = "UserEnrollmentForm";
+            FormClosing += UserEnrollmentForm_FormClosing;
             Load += UserEnrollmentForm_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
