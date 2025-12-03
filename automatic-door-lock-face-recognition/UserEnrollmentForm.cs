@@ -36,7 +36,6 @@ namespace automatic_door_lock_face_recognition
             _db = new DBPostgress(connStr);
             isStreaming = false;
             LoadUserGrid();
-            btnImageSaving.Enabled = false;
             // Ensure sample folder exists
             Directory.CreateDirectory(_samplesDir);
             string cascadePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "haarcascade_frontalface_default.xml");
@@ -99,6 +98,7 @@ namespace automatic_door_lock_face_recognition
 
             LoadUserGrid();
             btnImageSaving.Enabled = true;
+            btnReloadCamera.Enabled = true;
             buttonsDefaultState();
             textboxesDefaultState();
             dgvPersonnels.Enabled = true;
@@ -113,7 +113,7 @@ namespace automatic_door_lock_face_recognition
         {
             try
             {
-                _camera.Start(lblCameraStream.Text.Trim());
+                _camera.Start(GlobalVariables.CameralUrl);
             }
             catch (Exception ex)
             {
@@ -287,8 +287,8 @@ namespace automatic_door_lock_face_recognition
             btnEdit.Enabled = false;
             btnImageSaving.Enabled = false;
             btnSave.Enabled = false;
-            btnReloadCamera.Enabled = false;
-            btnCancel.Enabled = false;
+            //btnReloadCamera.Enabled = false;
+            //btnCancel.Enabled = false;
 
             txtEmail.Enabled = false;
             txtFirstName.Enabled = false;
@@ -401,8 +401,8 @@ namespace automatic_door_lock_face_recognition
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
             btnImageSaving.Enabled = false;
-            btnReloadCamera.Enabled = false;
-            btnCancel.Enabled = false;
+            //btnReloadCamera.Enabled = false;
+            //btnCancel.Enabled = false;
         }
 
         private void textboxesDefaultState()

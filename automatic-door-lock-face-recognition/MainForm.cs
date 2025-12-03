@@ -194,6 +194,8 @@ namespace automatic_door_lock_face_recognition
                                         {
                                             lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
                                             port.WriteLine("OPEN");
+                                            DocumentDialog documentDialog = new DocumentDialog();
+                                            documentDialog.ShowDialog();
                                         }
                                         else
                                         {
@@ -242,10 +244,8 @@ namespace automatic_door_lock_face_recognition
             dgvDocument.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             trainData();
             System.Threading.Thread.Sleep(1000);
-            
-            System.Threading.Thread.Sleep(1000);
-            System.Threading.Thread.Sleep(1000);
             //cameraStream();
+            recognizeFace2();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
             port.Open();
@@ -340,13 +340,13 @@ namespace automatic_door_lock_face_recognition
 
         private void documentLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DocumentLogs documentLogs = new DocumentLogs();
+            documentLogs.ShowDialog();
         }
 
         private void personnelLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DocumentLogs documentLogs = new DocumentLogs();
-            documentLogs.ShowDialog();
+           
         }
 
         private void dgvDocument_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -377,13 +377,26 @@ namespace automatic_door_lock_face_recognition
 
         private void documentRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DocumentRegistration documentRegistration = new DocumentRegistration();
-            documentRegistration.ShowDialog();
+            port.Close();
+            using(DocumentRegistration documentRegistration = new DocumentRegistration())
+            {
+                documentRegistration.ShowDialog();
+            }
+            this.Refresh();
+            
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             LoadUserGrid();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            port.Close();
+            DocumentDialog documentDialog = new DocumentDialog();
+            documentDialog.ShowDialog();
         }
     }
 }

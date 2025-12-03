@@ -52,6 +52,7 @@
             document_type = new DataGridViewTextBoxColumn();
             textBox1 = new TextBox();
             button1 = new Button();
+            button2 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
@@ -240,11 +241,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(428, 39);
+            button2.Name = "button2";
+            button2.Size = new Size(168, 23);
+            button2.TabIndex = 8;
+            button2.Text = "Test Button";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1229, 578);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(dgvDocument);
@@ -286,5 +298,6 @@
         private DataGridViewTextBoxColumn student_id;
         private DataGridViewTextBoxColumn shelf_number;
         private DataGridViewTextBoxColumn document_type;
+        private Button button2;
     }
 }

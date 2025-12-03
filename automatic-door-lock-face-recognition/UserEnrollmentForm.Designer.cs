@@ -65,6 +65,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(pictureBox1);
             groupBox1.Controls.Add(btnCancel);
             groupBox1.Controls.Add(btnReloadCamera);
             groupBox1.Controls.Add(btnImageSaving);
@@ -72,7 +73,6 @@
             groupBox1.Controls.Add(btnEdit);
             groupBox1.Controls.Add(btnSave);
             groupBox1.Controls.Add(btnAdd);
-            groupBox1.Controls.Add(pictureBox1);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(txtPhoneNo);
             groupBox1.Controls.Add(label4);
