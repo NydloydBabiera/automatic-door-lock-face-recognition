@@ -243,7 +243,7 @@ namespace automatic_door_lock_face_recognition
             recognizeFace2();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port.Open();
 
         }
 
