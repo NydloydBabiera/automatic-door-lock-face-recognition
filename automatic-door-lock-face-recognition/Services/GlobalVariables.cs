@@ -17,7 +17,7 @@ namespace automatic_door_lock_face_recognition.Services
         public static bool IsTrained { get; set; }
         public static string TrainedModelPath { get; set; }
         public static string LabelsPath { get; set; }
-        public static string CameralUrl { get; set; } = "http://192.168.68.104:81/stream";
+        public static string CameralUrl { get; set; } = "http://192.168.254.124:81/stream";
         public static int SelectedPersonnelId { get; set; }
 
         public static int SelectedDocumentId { get; set; }
