@@ -59,8 +59,7 @@ namespace automatic_door_lock_face_recognition
                     { "first_name", txtFirstName.Text.Trim() },
                     { "middle_name",txtMiddleName.Text.Trim() },
                     { "last_name", txtLastName.Text.Trim() },
-                    { "email_address",txtEmail.Text.Trim() },
-                    { "phone_number",txtPhoneNo.Text.Trim() },
+                    { "designation",txtDesignation.Text.Trim() },
                 };
                 {
 
@@ -90,8 +89,7 @@ namespace automatic_door_lock_face_recognition
                     { "first_name", txtFirstName.Text.Trim() },
                     { "middle_name", txtMiddleName.Text.Trim() },
                     { "last_name", txtLastName.Text.Trim() },
-                    { "email_address", txtEmail.Text.Trim() },
-                    { "phone_number", txtPhoneNo.Text.Trim() }
+                    { "designation", txtDesignation.Text.Trim() },
                 });
                 MessageBox.Show("✅ Record successfully saved!", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -290,19 +288,17 @@ namespace automatic_door_lock_face_recognition
             btnReloadCamera.Enabled = false;
             btnCancel.Enabled = false;
 
-            txtEmail.Enabled = false;
+            txtDesignation.Enabled = false;
             txtFirstName.Enabled = false;
             txtMiddleName.Enabled = false;
             txtLastName.Enabled = false;
-            txtPhoneNo.Enabled = false;
-            txtEmail.Enabled = false;
+            txtDesignation.Enabled = false;
 
-            txtEmail.Text = "";
+            txtDesignation.Text = "";
             txtFirstName.Text = "";
             txtMiddleName.Text = "";
             txtLastName.Text = "";
-            txtPhoneNo.Text = "";
-            txtEmail.Text = "";
+            txtDesignation.Text = "";
 
 
 
@@ -351,15 +347,13 @@ namespace automatic_door_lock_face_recognition
             txtFirstName.Text = dgvPersonnels.CurrentRow.Cells["first_name"].Value.ToString();
             txtMiddleName.Text = dgvPersonnels.CurrentRow.Cells["middle_name"].Value.ToString();
             txtLastName.Text = dgvPersonnels.CurrentRow.Cells["last_name"].Value.ToString();
-            txtEmail.Text = dgvPersonnels.CurrentRow.Cells["email_address"].Value.ToString();
-            txtPhoneNo.Text = dgvPersonnels.CurrentRow.Cells["phone_number"].Value.ToString();
+            txtDesignation.Text = dgvPersonnels.CurrentRow.Cells["designation"].Value.ToString();
 
-            txtEmail.Enabled = true;
+            txtDesignation.Enabled = true;
             txtFirstName.Enabled = true;
             txtMiddleName.Enabled = true;
             txtLastName.Enabled = true;
-            txtPhoneNo.Enabled = true;
-            txtEmail.Enabled = true;
+            txtDesignation.Enabled = true;
 
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
@@ -389,12 +383,11 @@ namespace automatic_door_lock_face_recognition
 
         private void clearTextBoxes()
         {
-            txtEmail.Text = "";
+            txtDesignation.Text = "";
             txtFirstName.Text = "";
             txtMiddleName.Text = "";
             txtLastName.Text = "";
-            txtPhoneNo.Text = "";
-            txtEmail.Text = "";
+            txtDesignation.Text = "";
         }
 
         private void buttonsDefaultState()
@@ -410,22 +403,20 @@ namespace automatic_door_lock_face_recognition
 
         private void textboxesDefaultState()
         {
-            txtEmail.Enabled = false;
+            txtDesignation.Enabled = false;
             txtFirstName.Enabled = false;
             txtMiddleName.Enabled = false;
             txtLastName.Enabled = false;
-            txtPhoneNo.Enabled = false;
-            txtEmail.Enabled = false;
+            txtDesignation.Enabled = false;
         }
 
         private void textboxesEnable()
         {
-            txtEmail.Enabled = true;
+            txtDesignation.Enabled = true;
             txtFirstName.Enabled = true;
             txtMiddleName.Enabled = true;
             txtLastName.Enabled = true;
-            txtPhoneNo.Enabled = true;
-            txtEmail.Enabled = true;
+            txtDesignation.Enabled = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

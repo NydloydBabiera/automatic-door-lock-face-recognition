@@ -39,10 +39,8 @@
             btnEdit = new Button();
             btnSave = new Button();
             btnAdd = new Button();
-            label5 = new Label();
-            txtPhoneNo = new TextBox();
             label4 = new Label();
-            txtEmail = new TextBox();
+            txtDesignation = new TextBox();
             label3 = new Label();
             txtLastName = new TextBox();
             label2 = new Label();
@@ -51,13 +49,12 @@
             txtFirstName = new TextBox();
             lblCameraStream = new Label();
             dgvPersonnels = new DataGridView();
+            textBox6 = new TextBox();
             personnel_information_id = new DataGridViewTextBoxColumn();
             first_name = new DataGridViewTextBoxColumn();
             middle_name = new DataGridViewTextBoxColumn();
             last_name = new DataGridViewTextBoxColumn();
-            email_address = new DataGridViewTextBoxColumn();
-            phone_number = new DataGridViewTextBoxColumn();
-            textBox6 = new TextBox();
+            designation = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPersonnels).BeginInit();
@@ -73,10 +70,8 @@
             groupBox1.Controls.Add(btnEdit);
             groupBox1.Controls.Add(btnSave);
             groupBox1.Controls.Add(btnAdd);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(txtPhoneNo);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(txtEmail);
+            groupBox1.Controls.Add(txtDesignation);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txtLastName);
             groupBox1.Controls.Add(label2);
@@ -178,41 +173,23 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click_1;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(19, 181);
-            label5.Name = "label5";
-            label5.Size = new Size(101, 25);
-            label5.TabIndex = 9;
-            label5.Text = "Phone no.:";
-            // 
-            // txtPhoneNo
-            // 
-            txtPhoneNo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPhoneNo.Location = new Point(147, 181);
-            txtPhoneNo.Name = "txtPhoneNo";
-            txtPhoneNo.Size = new Size(343, 25);
-            txtPhoneNo.TabIndex = 8;
-            // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.Location = new Point(19, 147);
             label4.Name = "label4";
-            label4.Size = new Size(62, 25);
+            label4.Size = new Size(117, 25);
             label4.TabIndex = 7;
-            label4.Text = "Email:";
+            label4.Text = "Designation:";
             // 
-            // txtEmail
+            // txtDesignation
             // 
-            txtEmail.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(147, 147);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(343, 25);
-            txtEmail.TabIndex = 6;
+            txtDesignation.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDesignation.Location = new Point(147, 147);
+            txtDesignation.Name = "txtDesignation";
+            txtDesignation.Size = new Size(343, 25);
+            txtDesignation.TabIndex = 6;
             // 
             // label3
             // 
@@ -294,7 +271,7 @@
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dgvPersonnels.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvPersonnels.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPersonnels.Columns.AddRange(new DataGridViewColumn[] { personnel_information_id, first_name, middle_name, last_name, email_address, phone_number });
+            dgvPersonnels.Columns.AddRange(new DataGridViewColumn[] { personnel_information_id, first_name, middle_name, last_name, designation });
             dgvPersonnels.Location = new Point(12, 441);
             dgvPersonnels.Name = "dgvPersonnels";
             dgvPersonnels.ReadOnly = true;
@@ -303,6 +280,14 @@
             dgvPersonnels.TabIndex = 11;
             dgvPersonnels.CellClick += dgvPersonnels_CellClick;
             dgvPersonnels.CellContentClick += dgvPersonnels_CellContentClick;
+            // 
+            // textBox6
+            // 
+            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox6.Location = new Point(12, 406);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(1067, 29);
+            textBox6.TabIndex = 12;
             // 
             // personnel_information_id
             // 
@@ -335,29 +320,13 @@
             last_name.ReadOnly = true;
             last_name.Width = 200;
             // 
-            // email_address
+            // designation
             // 
-            email_address.DataPropertyName = "email_address";
-            email_address.HeaderText = "Email";
-            email_address.Name = "email_address";
-            email_address.ReadOnly = true;
-            email_address.Width = 200;
-            // 
-            // phone_number
-            // 
-            phone_number.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            phone_number.DataPropertyName = "phone_number";
-            phone_number.HeaderText = "Contact Number";
-            phone_number.Name = "phone_number";
-            phone_number.ReadOnly = true;
-            // 
-            // textBox6
-            // 
-            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox6.Location = new Point(12, 406);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(1067, 29);
-            textBox6.TabIndex = 12;
+            designation.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            designation.DataPropertyName = "designation";
+            designation.HeaderText = "Designation";
+            designation.Name = "designation";
+            designation.ReadOnly = true;
             // 
             // UserEnrollmentForm
             // 
@@ -388,7 +357,7 @@
         private Label label5;
         private TextBox txtPhoneNo;
         private Label label4;
-        private TextBox txtEmail;
+        private TextBox txtDesignation;
         private Label label3;
         private TextBox txtLastName;
         private Label label2;
@@ -403,12 +372,11 @@
         private Button btnImageSaving;
         private Label lblCameraStream;
         private Button btnReloadCamera;
+        private Button btnCancel;
         private DataGridViewTextBoxColumn personnel_information_id;
         private DataGridViewTextBoxColumn first_name;
         private DataGridViewTextBoxColumn middle_name;
         private DataGridViewTextBoxColumn last_name;
-        private DataGridViewTextBoxColumn email_address;
-        private DataGridViewTextBoxColumn phone_number;
-        private Button btnCancel;
+        private DataGridViewTextBoxColumn designation;
     }
 }
