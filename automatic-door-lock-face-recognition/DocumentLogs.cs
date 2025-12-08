@@ -40,5 +40,23 @@ namespace automatic_door_lock_face_recognition
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var isConfirmed = MessageBox.Show(
+               "Are you sure you want to delete all records? This action cannot be undone.",
+               "Confirm Deletion",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Warning
+           );
+
+            if (isConfirmed.Equals(DialogResult.Yes))
+            {
+                MessageBox.Show($"Deleting:{GlobalVariables.SelectedPersonnelId}");
+                _db.DeleteAllRowsAsync("document_information_logs");
+                _db.LoadDocumentLogs(dgvDocumentLogs);
+            }
+
+        }
     }
 }
