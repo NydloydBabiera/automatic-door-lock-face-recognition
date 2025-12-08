@@ -516,6 +516,23 @@ namespace automatic_door_lock_face_recognition.Classess
 
                     return await cmd.ExecuteNonQueryAsync();
         }
+        public async Task<int> DeleteAllRowsAsync(
+            string tableName )
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+                throw new ArgumentException("Table name is required.");
+
+            string query = $@"
+                DELETE FROM {tableName}
+            ";
+
+            await using var conn = new NpgsqlConnection(_connStr);
+            await conn.OpenAsync();
+
+            await using var cmd = new NpgsqlCommand(query, conn);
+
+            return await cmd.ExecuteNonQueryAsync();
+        }
         public DataTable Search(string table, string[] columns, string searchText)
         {
             using var conn = new NpgsqlConnection(_connStr);
