@@ -58,5 +58,10 @@ namespace automatic_door_lock_face_recognition
             }
 
         }
+
+        private void dgvDocumentLogs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

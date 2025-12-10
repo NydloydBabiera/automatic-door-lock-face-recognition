@@ -17,10 +17,10 @@ namespace automatic_door_lock_face_recognition
     {
         private DBPostgress _db;
         private SerialPort port;
-        public DocumentDialog()
+        public DocumentDialog(SerialPort _port)
         {
             InitializeComponent();
-            port = new SerialPort(GlobalVariables.SerialPortName, 115200);
+            port = _port;
             //port.DataReceived += SerialPort_DataReceived;
             //port.Open();
             _db = new DBPostgress(GlobalVariables.DbConnString);

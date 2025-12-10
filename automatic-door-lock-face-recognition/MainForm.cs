@@ -203,9 +203,9 @@ namespace automatic_door_lock_face_recognition
                                         if (name != "Unknown" && confidence > 65)
                                         {
                                             lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                            //port.WriteLine("OPEN");
+                                            port.WriteLine("OPEN");
                                             System.Threading.Thread.Sleep(3000);
-                                            using(DocumentDialog documentDialog = new DocumentDialog())
+                                            using(DocumentDialog documentDialog = new DocumentDialog(port))
                                             {
                                                 CameraService.Instance.OnFrame -= Camera_OnFrame;
                                                 documentDialog.ShowDialog();
@@ -328,9 +328,10 @@ namespace automatic_door_lock_face_recognition
 
         private void documentRegistrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            port.Close();
             using (DocumentRegistration documentRegistration = new DocumentRegistration())
             {
+
+                port.Close();
                 documentRegistration.ShowDialog();
             }
             this.Refresh();
