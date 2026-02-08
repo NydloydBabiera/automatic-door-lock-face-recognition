@@ -76,10 +76,11 @@ namespace automatic_door_lock_face_recognition
                 var columns = new Dictionary<string, object>
                 {
                     { "document_rfid_tag", txtRFIDtag.Text.Trim() },
-                    { "document_type", txtDocumentType.Text.Trim() },
+                    { "record_no", txtRecordNo.Text.Trim() },
                     {"shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
-                        {"student_name", txtStudentName.Text.Trim() },
-                        {"student_id", long.Parse(txtStudentID.Text.Trim()) }
+                    {"student_name", txtStudentName.Text.Trim() },
+                    {"student_id", long.Parse(txtStudentID.Text.Trim()) },
+                    {"course", txtCourse.Text.Trim() }
                 };
                 {
 
@@ -113,7 +114,7 @@ namespace automatic_door_lock_face_recognition
                 _db.AddRecord("document_information", new Dictionary<string, object>
                     {
                         { "document_rfid_tag", txtRFIDtag.Text.Trim() },
-                        { "document_type", txtDocumentType.Text.Trim() },
+                        { "record_no", txtRecordNo.Text.Trim() },
                         {"shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
                         {"student_name", txtStudentName.Text.Trim() },
                         {"student_id", long.Parse(txtStudentID.Text.Trim()) }
@@ -128,7 +129,7 @@ namespace automatic_door_lock_face_recognition
 
         private void clearTextBoxes()
         {
-            txtDocumentType.Text = "";
+            txtRecordNo.Text = "";
             txtRFIDtag.Text = "";
             txtStudentName.Text = "";
             txtShelfNumber.Text = "";
@@ -146,7 +147,7 @@ namespace automatic_door_lock_face_recognition
 
         private void textboxesDefaultState()
         {
-            txtDocumentType.Enabled = false;
+            txtRecordNo.Enabled = false;
             txtRFIDtag.Enabled = false;
             txtStudentName.Enabled = false;
             txtShelfNumber.Enabled = false;
@@ -155,7 +156,7 @@ namespace automatic_door_lock_face_recognition
 
         private void textboxesEnable()
         {
-            txtDocumentType.Enabled = true;
+            txtRecordNo.Enabled = true;
             txtRFIDtag.Enabled = true;
             txtStudentName.Enabled = true;
             txtShelfNumber.Enabled = true;
@@ -199,7 +200,7 @@ namespace automatic_door_lock_face_recognition
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            txtDocumentType.Text = dgvDocument.CurrentRow.Cells["document_type"].Value.ToString();
+            txtRecordNo.Text = dgvDocument.CurrentRow.Cells["record_no"].Value.ToString();
             txtRFIDtag.Text = dgvDocument.CurrentRow.Cells["document_rfid_tag"].Value.ToString();
             txtShelfNumber.Text = dgvDocument.CurrentRow.Cells["shelf_number"].Value.ToString();
             txtStudentName.Text = dgvDocument.CurrentRow.Cells["student_name"].Value.ToString();
@@ -235,7 +236,7 @@ namespace automatic_door_lock_face_recognition
         {
             var results = _db.Search(
                 "document_information",
-                new[] { "document_type", "document_rfid_tag", "shelf_number", "student_name", "student_id" }, 
+                new[] { "record_no", "document_rfid_tag", "shelf_number", "student_name", "student_id" }, 
                 textBox1.Text                       
             );
 

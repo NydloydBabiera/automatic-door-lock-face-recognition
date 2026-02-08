@@ -35,17 +35,20 @@
             dataLogsToolStripMenuItem = new ToolStripMenuItem();
             personnelLogsToolStripMenuItem = new ToolStripMenuItem();
             documentLogsToolStripMenuItem = new ToolStripMenuItem();
+            reportsToolStripMenuItem = new ToolStripMenuItem();
+            documentLogsToolStripMenuItem1 = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             lblFaceScan = new Label();
             txtTag = new TextBox();
+            button1 = new Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { registrationToolStripMenuItem, dataLogsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { registrationToolStripMenuItem, dataLogsToolStripMenuItem, reportsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1344, 24);
@@ -94,6 +97,20 @@
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
+            // reportsToolStripMenuItem
+            // 
+            reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { documentLogsToolStripMenuItem1 });
+            reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            reportsToolStripMenuItem.Size = new Size(59, 20);
+            reportsToolStripMenuItem.Text = "Reports";
+            // 
+            // documentLogsToolStripMenuItem1
+            // 
+            documentLogsToolStripMenuItem1.Name = "documentLogsToolStripMenuItem1";
+            documentLogsToolStripMenuItem1.Size = new Size(158, 22);
+            documentLogsToolStripMenuItem1.Text = "Document Logs";
+            documentLogsToolStripMenuItem1.Click += documentLogsToolStripMenuItem1_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.Location = new Point(61, 100);
@@ -109,9 +126,9 @@
             label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(620, 40);
             label1.Name = "label1";
-            label1.Size = new Size(195, 45);
+            label1.Size = new Size(253, 45);
             label1.TabIndex = 2;
-            label1.Text = "SCAN HERE";
+            label1.Text = "FACE SCANNER";
             // 
             // lblFaceScan
             // 
@@ -122,6 +139,7 @@
             lblFaceScan.Size = new Size(52, 21);
             lblFaceScan.TabIndex = 3;
             lblFaceScan.Text = "label2";
+            lblFaceScan.Visible = false;
             // 
             // txtTag
             // 
@@ -129,18 +147,33 @@
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
+            txtTag.Visible = false;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(1022, 663);
+            button1.Name = "button1";
+            button1.Size = new Size(118, 33);
+            button1.TabIndex = 5;
+            button1.Text = "test add logs";
+            button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
+            button1.Click += button1_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1344, 721);
+            Controls.Add(button1);
             Controls.Add(txtTag);
             Controls.Add(lblFaceScan);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "MainForm";
             Text = "MainForm";
             Load += MainForm_Load;
@@ -164,5 +197,8 @@
         private Label label1;
         private Label lblFaceScan;
         private TextBox txtTag;
+        private ToolStripMenuItem reportsToolStripMenuItem;
+        private ToolStripMenuItem documentLogsToolStripMenuItem1;
+        private Button button1;
     }
 }

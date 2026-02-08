@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace automatic_door_lock_face_recognition
 {
@@ -342,16 +343,38 @@ namespace automatic_door_lock_face_recognition
         {
             if (_latestImage == null) return;
 
-    int pbWidth = pictureBox1.Width;
-    int pbHeight = pictureBox1.Height;
+            int pbWidth = pictureBox1.Width;
+            int pbHeight = pictureBox1.Height;
 
-    int imgWidth = _latestImage.Width;
-    int imgHeight = _latestImage.Height;
+            int imgWidth = _latestImage.Width;
+            int imgHeight = _latestImage.Height;
 
-    int x = (pbWidth - imgWidth) / 2;
-    int y = (pbHeight - imgHeight) / 2;
+            int x = (pbWidth - imgWidth) / 2;
+            int y = (pbHeight - imgHeight) / 2;
 
-    e.Graphics.DrawImage(_latestImage, x, y, imgWidth, imgHeight);
+            e.Graphics.DrawImage(_latestImage, x, y, imgWidth, imgHeight);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
+            //MessageBox.Show("Document Type: " + docInfo.Value.id);
+            if (docInfo == null)
+            {
+                return;
+            }
+            _db.AddRecord("document_information_logs", new Dictionary<string, object>
+            {
+                { "document_information_id", docInfo.Value.id }
+            });
+        }
+
+        private void documentLogsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            using (DocumentLogsReport enrollmentForm = new DocumentLogsReport())
+            {
+                enrollmentForm.ShowDialog();
+            }
         }
     }
 }

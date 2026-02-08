@@ -28,9 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            groupBox1 = new GroupBox();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            dgvPersonnels = new DataGridView();
+            personnel_information_id = new DataGridViewTextBoxColumn();
+            first_name = new DataGridViewTextBoxColumn();
+            middle_name = new DataGridViewTextBoxColumn();
+            last_name = new DataGridViewTextBoxColumn();
+            designation = new DataGridViewTextBoxColumn();
+            textBox6 = new TextBox();
             pictureBox1 = new PictureBox();
             btnCancel = new Button();
             btnReloadCamera = new Button();
@@ -48,246 +54,34 @@
             label1 = new Label();
             txtFirstName = new TextBox();
             lblCameraStream = new Label();
-            dgvPersonnels = new DataGridView();
-            textBox6 = new TextBox();
-            personnel_information_id = new DataGridViewTextBoxColumn();
-            first_name = new DataGridViewTextBoxColumn();
-            middle_name = new DataGridViewTextBoxColumn();
-            last_name = new DataGridViewTextBoxColumn();
-            designation = new DataGridViewTextBoxColumn();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPersonnels).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(pictureBox1);
-            groupBox1.Controls.Add(btnCancel);
-            groupBox1.Controls.Add(btnReloadCamera);
-            groupBox1.Controls.Add(btnImageSaving);
-            groupBox1.Controls.Add(btnDelete);
-            groupBox1.Controls.Add(btnEdit);
-            groupBox1.Controls.Add(btnSave);
-            groupBox1.Controls.Add(btnAdd);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(txtDesignation);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(txtLastName);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(txtMiddleName);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(txtFirstName);
-            groupBox1.Controls.Add(lblCameraStream);
-            groupBox1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1067, 388);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Personnel Registration";
-            groupBox1.Enter += groupBox1_Enter;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(538, 26);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(515, 356);
-            pictureBox1.TabIndex = 10;
-            pictureBox1.TabStop = false;
-            // 
-            // btnCancel
-            // 
-            btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancel.Location = new Point(202, 252);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(129, 37);
-            btnCancel.TabIndex = 18;
-            btnCancel.Text = "CANCEL";
-            btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // btnReloadCamera
-            // 
-            btnReloadCamera.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReloadCamera.Location = new Point(252, 295);
-            btnReloadCamera.Name = "btnReloadCamera";
-            btnReloadCamera.Size = new Size(238, 31);
-            btnReloadCamera.TabIndex = 17;
-            btnReloadCamera.Text = "RELOAD CAMERA";
-            btnReloadCamera.UseVisualStyleBackColor = true;
-            btnReloadCamera.Click += btnReloadCamera_Click;
-            // 
-            // btnImageSaving
-            // 
-            btnImageSaving.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnImageSaving.Location = new Point(26, 295);
-            btnImageSaving.Name = "btnImageSaving";
-            btnImageSaving.Size = new Size(220, 31);
-            btnImageSaving.TabIndex = 15;
-            btnImageSaving.Text = "CAPTURE IMAGE";
-            btnImageSaving.UseVisualStyleBackColor = true;
-            btnImageSaving.Click += btnImageSaving_Click;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(389, 216);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(115, 31);
-            btnDelete.TabIndex = 14;
-            btnDelete.Text = "DELETE";
-            btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEdit.Location = new Point(268, 216);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(115, 31);
-            btnEdit.TabIndex = 13;
-            btnEdit.Text = "EDIT";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
-            // 
-            // btnSave
-            // 
-            btnSave.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSave.Location = new Point(147, 216);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(115, 31);
-            btnSave.TabIndex = 12;
-            btnSave.Text = "SAVE";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
-            // 
-            // btnAdd
-            // 
-            btnAdd.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdd.Location = new Point(26, 216);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(115, 31);
-            btnAdd.TabIndex = 11;
-            btnAdd.Text = "ADD";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click_1;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(19, 147);
-            label4.Name = "label4";
-            label4.Size = new Size(117, 25);
-            label4.TabIndex = 7;
-            label4.Text = "Designation:";
-            // 
-            // txtDesignation
-            // 
-            txtDesignation.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDesignation.Location = new Point(147, 147);
-            txtDesignation.Name = "txtDesignation";
-            txtDesignation.Size = new Size(343, 25);
-            txtDesignation.TabIndex = 6;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(19, 116);
-            label3.Name = "label3";
-            label3.Size = new Size(96, 25);
-            label3.TabIndex = 5;
-            label3.Text = "Lastname:";
-            label3.Click += label3_Click;
-            // 
-            // txtLastName
-            // 
-            txtLastName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLastName.Location = new Point(147, 116);
-            txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(343, 25);
-            txtLastName.TabIndex = 4;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(19, 85);
-            label2.Name = "label2";
-            label2.Size = new Size(122, 25);
-            label2.TabIndex = 3;
-            label2.Text = "Middlename:";
-            // 
-            // txtMiddleName
-            // 
-            txtMiddleName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMiddleName.Location = new Point(147, 85);
-            txtMiddleName.Name = "txtMiddleName";
-            txtMiddleName.Size = new Size(343, 25);
-            txtMiddleName.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(19, 54);
-            label1.Name = "label1";
-            label1.Size = new Size(98, 25);
-            label1.TabIndex = 1;
-            label1.Text = "Firstname:";
-            // 
-            // txtFirstName
-            // 
-            txtFirstName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtFirstName.Location = new Point(147, 54);
-            txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(343, 25);
-            txtFirstName.TabIndex = 0;
-            // 
-            // lblCameraStream
-            // 
-            lblCameraStream.AutoSize = true;
-            lblCameraStream.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCameraStream.Location = new Point(181, 348);
-            lblCameraStream.Name = "lblCameraStream";
-            lblCameraStream.Size = new Size(54, 21);
-            lblCameraStream.TabIndex = 16;
-            lblCameraStream.Text = "label6";
             // 
             // dgvPersonnels
             // 
             dgvPersonnels.AllowUserToAddRows = false;
             dgvPersonnels.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvPersonnels.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvPersonnels.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvPersonnels.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvPersonnels.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvPersonnels.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPersonnels.Columns.AddRange(new DataGridViewColumn[] { personnel_information_id, first_name, middle_name, last_name, designation });
-            dgvPersonnels.Location = new Point(12, 441);
+            dgvPersonnels.Location = new Point(12, 425);
             dgvPersonnels.Name = "dgvPersonnels";
             dgvPersonnels.ReadOnly = true;
             dgvPersonnels.RowHeadersVisible = false;
-            dgvPersonnels.Size = new Size(1067, 282);
+            dgvPersonnels.Size = new Size(1320, 282);
             dgvPersonnels.TabIndex = 11;
             dgvPersonnels.CellClick += dgvPersonnels_CellClick;
             dgvPersonnels.CellContentClick += dgvPersonnels_CellContentClick;
-            // 
-            // textBox6
-            // 
-            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox6.Location = new Point(12, 406);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(1067, 29);
-            textBox6.TabIndex = 12;
             // 
             // personnel_information_id
             // 
@@ -328,55 +122,234 @@
             designation.Name = "designation";
             designation.ReadOnly = true;
             // 
+            // textBox6
+            // 
+            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox6.Location = new Point(12, 390);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(1320, 29);
+            textBox6.TabIndex = 12;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(817, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(515, 356);
+            pictureBox1.TabIndex = 27;
+            pictureBox1.TabStop = false;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancel.Location = new Point(211, 270);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(129, 37);
+            btnCancel.TabIndex = 35;
+            btnCancel.Text = "CANCEL";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadCamera
+            // 
+            btnReloadCamera.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnReloadCamera.Location = new Point(261, 313);
+            btnReloadCamera.Name = "btnReloadCamera";
+            btnReloadCamera.Size = new Size(238, 31);
+            btnReloadCamera.TabIndex = 34;
+            btnReloadCamera.Text = "RELOAD CAMERA";
+            btnReloadCamera.UseVisualStyleBackColor = true;
+            // 
+            // btnImageSaving
+            // 
+            btnImageSaving.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnImageSaving.Location = new Point(35, 313);
+            btnImageSaving.Name = "btnImageSaving";
+            btnImageSaving.Size = new Size(220, 31);
+            btnImageSaving.TabIndex = 32;
+            btnImageSaving.Text = "CAPTURE IMAGE";
+            btnImageSaving.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDelete.Location = new Point(398, 234);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(115, 31);
+            btnDelete.TabIndex = 31;
+            btnDelete.Text = "DELETE";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEdit.Location = new Point(277, 234);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(115, 31);
+            btnEdit.TabIndex = 30;
+            btnEdit.Text = "EDIT";
+            btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            btnSave.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSave.Location = new Point(156, 234);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(115, 31);
+            btnSave.TabIndex = 29;
+            btnSave.Text = "SAVE";
+            btnSave.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdd.Location = new Point(35, 234);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(115, 31);
+            btnAdd.TabIndex = 28;
+            btnAdd.Text = "ADD";
+            btnAdd.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(28, 165);
+            label4.Name = "label4";
+            label4.Size = new Size(117, 25);
+            label4.TabIndex = 26;
+            label4.Text = "Designation:";
+            // 
+            // txtDesignation
+            // 
+            txtDesignation.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDesignation.Location = new Point(156, 165);
+            txtDesignation.Name = "txtDesignation";
+            txtDesignation.Size = new Size(343, 25);
+            txtDesignation.TabIndex = 25;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(28, 134);
+            label3.Name = "label3";
+            label3.Size = new Size(96, 25);
+            label3.TabIndex = 24;
+            label3.Text = "Lastname:";
+            // 
+            // txtLastName
+            // 
+            txtLastName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLastName.Location = new Point(156, 134);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(343, 25);
+            txtLastName.TabIndex = 23;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(28, 103);
+            label2.Name = "label2";
+            label2.Size = new Size(122, 25);
+            label2.TabIndex = 22;
+            label2.Text = "Middlename:";
+            // 
+            // txtMiddleName
+            // 
+            txtMiddleName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMiddleName.Location = new Point(156, 103);
+            txtMiddleName.Name = "txtMiddleName";
+            txtMiddleName.Size = new Size(343, 25);
+            txtMiddleName.TabIndex = 21;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(28, 72);
+            label1.Name = "label1";
+            label1.Size = new Size(98, 25);
+            label1.TabIndex = 20;
+            label1.Text = "Firstname:";
+            // 
+            // txtFirstName
+            // 
+            txtFirstName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtFirstName.Location = new Point(156, 72);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new Size(343, 25);
+            txtFirstName.TabIndex = 19;
+            // 
+            // lblCameraStream
+            // 
+            lblCameraStream.AutoSize = true;
+            lblCameraStream.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCameraStream.Location = new Point(190, 366);
+            lblCameraStream.Name = "lblCameraStream";
+            lblCameraStream.Size = new Size(54, 21);
+            lblCameraStream.TabIndex = 33;
+            lblCameraStream.Text = "label6";
+            // 
             // UserEnrollmentForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.NEWW;
-            ClientSize = new Size(1091, 735);
+            ClientSize = new Size(1344, 721);
+            Controls.Add(pictureBox1);
+            Controls.Add(btnCancel);
+            Controls.Add(btnReloadCamera);
+            Controls.Add(btnImageSaving);
+            Controls.Add(btnDelete);
+            Controls.Add(btnEdit);
+            Controls.Add(btnSave);
+            Controls.Add(btnAdd);
+            Controls.Add(label4);
+            Controls.Add(txtDesignation);
+            Controls.Add(label3);
+            Controls.Add(txtLastName);
+            Controls.Add(label2);
+            Controls.Add(txtMiddleName);
+            Controls.Add(label1);
+            Controls.Add(txtFirstName);
+            Controls.Add(lblCameraStream);
             Controls.Add(textBox6);
             Controls.Add(dgvPersonnels);
-            Controls.Add(groupBox1);
             Name = "UserEnrollmentForm";
             Text = "UserEnrollmentForm";
             FormClosing += UserEnrollmentForm_FormClosing;
             Load += UserEnrollmentForm_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPersonnels).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private GroupBox groupBox1;
-        private Label label1;
-        private TextBox txtFirstName;
         private Label label5;
         private TextBox txtPhoneNo;
+        private DataGridView dgvPersonnels;
+        private TextBox textBox6;
+        private DataGridViewTextBoxColumn personnel_information_id;
+        private DataGridViewTextBoxColumn first_name;
+        private DataGridViewTextBoxColumn middle_name;
+        private DataGridViewTextBoxColumn last_name;
+        private DataGridViewTextBoxColumn designation;
+        private PictureBox pictureBox1;
+        private Button btnCancel;
+        private Button btnReloadCamera;
+        private Button btnImageSaving;
+        private Button btnDelete;
+        private Button btnEdit;
+        private Button btnSave;
+        private Button btnAdd;
         private Label label4;
         private TextBox txtDesignation;
         private Label label3;
         private TextBox txtLastName;
         private Label label2;
         private TextBox txtMiddleName;
-        private PictureBox pictureBox1;
-        private DataGridView dgvPersonnels;
-        private TextBox textBox6;
-        private Button btnAdd;
-        private Button btnDelete;
-        private Button btnEdit;
-        private Button btnSave;
-        private Button btnImageSaving;
+        private Label label1;
+        private TextBox txtFirstName;
         private Label lblCameraStream;
-        private Button btnReloadCamera;
-        private Button btnCancel;
-        private DataGridViewTextBoxColumn personnel_information_id;
-        private DataGridViewTextBoxColumn first_name;
-        private DataGridViewTextBoxColumn middle_name;
-        private DataGridViewTextBoxColumn last_name;
-        private DataGridViewTextBoxColumn designation;
     }
 }
