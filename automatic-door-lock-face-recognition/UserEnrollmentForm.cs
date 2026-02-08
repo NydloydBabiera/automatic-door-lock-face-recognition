@@ -442,5 +442,10 @@ namespace automatic_door_lock_face_recognition
         {
             CameraService.Instance.OnFrame -= Camera_OnFrame;
         }
+
+        private void btnReloadCamera_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

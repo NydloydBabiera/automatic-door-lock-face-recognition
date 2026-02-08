@@ -37,11 +37,13 @@
             txtRFIDtag = new TextBox();
             dgvDocument = new DataGridView();
             document_information_id = new DataGridViewTextBoxColumn();
-            document_type = new DataGridViewTextBoxColumn();
-            document_rfid_tag = new DataGridViewTextBoxColumn();
-            shelf_number = new DataGridViewTextBoxColumn();
             student_name = new DataGridViewTextBoxColumn();
             student_id = new DataGridViewTextBoxColumn();
+            course = new DataGridViewTextBoxColumn();
+            shelf_number = new DataGridViewTextBoxColumn();
+            row_num = new DataGridViewTextBoxColumn();
+            document_rfid_tag = new DataGridViewTextBoxColumn();
+            record_no = new DataGridViewTextBoxColumn();
             btnAdd = new Button();
             btnSave = new Button();
             btnEdit = new Button();
@@ -61,6 +63,10 @@
             txtRowNo = new TextBox();
             groupBox9 = new GroupBox();
             txtRecordNo = new TextBox();
+            groupBox1 = new GroupBox();
+            txtMiddleName = new TextBox();
+            groupBox10 = new GroupBox();
+            txtLastName = new TextBox();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
             groupBox3.SuspendLayout();
@@ -70,13 +76,16 @@
             groupBox7.SuspendLayout();
             groupBox8.SuspendLayout();
             groupBox9.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox10.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(txtRFIDtag);
             groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox2.Location = new Point(12, 201);
+            groupBox2.ForeColor = Color.White;
+            groupBox2.Location = new Point(12, 204);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(496, 58);
             groupBox2.TabIndex = 1;
@@ -96,6 +105,7 @@
             dgvDocument.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocument.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDocument.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
@@ -104,8 +114,9 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, document_type, document_rfid_tag, shelf_number, student_name, student_id });
+            dgvDocument.ColumnHeadersHeight = 35;
+            dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, student_name, student_id, course, shelf_number, row_num, document_rfid_tag, record_no });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -114,7 +125,7 @@
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvDocument.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvDocument.Location = new Point(6, 329);
+            dgvDocument.Location = new Point(3, 369);
             dgvDocument.Name = "dgvDocument";
             dgvDocument.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -129,7 +140,7 @@
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocument.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvDocument.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvDocument.Size = new Size(1024, 388);
+            dgvDocument.Size = new Size(1033, 388);
             dgvDocument.TabIndex = 2;
             dgvDocument.CellClick += dgvDocument_CellClick;
             // 
@@ -139,29 +150,6 @@
             document_information_id.HeaderText = "ID";
             document_information_id.Name = "document_information_id";
             document_information_id.ReadOnly = true;
-            // 
-            // document_type
-            // 
-            document_type.DataPropertyName = "document_type";
-            document_type.HeaderText = "Type";
-            document_type.Name = "document_type";
-            document_type.ReadOnly = true;
-            document_type.Width = 150;
-            // 
-            // document_rfid_tag
-            // 
-            document_rfid_tag.DataPropertyName = "document_rfid_tag";
-            document_rfid_tag.HeaderText = "RFID Tag";
-            document_rfid_tag.Name = "document_rfid_tag";
-            document_rfid_tag.ReadOnly = true;
-            document_rfid_tag.Width = 250;
-            // 
-            // shelf_number
-            // 
-            shelf_number.DataPropertyName = "shelf_number";
-            shelf_number.HeaderText = "Shelf No.";
-            shelf_number.Name = "shelf_number";
-            shelf_number.ReadOnly = true;
             // 
             // student_name
             // 
@@ -173,18 +161,57 @@
             // 
             // student_id
             // 
-            student_id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             student_id.DataPropertyName = "student_id";
             student_id.HeaderText = "Student ID";
             student_id.Name = "student_id";
             student_id.ReadOnly = true;
             // 
+            // course
+            // 
+            course.DataPropertyName = "course";
+            course.HeaderText = "Course";
+            course.Name = "course";
+            course.ReadOnly = true;
+            // 
+            // shelf_number
+            // 
+            shelf_number.DataPropertyName = "shelf_number";
+            shelf_number.HeaderText = "Shelf No.";
+            shelf_number.Name = "shelf_number";
+            shelf_number.ReadOnly = true;
+            // 
+            // row_num
+            // 
+            row_num.DataPropertyName = "row_num";
+            row_num.HeaderText = "Row";
+            row_num.Name = "row_num";
+            row_num.ReadOnly = true;
+            // 
+            // document_rfid_tag
+            // 
+            document_rfid_tag.DataPropertyName = "document_rfid_tag";
+            document_rfid_tag.HeaderText = "RFID Tag";
+            document_rfid_tag.Name = "document_rfid_tag";
+            document_rfid_tag.ReadOnly = true;
+            document_rfid_tag.Width = 150;
+            // 
+            // record_no
+            // 
+            record_no.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            record_no.DataPropertyName = "record_no";
+            record_no.HeaderText = "Record number";
+            record_no.Name = "record_no";
+            record_no.ReadOnly = true;
+            // 
             // btnAdd
             // 
+            btnAdd.BackgroundImageLayout = ImageLayout.None;
+            btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdd.Location = new Point(521, 222);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(92, 268);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 31);
+            btnAdd.Size = new Size(155, 40);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
@@ -192,10 +219,12 @@
             // 
             // btnSave
             // 
+            btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSave.Location = new Point(621, 222);
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(250, 268);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(98, 31);
+            btnSave.Size = new Size(155, 40);
             btnSave.TabIndex = 4;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = true;
@@ -203,10 +232,12 @@
             // 
             // btnEdit
             // 
+            btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEdit.Location = new Point(725, 222);
+            btnEdit.ForeColor = Color.White;
+            btnEdit.Location = new Point(411, 268);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(96, 31);
+            btnEdit.Size = new Size(155, 40);
             btnEdit.TabIndex = 5;
             btnEdit.Text = "EDIT";
             btnEdit.UseVisualStyleBackColor = true;
@@ -214,10 +245,12 @@
             // 
             // btnDelete
             // 
+            btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(827, 222);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(572, 268);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(93, 31);
+            btnDelete.Size = new Size(155, 40);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "DELETE";
             btnDelete.UseVisualStyleBackColor = true;
@@ -225,10 +258,12 @@
             // 
             // btnCancel
             // 
+            btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancel.Location = new Point(926, 221);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(733, 268);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(93, 31);
+            btnCancel.Size = new Size(155, 40);
             btnCancel.TabIndex = 7;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = true;
@@ -236,7 +271,7 @@
             // 
             // txtShelfNumber
             // 
-            txtShelfNumber.Location = new Point(6, 23);
+            txtShelfNumber.Location = new Point(6, 21);
             txtShelfNumber.Name = "txtShelfNumber";
             txtShelfNumber.Size = new Size(484, 29);
             txtShelfNumber.TabIndex = 0;
@@ -246,7 +281,8 @@
             groupBox3.BackColor = Color.Transparent;
             groupBox3.Controls.Add(txtShelfNumber);
             groupBox3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox3.Location = new Point(519, 12);
+            groupBox3.ForeColor = Color.White;
+            groupBox3.Location = new Point(525, 76);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(496, 58);
             groupBox3.TabIndex = 2;
@@ -257,16 +293,17 @@
             // 
             txtStudentName.Location = new Point(6, 23);
             txtStudentName.Name = "txtStudentName";
-            txtStudentName.Size = new Size(484, 29);
+            txtStudentName.Size = new Size(298, 29);
             txtStudentName.TabIndex = 0;
             // 
             // groupBox4
             // 
             groupBox4.Controls.Add(txtStudentName);
             groupBox4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox4.ForeColor = Color.White;
             groupBox4.Location = new Point(12, 12);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(496, 58);
+            groupBox4.Size = new Size(311, 58);
             groupBox4.TabIndex = 3;
             groupBox4.TabStop = false;
             groupBox4.Text = "Student Name";
@@ -282,6 +319,7 @@
             // 
             groupBox5.Controls.Add(txtStudentID);
             groupBox5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox5.ForeColor = Color.White;
             groupBox5.Location = new Point(12, 76);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(496, 58);
@@ -302,9 +340,10 @@
             // 
             groupBox6.Controls.Add(textBox1);
             groupBox6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox6.Location = new Point(12, 265);
+            groupBox6.ForeColor = Color.White;
+            groupBox6.Location = new Point(3, 305);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(1024, 58);
+            groupBox6.Size = new Size(1033, 58);
             groupBox6.TabIndex = 3;
             groupBox6.TabStop = false;
             groupBox6.Text = "Search";
@@ -314,7 +353,8 @@
             groupBox7.BackColor = Color.Transparent;
             groupBox7.Controls.Add(txtCourse);
             groupBox7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox7.Location = new Point(12, 137);
+            groupBox7.ForeColor = Color.White;
+            groupBox7.Location = new Point(12, 140);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new Size(496, 58);
             groupBox7.TabIndex = 3;
@@ -333,7 +373,8 @@
             groupBox8.BackColor = Color.Transparent;
             groupBox8.Controls.Add(txtRowNo);
             groupBox8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox8.Location = new Point(519, 134);
+            groupBox8.ForeColor = Color.White;
+            groupBox8.Location = new Point(525, 204);
             groupBox8.Name = "groupBox8";
             groupBox8.Size = new Size(496, 58);
             groupBox8.TabIndex = 5;
@@ -342,8 +383,9 @@
             // 
             // txtRowNo
             // 
-            txtRowNo.Location = new Point(6, 23);
+            txtRowNo.Location = new Point(6, 22);
             txtRowNo.Name = "txtRowNo";
+            txtRowNo.ReadOnly = true;
             txtRowNo.Size = new Size(484, 29);
             txtRowNo.TabIndex = 0;
             // 
@@ -352,7 +394,8 @@
             groupBox9.BackColor = Color.Transparent;
             groupBox9.Controls.Add(txtRecordNo);
             groupBox9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox9.Location = new Point(519, 76);
+            groupBox9.ForeColor = Color.White;
+            groupBox9.Location = new Point(525, 140);
             groupBox9.Name = "groupBox9";
             groupBox9.Size = new Size(496, 58);
             groupBox9.TabIndex = 4;
@@ -361,17 +404,59 @@
             // 
             // txtRecordNo
             // 
-            txtRecordNo.Location = new Point(6, 23);
+            txtRecordNo.Location = new Point(6, 22);
             txtRecordNo.Name = "txtRecordNo";
             txtRecordNo.Size = new Size(484, 29);
             txtRecordNo.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(txtMiddleName);
+            groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.ForeColor = Color.White;
+            groupBox1.Location = new Point(329, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(320, 58);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Middle Name";
+            // 
+            // txtMiddleName
+            // 
+            txtMiddleName.Location = new Point(6, 23);
+            txtMiddleName.Name = "txtMiddleName";
+            txtMiddleName.Size = new Size(307, 29);
+            txtMiddleName.TabIndex = 0;
+            // 
+            // groupBox10
+            // 
+            groupBox10.Controls.Add(txtLastName);
+            groupBox10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox10.ForeColor = Color.White;
+            groupBox10.Location = new Point(655, 12);
+            groupBox10.Name = "groupBox10";
+            groupBox10.Size = new Size(360, 58);
+            groupBox10.TabIndex = 5;
+            groupBox10.TabStop = false;
+            groupBox10.Text = "Last Name";
+            // 
+            // txtLastName
+            // 
+            txtLastName.Location = new Point(6, 23);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(347, 29);
+            txtLastName.TabIndex = 0;
+            txtLastName.TextChanged += txtLastName_TextChanged;
+            txtLastName.Leave += txtLastName_Leave;
             // 
             // DocumentRegistration
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            ClientSize = new Size(1039, 721);
+            BackColor = Color.ForestGreen;
+            ClientSize = new Size(1039, 761);
+            Controls.Add(groupBox10);
+            Controls.Add(groupBox1);
             Controls.Add(btnDelete);
             Controls.Add(groupBox8);
             Controls.Add(btnCancel);
@@ -387,7 +472,9 @@
             Controls.Add(dgvDocument);
             Controls.Add(groupBox2);
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "DocumentRegistration";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "DocumentRegistration";
             Load += DocumentRegistration_Load;
             groupBox2.ResumeLayout(false);
@@ -407,6 +494,10 @@
             groupBox8.PerformLayout();
             groupBox9.ResumeLayout(false);
             groupBox9.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox10.ResumeLayout(false);
+            groupBox10.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -425,12 +516,6 @@
         private GroupBox groupBox4;
         private TextBox txtStudentID;
         private GroupBox groupBox5;
-        private DataGridViewTextBoxColumn document_information_id;
-        private DataGridViewTextBoxColumn document_type;
-        private DataGridViewTextBoxColumn document_rfid_tag;
-        private DataGridViewTextBoxColumn shelf_number;
-        private DataGridViewTextBoxColumn student_name;
-        private DataGridViewTextBoxColumn student_id;
         private TextBox textBox1;
         private GroupBox groupBox6;
         private GroupBox groupBox7;
@@ -439,5 +524,17 @@
         private TextBox txtRowNo;
         private GroupBox groupBox9;
         private TextBox txtRecordNo;
+        private GroupBox groupBox1;
+        private TextBox txtMiddleName;
+        private GroupBox groupBox10;
+        private TextBox txtLastName;
+        private DataGridViewTextBoxColumn document_information_id;
+        private DataGridViewTextBoxColumn student_name;
+        private DataGridViewTextBoxColumn student_id;
+        private DataGridViewTextBoxColumn course;
+        private DataGridViewTextBoxColumn shelf_number;
+        private DataGridViewTextBoxColumn row_num;
+        private DataGridViewTextBoxColumn document_rfid_tag;
+        private DataGridViewTextBoxColumn record_no;
     }
 }

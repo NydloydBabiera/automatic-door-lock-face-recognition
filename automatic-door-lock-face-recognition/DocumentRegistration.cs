@@ -33,7 +33,7 @@ namespace automatic_door_lock_face_recognition
             clearTextBoxes();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port.Open();
         }
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -77,6 +77,7 @@ namespace automatic_door_lock_face_recognition
                 {
                     { "document_rfid_tag", txtRFIDtag.Text.Trim() },
                     { "record_no", txtRecordNo.Text.Trim() },
+                    { "row_num", txtRowNo.Text.Trim() },
                     {"shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
                     {"student_name", txtStudentName.Text.Trim() },
                     {"student_id", long.Parse(txtStudentID.Text.Trim()) },
@@ -114,10 +115,12 @@ namespace automatic_door_lock_face_recognition
                 _db.AddRecord("document_information", new Dictionary<string, object>
                     {
                         { "document_rfid_tag", txtRFIDtag.Text.Trim() },
-                        { "record_no", txtRecordNo.Text.Trim() },
-                        {"shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
-                        {"student_name", txtStudentName.Text.Trim() },
-                        {"student_id", long.Parse(txtStudentID.Text.Trim()) }
+                        { "record_no", long.Parse(txtRecordNo.Text.Trim()) },
+                        { "shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
+                        { "student_name", $"{txtStudentName.Text.Trim()} {txtMiddleName.Text.Trim()} {txtLastName.Text.Trim()}" },
+                        { "student_id", long.Parse(txtStudentID.Text.Trim()) },
+                        { "course", txtCourse.Text.Trim() },
+                        { "row_num", txtRowNo.Text.Trim() }
                     });
             }
 
@@ -134,6 +137,10 @@ namespace automatic_door_lock_face_recognition
             txtStudentName.Text = "";
             txtShelfNumber.Text = "";
             txtStudentID.Text = "";
+            txtRowNo.Text = "";
+            txtMiddleName.Text = "";
+            txtLastName.Text = "";
+            txtCourse.Text = "";
         }
 
         private void buttonsDefaultState()
@@ -152,6 +159,10 @@ namespace automatic_door_lock_face_recognition
             txtStudentName.Enabled = false;
             txtShelfNumber.Enabled = false;
             txtStudentID.Enabled = false;
+            txtRowNo.Enabled = false;
+            txtMiddleName.Enabled = false; ;
+            txtLastName.Enabled = false;
+            txtCourse.Enabled = false;
         }
 
         private void textboxesEnable()
@@ -161,6 +172,10 @@ namespace automatic_door_lock_face_recognition
             txtStudentName.Enabled = true;
             txtShelfNumber.Enabled = true;
             txtStudentID.Enabled = true;
+            txtRowNo.Enabled = true;
+            txtMiddleName.Enabled = true;
+            txtLastName.Enabled = true;
+            txtCourse.Enabled = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -187,7 +202,6 @@ namespace automatic_door_lock_face_recognition
             if (e.RowIndex < 0) return;
             GlobalVariables.SelectedDocumentId = Convert.ToInt32(dgvDocument.Rows[e.RowIndex].Cells["document_information_id"].Value);
 
-            MessageBox.Show("selected id:" + GlobalVariables.SelectedDocumentId);
 
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
@@ -203,15 +217,18 @@ namespace automatic_door_lock_face_recognition
             txtRecordNo.Text = dgvDocument.CurrentRow.Cells["record_no"].Value.ToString();
             txtRFIDtag.Text = dgvDocument.CurrentRow.Cells["document_rfid_tag"].Value.ToString();
             txtShelfNumber.Text = dgvDocument.CurrentRow.Cells["shelf_number"].Value.ToString();
-            txtStudentName.Text = dgvDocument.CurrentRow.Cells["student_name"].Value.ToString();
+            txtStudentName.Text = dgvDocument.CurrentRow.Cells["student_name"].Value.ToString().Split()[0];
+            txtMiddleName.Text = dgvDocument.CurrentRow.Cells["student_name"].Value.ToString().Split()[1];
+            txtLastName.Text = dgvDocument.CurrentRow.Cells["student_name"].Value.ToString().Split()[2];
             txtStudentID.Text = dgvDocument.CurrentRow.Cells["student_id"].Value.ToString();
-
+            txtRowNo.Text = dgvDocument.CurrentRow.Cells["row_num"].Value.ToString();
             textboxesEnable();
 
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
             btnEdit.Enabled = true;
             btnSave.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -236,11 +253,27 @@ namespace automatic_door_lock_face_recognition
         {
             var results = _db.Search(
                 "document_information",
-                new[] { "record_no", "document_rfid_tag", "shelf_number", "student_name", "student_id" }, 
-                textBox1.Text                       
+                new[] { "record_no", "document_rfid_tag", "shelf_number", "student_name", "student_id" },
+                textBox1.Text
             );
 
-             dgvDocument.DataSource = results;
+            dgvDocument.DataSource = results;
+        }
+
+        private void txtLastName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLastName_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtLastName.Text))
+            {
+                char firstChar = txtLastName.Text[0];
+
+                // Example: put it in another TextBox
+                txtRowNo.Text = $"ROW {firstChar.ToString().ToUpper()}";
+            }
         }
     }
 }

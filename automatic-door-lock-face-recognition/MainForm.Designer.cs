@@ -33,7 +33,6 @@
             personnelRegistrationToolStripMenuItem = new ToolStripMenuItem();
             documentRegistrationToolStripMenuItem = new ToolStripMenuItem();
             dataLogsToolStripMenuItem = new ToolStripMenuItem();
-            personnelLogsToolStripMenuItem = new ToolStripMenuItem();
             documentLogsToolStripMenuItem = new ToolStripMenuItem();
             reportsToolStripMenuItem = new ToolStripMenuItem();
             documentLogsToolStripMenuItem1 = new ToolStripMenuItem();
@@ -78,22 +77,15 @@
             // 
             // dataLogsToolStripMenuItem
             // 
-            dataLogsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { personnelLogsToolStripMenuItem, documentLogsToolStripMenuItem });
+            dataLogsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { documentLogsToolStripMenuItem });
             dataLogsToolStripMenuItem.Name = "dataLogsToolStripMenuItem";
             dataLogsToolStripMenuItem.Size = new Size(71, 20);
             dataLogsToolStripMenuItem.Text = "Data Logs";
             // 
-            // personnelLogsToolStripMenuItem
-            // 
-            personnelLogsToolStripMenuItem.Name = "personnelLogsToolStripMenuItem";
-            personnelLogsToolStripMenuItem.Size = new Size(158, 22);
-            personnelLogsToolStripMenuItem.Text = "Personnel Logs";
-            personnelLogsToolStripMenuItem.Click += personnelLogsToolStripMenuItem_Click;
-            // 
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(158, 22);
+            documentLogsToolStripMenuItem.Size = new Size(180, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
@@ -123,12 +115,14 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(620, 40);
+            label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(309, 24);
             label1.Name = "label1";
-            label1.Size = new Size(253, 45);
+            label1.Size = new Size(714, 74);
             label1.TabIndex = 2;
-            label1.Text = "FACE SCANNER";
+            label1.Text = "Records Security System: Automated Door Lock Using \r\nImage Processing and RFID\r\n";
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // lblFaceScan
             // 
@@ -164,6 +158,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.ForestGreen;
             ClientSize = new Size(1344, 721);
             Controls.Add(button1);
             Controls.Add(txtTag);
@@ -191,7 +186,6 @@
         private ToolStripMenuItem personnelRegistrationToolStripMenuItem;
         private ToolStripMenuItem documentRegistrationToolStripMenuItem;
         private ToolStripMenuItem dataLogsToolStripMenuItem;
-        private ToolStripMenuItem personnelLogsToolStripMenuItem;
         private ToolStripMenuItem documentLogsToolStripMenuItem;
         private PictureBox pictureBox1;
         private Label label1;
