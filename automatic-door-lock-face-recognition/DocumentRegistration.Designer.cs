@@ -34,6 +34,7 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             groupBox2 = new GroupBox();
+            btnClearRfidTag = new Button();
             txtRFIDtag = new TextBox();
             dgvDocument = new DataGridView();
             document_information_id = new DataGridViewTextBoxColumn();
@@ -82,6 +83,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btnClearRfidTag);
             groupBox2.Controls.Add(txtRFIDtag);
             groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.White;
@@ -92,12 +94,25 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "RFID Tag";
             // 
+            // btnClearRfidTag
+            // 
+            btnClearRfidTag.ForeColor = Color.Black;
+            btnClearRfidTag.Location = new Point(451, 22);
+            btnClearRfidTag.Name = "btnClearRfidTag";
+            btnClearRfidTag.Size = new Size(39, 30);
+            btnClearRfidTag.TabIndex = 1;
+            btnClearRfidTag.Text = "X";
+            btnClearRfidTag.UseVisualStyleBackColor = true;
+            btnClearRfidTag.Click += btnClearRfidTag_Click;
+            // 
             // txtRFIDtag
             // 
             txtRFIDtag.Location = new Point(6, 23);
             txtRFIDtag.Name = "txtRFIDtag";
-            txtRFIDtag.Size = new Size(484, 29);
+            txtRFIDtag.ReadOnly = true;
+            txtRFIDtag.Size = new Size(453, 29);
             txtRFIDtag.TabIndex = 0;
+            txtRFIDtag.TextChanged += txtRFIDtag_TextChanged;
             // 
             // dgvDocument
             // 
@@ -536,5 +551,6 @@
         private DataGridViewTextBoxColumn row_num;
         private DataGridViewTextBoxColumn document_rfid_tag;
         private DataGridViewTextBoxColumn record_no;
+        private Button btnClearRfidTag;
     }
 }

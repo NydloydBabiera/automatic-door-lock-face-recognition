@@ -48,11 +48,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="records_systemDataSet.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>records_systemDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Update="records_systemDataSet1.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

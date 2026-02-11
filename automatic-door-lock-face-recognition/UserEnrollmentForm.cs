@@ -447,5 +447,10 @@ namespace automatic_door_lock_face_recognition
         {
 
         }
+
+        private void btnDelete_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

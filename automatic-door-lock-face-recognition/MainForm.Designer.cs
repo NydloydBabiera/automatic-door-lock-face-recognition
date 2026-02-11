@@ -85,7 +85,7 @@
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(180, 22);
+            documentLogsToolStripMenuItem.Size = new Size(158, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
@@ -170,6 +170,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);

@@ -254,7 +254,12 @@ namespace automatic_door_lock_face_recognition
             string data = port.ReadExisting();
             AppendTextToTextBox(data);
             var docInfo = _db.GetDocumentInformation(data.Trim());
-            //MessageBox.Show("Document Type: " + docInfo.Value.id);
+            //MessageBox.Show("Document Type: " + docInfo.Value);
+            if(docInfo != null)
+            {
+                MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+            }
+           
             if (docInfo == null)
             {
                 return;

@@ -74,6 +74,10 @@ namespace automatic_door_lock_face_recognition
 
                 report.Refresh();
                 report.Load("Reports/DocumentLogsReport.frx");
+                var conn = report.Dictionary.Connections[0];
+                conn.ConnectionString =
+                "Driver={PostgreSQL Unicode};Server=localhost;Port=5432;Database=records_system;Uid=postgres;Pwd=postgres1234;";
+
                 // 3. Prepare the report (Executes your custom SQL query)
                 if (report.Prepare())
                 {

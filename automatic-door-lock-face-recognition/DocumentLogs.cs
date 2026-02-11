@@ -38,7 +38,20 @@ namespace automatic_door_lock_face_recognition
 
         private void DocumentLogs_Load(object sender, EventArgs e)
         {
+            if (dgvDocumentLogs == null)
+            {
+                //MessageBox.Show("dgvDocument is null!");
+                return;
+            }
 
+            if (_db == null)
+            {
+                //MessageBox.Show("_db (database class) is null!");
+                return;
+            }
+
+            dgvDocumentLogs.AutoGenerateColumns = false;
+            _db.LoadDocumentLogs(dgvDocumentLogs);
         }
 
         private void button1_Click(object sender, EventArgs e)

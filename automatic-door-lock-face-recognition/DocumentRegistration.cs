@@ -33,7 +33,7 @@ namespace automatic_door_lock_face_recognition
             clearTextBoxes();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port.Open();
         }
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -274,6 +274,16 @@ namespace automatic_door_lock_face_recognition
                 // Example: put it in another TextBox
                 txtRowNo.Text = $"ROW {firstChar.ToString().ToUpper()}";
             }
+        }
+
+        private void txtRFIDtag_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearRfidTag_Click(object sender, EventArgs e)
+        {
+            txtRFIDtag.Clear();
         }
     }
 }

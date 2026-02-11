@@ -304,13 +304,13 @@ namespace automatic_door_lock_face_recognition.Classess
             }
         }
 
-        public (int id, string name, string imagePath)? GetDocumentInformation(String rfidTag)
+        public (int id, int record_no, string student_name, string course)? GetDocumentInformation(String rfidTag)
         {
             using (var conn = new NpgsqlConnection(_connStr))
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand(
-                    "SELECT document_information_id, document_rfid_tag, document_type " +
+                    "SELECT document_information_id, record_no, student_name, course " +
                     "FROM document_information " +
                     "WHERE document_rfid_tag = @rfidTag " +
                     "LIMIT 1", conn))
@@ -321,7 +321,7 @@ namespace automatic_door_lock_face_recognition.Classess
                     {
                         if (rdr.Read())
                         {
-                            return (rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2));
+                            return (rdr.GetInt32(0), rdr.GetInt32(1), rdr.GetString(2), rdr.GetString(3));
                         }
                     }
                 }
@@ -338,7 +338,9 @@ namespace automatic_door_lock_face_recognition.Classess
                 {
                     conn.Open();
 
-                    string query = "WITH numbered AS (\r\n    SELECT \r\n\t\tinf.document_type,\r\n        logs.document_information_logs_id,\r\n        logs.document_information_id,\r\n        logs.time_log,\r\n        ROW_NUMBER() OVER (PARTITION BY logs.document_information_id ORDER BY time_log, document_information_logs_id) AS rn\r\n    FROM document_information_logs logs\r\n\tinner join document_information inf on inf.document_information_id = logs.document_information_id\r\n)\r\nSELECT \r\n\tdocument_type,\r\n    document_information_logs_id,\r\n    document_information_id,\r\n    time_log,\r\n    CASE WHEN rn % 2 = 1 THEN 'out' ELSE 'in' END AS log_type,\r\n    (rn + 1) / 2 AS pair_number\r\nFROM numbered\r\nORDER BY document_information_id, rn";
+                    //string query = "WITH numbered AS (\r\n    SELECT \r\n\t\tinf.document_type,\r\n        logs.document_information_logs_id,\r\n        logs.document_information_id,\r\n        logs.time_log,\r\n        ROW_NUMBER() OVER (PARTITION BY logs.document_information_id ORDER BY time_log, document_information_logs_id) AS rn\r\n    FROM document_information_logs logs\r\n\tinner join document_information inf on inf.document_information_id = logs.document_information_id\r\n)\r\nSELECT \r\n\tdocument_type,\r\n    document_information_logs_id,\r\n    document_information_id,\r\n    time_log,\r\n    CASE WHEN rn % 2 = 1 THEN 'out' ELSE 'in' END AS log_type,\r\n    (rn + 1) / 2 AS pair_number\r\nFROM numbered\r\nORDER BY document_information_id, rn";
+                    string query = "WITH numbered AS \r\n(SELECT \r\ninf.student_name,       \r\nlogs.document_information_logs_id,       \r\nlogs.document_information_id,\r\ninf.course,\r\ninf.record_no,\r\ninf.row_num,\r\nTO_CHAR(logs.time_log, 'YYYY-MM-DD HH24:MI:SS') AS time_log,\r\nROW_NUMBER() OVER (\r\n  PARTITION BY logs.document_information_id \r\n  ORDER BY time_log, document_information_logs_id) AS rn\r\nFROM document_information_logs logs\r\ninner join document_information inf on inf.document_information_id = logs.document_information_id\r\n)\r\nSELECT student_name,\r\ndocument_information_logs_id,\r\ndocument_information_id,\r\ncourse,\r\nrecord_no,\r\nrow_num,\r\ntime_log,\r\nCASE WHEN rn % 2 = 1 THEN 'out' ELSE 'in' END AS log_type,\r\n(rn + 1) / 2 AS pair_number\r\nFROM numbered ORDER BY document_information_id, rn";
+
                     using (var da = new NpgsqlDataAdapter(query, conn))
                     {
                         DataTable dt = new DataTable();
