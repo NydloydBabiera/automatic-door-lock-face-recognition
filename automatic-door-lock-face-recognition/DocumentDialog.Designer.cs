@@ -38,7 +38,7 @@
             student_name = new DataGridViewTextBoxColumn();
             student_id = new DataGridViewTextBoxColumn();
             shelf_number = new DataGridViewTextBoxColumn();
-            document_type = new DataGridViewTextBoxColumn();
+            record_no = new DataGridViewTextBoxColumn();
             textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
             SuspendLayout();
@@ -49,6 +49,7 @@
             dgvDocument.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocument.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDocument.BackgroundColor = Color.White;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -58,7 +59,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, student_name, student_id, shelf_number, document_type });
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, student_name, student_id, shelf_number, record_no });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -119,19 +120,20 @@
             shelf_number.ReadOnly = true;
             shelf_number.Width = 250;
             // 
-            // document_type
+            // record_no
             // 
-            document_type.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            document_type.DataPropertyName = "document_type";
-            document_type.HeaderText = "Document";
-            document_type.Name = "document_type";
-            document_type.ReadOnly = true;
+            record_no.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            record_no.DataPropertyName = "record_no";
+            record_no.HeaderText = "Record no.";
+            record_no.Name = "record_no";
+            record_no.ReadOnly = true;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(14, 6);
+            textBox1.Location = new Point(14, 9);
             textBox1.Margin = new Padding(5, 6, 5, 6);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Search for student name...";
             textBox1.Size = new Size(1185, 35);
             textBox1.TabIndex = 7;
             textBox1.TextChanged += textBox1_TextChanged;
@@ -140,12 +142,16 @@
             // 
             AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.ForestGreen;
             ClientSize = new Size(1213, 742);
             Controls.Add(textBox1);
             Controls.Add(dgvDocument);
             Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(5, 6, 5, 6);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "DocumentDialog";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "DocumentDialog";
             Load += DocumentDialog_Load;
             ((System.ComponentModel.ISupportInitialize)dgvDocument).EndInit();
@@ -161,6 +167,6 @@
         private DataGridViewTextBoxColumn student_name;
         private DataGridViewTextBoxColumn student_id;
         private DataGridViewTextBoxColumn shelf_number;
-        private DataGridViewTextBoxColumn document_type;
+        private DataGridViewTextBoxColumn record_no;
     }
 }
