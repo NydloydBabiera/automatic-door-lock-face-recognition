@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace automatic_door_lock_face_recognition.Services
 
         public static int SelectedDocumentId { get; set; }
         public static string SerialPortName { get; set; } = "COM7";
+        public static SerialPort port;
 
 
     }
