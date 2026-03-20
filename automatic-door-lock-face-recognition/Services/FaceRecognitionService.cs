@@ -20,6 +20,13 @@ namespace automatic_door_lock_face_recognition.Services
         {
             _faceCascade = new CascadeClassifier(haarCascadeFile);
             _recognizer = new LBPHFaceRecognizer(1, 8, 8, 8, 100);
+            //_recognizer = new LBPHFaceRecognizer(
+            //            radius: 2,
+            //            neighbors: 16,
+            //            gridX: 8,
+            //            gridY: 8,
+            //            threshold: 70
+            //        );
         }
 
         public Rectangle[] DetectFaces(Mat frame)
@@ -27,7 +34,10 @@ namespace automatic_door_lock_face_recognition.Services
             using (var gray = new Mat())
             {
                 CvInvoke.CvtColor(frame, gray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
-                var faces = _faceCascade.DetectMultiScale(gray, 1.1, 4, Size.Empty);
+                var faces = _faceCascade.DetectMultiScale(gray,
+                                scaleFactor: 1.1,
+                                minNeighbors: 6,
+                                minSize: new Size(100, 100));
                 return faces;
             }
         }
@@ -38,6 +48,8 @@ namespace automatic_door_lock_face_recognition.Services
             var faceGray = new Mat();
             CvInvoke.CvtColor(face, faceGray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
             CvInvoke.Resize(faceGray, faceGray, new Size(200, 200));
+
+            CvInvoke.EqualizeHist(faceGray, faceGray);
             return faceGray;
         }
 

@@ -171,6 +171,9 @@ namespace automatic_door_lock_face_recognition
 
         private async void recognizeFace2()
         {
+            int countMatch = 0;
+            double threshold = 60;
+            int matchThreshold = 3;
             if (_recognizing)
             {
                 lblFaceScan.Text = "Recognizing...";
@@ -201,17 +204,26 @@ namespace automatic_door_lock_face_recognition
 
                                     Invoke(new Action(() =>
                                     {
-                                        if (name != "Unknown" && confidence > 65)
+                                        if (name != "Unknown" && confidence < threshold)
                                         {
-                                            lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                            port.WriteLine("OPEN");
-                                            System.Threading.Thread.Sleep(3000);
-                                            using(DocumentDialog documentDialog = new DocumentDialog(port))
-                                            {
-                                                CameraService.Instance.OnFrame -= Camera_OnFrame;
-                                                documentDialog.ShowDialog();
+                                            if(confidence < threshold)
+{
+                                                countMatch++;
+                                                if (countMatch >= matchThreshold)
+                                                {
+                                                    lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
+                                                    port.WriteLine("OPEN");
+                                                    System.Threading.Thread.Sleep(3000);
+                                                    using (DocumentDialog documentDialog = new DocumentDialog(port))
+                                                    {
+                                                         CameraService.Instance.OnFrame -= Camera_OnFrame;
+                                                          documentDialog.ShowDialog();
+                                                    }
+                                                    countMatch = 0;
+                                                    CameraService.Instance.OnFrame += Camera_OnFrame;
+                                                }
                                             }
-                                            CameraService.Instance.OnFrame += Camera_OnFrame;
+                                            
                                         }
                                         else
                                         {
@@ -238,13 +250,14 @@ namespace automatic_door_lock_face_recognition
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
+            port = new SerialPort(GlobalVariables.SerialPortName, 115200);
+            port.DataReceived += SerialPort_DataReceived;
+            port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
             recognizeFace2();
-            port = new SerialPort(GlobalVariables.SerialPortName, 115200);
-            port.DataReceived += SerialPort_DataReceived;
-            port.Open();
 
         }
 
@@ -254,10 +267,21 @@ namespace automatic_door_lock_face_recognition
             string data = port.ReadExisting();
             AppendTextToTextBox(data);
             var docInfo = _db.GetDocumentInformation(data.Trim());
-            //MessageBox.Show("Document Type: " + docInfo.Value);
+           /// MessageBox.Show("Document Type: " + docInfo.Value);
             if(docInfo != null)
             {
-                MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+                this.Invoke(() =>
+                {
+                    MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+                });
+                
+            }else
+            {
+                this.Invoke(() =>
+                {
+                    MessageBox.Show("Document not registered");
+                });
+                
             }
            
             if (docInfo == null)
@@ -323,7 +347,7 @@ namespace automatic_door_lock_face_recognition
 
         private void documentLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DocumentLogs documentLogs = new DocumentLogs();
+           DocumentLogs documentLogs = new DocumentLogs();
             documentLogs.ShowDialog();
         }
 

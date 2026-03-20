@@ -136,12 +136,12 @@ namespace automatic_door_lock_face_recognition
             }
         }
 
-        private void btnImageSaving_Click(object sender, EventArgs e)
+        private async void btnImageSaving_Click(object sender, EventArgs e)
         {
             //isStreaming = false;
             btnImageSaving.Enabled = false;
             btnImageSaving.Text = "Saving and training images...";
-            captureSamples();
+            await CaptureSamplesAsync();
             System.Threading.Thread.Sleep(1000);
             trainModel();
             //isStreaming = false;
@@ -185,46 +185,126 @@ namespace automatic_door_lock_face_recognition
             _db.LoadData("personnel_information", dgvPersonnels);
         }
 
-        private void captureSamples()
+        private async Task<int> CapturePoseAsync(string instruction, int samplesNeeded)
         {
-            // capture several samples from live feed
-            int samplesWanted = 5;
             int saved = 0;
-            lblCameraStream.Text = "Capturing samples...";
-            Application.DoEvents();
 
-            for (int i = 0; i < 50 && saved < samplesWanted; i++)
+            lblCameraStream.Text = instruction;
+
+            await Task.Delay(3000); // Give user time to adjust head
+
+            while (saved < samplesNeeded)
             {
-                if (pictureBox1.Image == null) { System.Threading.Thread.Sleep(100); continue; }
+                if (pictureBox1.Image == null)
+                {
+                    await Task.Delay(100);
+                    continue;
+                }
 
                 using (var bmp = new Bitmap(pictureBox1.Image))
                 using (var mat = bmp.ToMat())
                 {
                     var faces = _faceService.DetectFaces(mat);
+
                     if (faces.Length > 0)
                     {
-                        var face = faces[0];
-                        using (var faceMat = _faceService.ExtractFace(mat, face))
+                        using (var faceMat = _faceService.ExtractFace(mat, faces[0]))
                         {
-                            string fileName = $"{txtFirstName.Text.Trim()}_{txtMiddleName.Text.Trim()}_{txtLastName.Text.Trim()}_{DateTime.Now:yyyyMMdd_HHmmssfff}_{saved}.png";
+                            string fileName =
+                                $"{txtFirstName.Text.Trim()}_" +
+                                $"{DateTime.Now:yyyyMMdd_HHmmssfff}_{saved}.png";
+
                             string fullPath = Path.Combine(_samplesDir, fileName);
+
                             faceMat.Save(fullPath);
-                            //_db.InsertSample(txtFirstName.Text, fullPath);
-                            _db.AddRecord("personnel_face_records", new Dictionary<string, object>
-                            {
-                                { "personnel_information_id", GlobalVariables.PersonnelId },
-                                {"name",$"{txtFirstName.Text.Trim()}_{txtMiddleName.Text.Trim()}_{txtLastName.Text.Trim()}"  },
-                                { "image_path", fullPath }
-                            });
+
+                            _db.AddRecord("personnel_face_records",
+                                new Dictionary<string, object>
+                                {
+                            { "personnel_information_id", GlobalVariables.PersonnelId },
+                            { "name", txtFirstName.Text.Trim() },
+                            { "image_path", fullPath }
+                                });
+
                             saved++;
                         }
                     }
                 }
-                System.Threading.Thread.Sleep(400);
+
+                await Task.Delay(500);
             }
 
-            lblCameraStream.Text = $"Captured {saved} samples.";
+            return saved;
         }
+
+        private async Task CaptureSamplesAsync()
+        {
+            int totalSaved = 0;
+
+            lblCameraStream.Text = "Get ready...";
+            await Task.Delay(1500);
+
+            // FRONT
+            totalSaved += await CapturePoseAsync(
+                "Look straight at the camera",
+                10
+            );
+
+            // LEFT
+            totalSaved += await CapturePoseAsync(
+                "Tilt your head slightly to the LEFT",
+                10
+            );
+
+            // RIGHT
+            totalSaved += await CapturePoseAsync(
+                "Tilt your head slightly to the RIGHT",
+                10
+            );
+
+            lblCameraStream.Text = $"Captured {totalSaved} samples successfully!";
+        }
+
+        //private void captureSamples()
+        //{
+        //    // capture several samples from live feed
+        //    int samplesWanted = 20;
+        //    int saved = 0;
+        //    lblCameraStream.Text = "Capturing samples...";
+        //    Application.DoEvents();
+
+        //    for (int i = 0; i < 50 && saved < samplesWanted; i++)
+        //    {
+        //        if (pictureBox1.Image == null) { System.Threading.Thread.Sleep(100); continue; }
+
+        //        using (var bmp = new Bitmap(pictureBox1.Image))
+        //        using (var mat = bmp.ToMat())
+        //        {
+        //            var faces = _faceService.DetectFaces(mat);
+        //            if (faces.Length > 0)
+        //            {
+        //                var face = faces[0];
+        //                using (var faceMat = _faceService.ExtractFace(mat, face))
+        //                {
+        //                    string fileName = $"{txtFirstName.Text.Trim()}_{txtMiddleName.Text.Trim()}_{txtLastName.Text.Trim()}_{DateTime.Now:yyyyMMdd_HHmmssfff}_{saved}.png";
+        //                    string fullPath = Path.Combine(_samplesDir, fileName);
+        //                    faceMat.Save(fullPath);
+        //                    //_db.InsertSample(txtFirstName.Text, fullPath);
+        //                    _db.AddRecord("personnel_face_records", new Dictionary<string, object>
+        //                    {
+        //                        { "personnel_information_id", GlobalVariables.PersonnelId },
+        //                        {"name",$"{txtFirstName.Text.Trim()}_{txtMiddleName.Text.Trim()}_{txtLastName.Text.Trim()}"  },
+        //                        { "image_path", fullPath }
+        //                    });
+        //                    saved++;
+        //                }
+        //            }
+        //        }
+        //        System.Threading.Thread.Sleep(400);
+        //    }
+
+        //    lblCameraStream.Text = $"Captured {saved} samples.";
+        //}
 
         private void trainModel()
         {
@@ -253,7 +333,13 @@ namespace automatic_door_lock_face_recognition
             _faceService.TrainFromFiles(labeledFiles);
 
             // --- SAVE TRAINED MODEL AND LABEL MAP ---
-            string appData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FaceRecognitionApp");
+            string appName = System.Reflection.Assembly
+            .GetExecutingAssembly()
+            .GetName()
+            .Name;
+
+             string appData = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appName);
+            //string appData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FaceRecognitionApp");
             Directory.CreateDirectory(appData);
 
             string modelPath = Path.Combine(appData, "trainedModel.yml");
@@ -445,12 +531,169 @@ namespace automatic_door_lock_face_recognition
 
         private void btnReloadCamera_Click_1(object sender, EventArgs e)
         {
-
+            cameraStream();
         }
 
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
+            var isConfirmed = MessageBox.Show(
+               "Are you sure you want to delete this record? This action cannot be undone.",
+               "Confirm Deletion",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Warning
+           );
 
+            if (isConfirmed.Equals(DialogResult.Yes))
+            {
+                MessageBox.Show($"Deleting:{GlobalVariables.SelectedPersonnelId}");
+                _db.DeletePersonRecordsAndFiles(GlobalVariables.SelectedPersonnelId);
+                LoadUserGrid();
+                buttonsDefaultState();
+            }
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            isEditMode = false;
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
+            btnImageSaving.Enabled = true;
+            btnReloadCamera.Enabled = true;
+            btnCancel.Enabled = true;
+
+            textboxesEnable();
+
+            clearTextBoxes();
+        }
+
+        private async void btnSave_Click_1(object sender, EventArgs e)
+        {
+            if (isEditMode)
+            {
+                var columns = new Dictionary<string, object>
+                {
+                    { "first_name", txtFirstName.Text.Trim() },
+                    { "middle_name",txtMiddleName.Text.Trim() },
+                    { "last_name", txtLastName.Text.Trim() },
+                    { "designation",txtDesignation.Text.Trim() },
+                };
+                {
+
+                }
+                  ;
+
+                int updated = await _db.UpdateRowAsync(
+                    "personnel_information",
+                    "personnel_information_id",
+                    GlobalVariables.SelectedPersonnelId,         // key value
+                    columns
+                );
+
+                if (updated == 1)
+                {
+                    MessageBox.Show("Data updated successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Update failed or no matching row.");
+                }
+            }
+            else
+            {
+                _db.AddRecord("personnel_information", new Dictionary<string, object>
+                {
+                    { "first_name", txtFirstName.Text.Trim() },
+                    { "middle_name", txtMiddleName.Text.Trim() },
+                    { "last_name", txtLastName.Text.Trim() },
+                    { "designation", txtDesignation.Text.Trim() },
+                });
+                MessageBox.Show("✅ Record successfully saved!", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            LoadUserGrid();
+            CameraService.Instance.OnFrame += Camera_OnFrame;
+            btnImageSaving.Enabled = true;
+            btnReloadCamera.Enabled = true;
+            buttonsDefaultState();
+            textboxesDefaultState();
+            dgvPersonnels.Enabled = true;
+            cameraStream();
+        }
+
+        private void btnEdit_Click_1(object sender, EventArgs e)
+        {
+            txtFirstName.Text = dgvPersonnels.CurrentRow.Cells["first_name"].Value.ToString();
+            txtMiddleName.Text = dgvPersonnels.CurrentRow.Cells["middle_name"].Value.ToString();
+            txtLastName.Text = dgvPersonnels.CurrentRow.Cells["last_name"].Value.ToString();
+            txtDesignation.Text = dgvPersonnels.CurrentRow.Cells["designation"].Value.ToString();
+
+            txtDesignation.Enabled = true;
+            txtFirstName.Enabled = true;
+            txtMiddleName.Enabled = true;
+            txtLastName.Enabled = true;
+            txtDesignation.Enabled = true;
+
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = true;
+            btnSave.Enabled = true;
+            btnImageSaving.Enabled = false;
+            btnReloadCamera.Enabled = false;
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            isEditMode = false;
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
+            btnImageSaving.Enabled = true;
+            btnReloadCamera.Enabled = true;
+            btnCancel.Enabled = true;
+
+            textboxesEnable();
+
+            clearTextBoxes();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnImageSaving_Click_1(object sender, EventArgs e)
+        {
+            btnImageSaving.Enabled = false;
+            btnImageSaving.Text = "Saving and training images...";
+            await CaptureSamplesAsync();
+            System.Threading.Thread.Sleep(1000);
+            trainModel();
+            //isStreaming = false;
+            btnImageSaving.Text = "Capture Image";
+            btnImageSaving.Enabled = true;
+            _camera.Stop();
+            //if(isStreaming == false)
+            //{
+            //    isStreaming = true;
+            //    btnImageSaving.Text = "Capture Image";
+            //    cameraStream();
+            //}
+            //if(isStreaming == true)
+            //{
+            //    //isStreaming = false;
+            //    btnImageSaving.Enabled = false;
+            //    //btnImageSaving.Text = "Open Camera";
+            //    captureSamples();
+            //    System.Threading.Thread.Sleep(1000);
+            //    trainModel();
+            //    isStreaming = false;
+            //    btnImageSaving.Text = "Open Camera";
+            //    btnImageSaving.Enabled = true;
+            //}
         }
     }
 }

@@ -118,7 +118,7 @@ namespace automatic_door_lock_face_recognition
                         { "record_no", long.Parse(txtRecordNo.Text.Trim()) },
                         { "shelf_number", long.Parse(txtShelfNumber.Text.Trim()) },
                         { "student_name", $"{txtStudentName.Text.Trim()} {txtMiddleName.Text.Trim()} {txtLastName.Text.Trim()}" },
-                        { "student_id", long.Parse(txtStudentID.Text.Trim()) },
+                        { "student_id", txtStudentID.Text.Trim() },
                         { "course", txtCourse.Text.Trim() },
                         { "row_num", txtRowNo.Text.Trim() }
                     });

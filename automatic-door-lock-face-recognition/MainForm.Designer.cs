@@ -133,7 +133,6 @@
             lblFaceScan.Size = new Size(52, 21);
             lblFaceScan.TabIndex = 3;
             lblFaceScan.Text = "label2";
-            lblFaceScan.Visible = false;
             // 
             // txtTag
             // 

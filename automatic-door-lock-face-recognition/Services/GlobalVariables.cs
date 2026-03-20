@@ -13,11 +13,11 @@ namespace automatic_door_lock_face_recognition.Services
 
         public static FaceRecognitionService FaceService;
         public static Dictionary<int, string> LabelToName;
-        //public static bool IsTrained => FaceService != null && LabelToName != null && LabelToName.Count > 0;
+       // public static bool IsTrained => FaceService != null && LabelToName != null && LabelToName.Count > 0;
         public static bool IsTrained { get; set; }
         public static string TrainedModelPath { get; set; }
         public static string LabelsPath { get; set; }
-        public static string CameralUrl { get; set; } = "http://192.168.254.131:81/stream";
+        public static string CameralUrl { get; set; } = "http://172.30.0.100:81/stream";
         public static int SelectedPersonnelId { get; set; }
 
         public static int SelectedDocumentId { get; set; }

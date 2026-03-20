@@ -47,7 +47,7 @@ namespace automatic_door_lock_face_recognition
         private void DocumentDialog_Load(object sender, EventArgs e)
         {
             dgvDocument.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            LoadUserGrid(); 
+            LoadUserGrid();
         }
 
         private void dgvDocument_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -83,6 +83,11 @@ namespace automatic_door_lock_face_recognition
             );
 
             dgvDocument.DataSource = results;
+        }
+
+        private void dgvDocument_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

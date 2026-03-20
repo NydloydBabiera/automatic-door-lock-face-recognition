@@ -143,6 +143,7 @@
             pictureBox1.Size = new Size(515, 356);
             pictureBox1.TabIndex = 27;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // btnCancel
             // 
@@ -155,6 +156,7 @@
             btnCancel.TabIndex = 35;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click_1;
             // 
             // btnReloadCamera
             // 
@@ -176,6 +178,7 @@
             btnImageSaving.TabIndex = 32;
             btnImageSaving.Text = "CAPTURE IMAGE";
             btnImageSaving.UseVisualStyleBackColor = true;
+            btnImageSaving.Click += btnImageSaving_Click_1;
             // 
             // btnDelete
             // 
@@ -201,6 +204,7 @@
             btnEdit.TabIndex = 30;
             btnEdit.Text = "EDIT";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click_1;
             // 
             // btnSave
             // 
@@ -213,6 +217,7 @@
             btnSave.TabIndex = 29;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click_1;
             // 
             // btnAdd
             // 
@@ -225,6 +230,7 @@
             btnAdd.TabIndex = 28;
             btnAdd.Text = "ADD";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // txtDesignation
             // 
@@ -340,6 +346,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "UserEnrollmentForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UserEnrollmentForm";
             FormClosing += UserEnrollmentForm_FormClosing;
             Load += UserEnrollmentForm_Load;

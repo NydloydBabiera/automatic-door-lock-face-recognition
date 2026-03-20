@@ -1,4 +1,5 @@
-﻿namespace automatic_door_lock_face_recognition
+﻿
+namespace automatic_door_lock_face_recognition
 {
     partial class DocumentDialog
     {
@@ -87,6 +88,7 @@
             dgvDocument.Size = new Size(1185, 667);
             dgvDocument.TabIndex = 6;
             dgvDocument.CellClick += dgvDocument_CellClick;
+            dgvDocument.CellContentClick += dgvDocument_CellContentClick;
             // 
             // document_information_id
             // 
