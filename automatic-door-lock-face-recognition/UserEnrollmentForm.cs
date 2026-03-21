@@ -28,7 +28,7 @@ namespace automatic_door_lock_face_recognition
         public UserEnrollmentForm()
         {
             InitializeComponent();
-            lblCameraStream.Text = GlobalVariables.CameralUrl;
+            //lblCameraStream.Text = GlobalVariables.CameralUrl;
             _camera = new CameraService();
             _camera.OnFrame += Camera_OnFrame;
 
@@ -354,7 +354,8 @@ namespace automatic_door_lock_face_recognition
             GlobalVariables.TrainedModelPath = modelPath;
             GlobalVariables.LabelsPath = labelsPath;
 
-            lblCameraStream.Text = $"Trained on {labeledFiles.Count} samples, {nameToLabel.Count} people.";
+            //lblCameraStream.Text = $"Trained on {labeledFiles.Count} samples, {nameToLabel.Count} people.";
+            lblCameraStream.Text = "Face Registered";
         }
 
         private void btnReloadCamera_Click(object sender, EventArgs e)

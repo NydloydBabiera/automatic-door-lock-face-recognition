@@ -227,6 +227,7 @@ namespace automatic_door_lock_face_recognition
                                         }
                                         else
                                         {
+                                            lblFaceScan.ForeColor = Color.Red;
                                             lblFaceScan.Text = $"Unknown face (conf: {confidence:F1})";
                                         }
                                     }));
@@ -272,14 +273,14 @@ namespace automatic_door_lock_face_recognition
             {
                 this.Invoke(() =>
                 {
-                    MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+                    //MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
                 });
                 
             }else
             {
                 this.Invoke(() =>
                 {
-                    MessageBox.Show("Document not registered");
+                    //MessageBox.Show("Document not registered");
                 });
                 
             }

@@ -127,16 +127,16 @@
             // lblFaceScan
             // 
             lblFaceScan.AutoSize = true;
-            lblFaceScan.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFaceScan.Location = new Point(532, 630);
+            lblFaceScan.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFaceScan.Location = new Point(819, 629);
             lblFaceScan.Name = "lblFaceScan";
-            lblFaceScan.Size = new Size(52, 21);
+            lblFaceScan.Size = new Size(105, 45);
             lblFaceScan.TabIndex = 3;
             lblFaceScan.Text = "label2";
             // 
             // txtTag
             // 
-            txtTag.Location = new Point(532, 669);
+            txtTag.Location = new Point(532, 686);
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
@@ -144,7 +144,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1022, 663);
+            button1.Location = new Point(1022, 680);
             button1.Name = "button1";
             button1.Size = new Size(118, 33);
             button1.TabIndex = 5;
