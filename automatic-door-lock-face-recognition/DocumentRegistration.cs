@@ -23,6 +23,18 @@ namespace automatic_door_lock_face_recognition
             InitializeComponent();
             _db = new DBPostgress(GlobalVariables.DbConnString);
             LoadUserGrid();
+
+            txtRecordNo.EnableAutoCapitalize();
+            txtRFIDtag.EnableAutoCapitalize();
+            txtStudentName.EnableAutoCapitalize();
+            txtShelfNumber.EnableAutoCapitalize();
+            txtStudentID.EnableAutoCapitalize();
+            txtRowNo.EnableAutoCapitalize();
+            txtMiddleName.EnableAutoCapitalize();
+            txtLastName.EnableAutoCapitalize();
+            txtCourse.EnableAutoCapitalize();
+
+
         }
 
         private void DocumentRegistration_Load(object sender, EventArgs e)
@@ -33,7 +45,7 @@ namespace automatic_door_lock_face_recognition
             clearTextBoxes();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port.Open();
         }
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {

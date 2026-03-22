@@ -41,6 +41,12 @@ namespace automatic_door_lock_face_recognition
             string cascadePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "haarcascade_frontalface_default.xml");
             _faceService = new FaceRecognitionService(cascadePath);
 
+            txtFirstName.EnableAutoCapitalize();
+            txtMiddleName.EnableAutoCapitalize();
+            txtLastName.EnableAutoCapitalize();
+            txtDesignation.EnableAutoCapitalize();
+            txtPhoneNo.EnableAutoCapitalize();
+
 
 
         }
