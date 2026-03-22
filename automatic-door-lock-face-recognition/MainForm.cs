@@ -176,6 +176,7 @@ namespace automatic_door_lock_face_recognition
             int matchThreshold = 3;
             if (_recognizing)
             {
+                lblFaceScan.ForeColor = Color.Black;
                 lblFaceScan.Text = "Recognizing...";
                 while (_recognizing)
                 {
@@ -211,6 +212,7 @@ namespace automatic_door_lock_face_recognition
                                                 countMatch++;
                                                 if (countMatch >= matchThreshold)
                                                 {
+                                                    lblFaceScan.ForeColor = Color.Black;
                                                     lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
                                                     port.WriteLine("OPEN");
                                                     System.Threading.Thread.Sleep(3000);
@@ -236,7 +238,11 @@ namespace automatic_door_lock_face_recognition
                         }
                         else
                         {
-                            Invoke(new Action(() => lblFaceScan.Text = "No face detected"));
+                            Invoke(() =>
+                            {
+                                lblFaceScan.ForeColor = Color.Black;
+                                lblFaceScan.Text = "No face detected";
+                            });
                         }
                     }
 

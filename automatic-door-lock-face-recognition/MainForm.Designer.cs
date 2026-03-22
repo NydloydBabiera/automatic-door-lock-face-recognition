@@ -128,11 +128,12 @@
             // 
             lblFaceScan.AutoSize = true;
             lblFaceScan.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFaceScan.Location = new Point(819, 629);
+            lblFaceScan.Location = new Point(574, 619);
             lblFaceScan.Name = "lblFaceScan";
             lblFaceScan.Size = new Size(105, 45);
             lblFaceScan.TabIndex = 3;
             lblFaceScan.Text = "label2";
+            lblFaceScan.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtTag
             // 
