@@ -68,7 +68,7 @@ namespace automatic_door_lock_face_recognition
                 //{
                 //    connection.ConnectionString = "your_runtime_connection_string_here";
                 //}
-                MessageBox.Show($"{start}- {end}");
+                //MessageBox.Show($"{start}- {end}");
                 report.SetParameterValue("StartDate", start);
                 report.SetParameterValue("EndDate", end);
 

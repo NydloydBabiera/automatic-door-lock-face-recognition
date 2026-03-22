@@ -260,7 +260,7 @@ namespace automatic_door_lock_face_recognition
 
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
@@ -279,7 +279,7 @@ namespace automatic_door_lock_face_recognition
             {
                 this.Invoke(() =>
                 {
-                    //MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+                    MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
                 });
                 
             }else
@@ -393,8 +393,43 @@ namespace automatic_door_lock_face_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
-            //MessageBox.Show("Document Type: " + docInfo.Value.id);
+            string data = txtTag.Text.Trim();
+            var docInfo = _db.GetDocumentInformation(data.Trim());
+            /// MessageBox.Show("Document Type: " + docInfo.Value);
+            if (docInfo != null)
+            {
+                string message =
+                    $"Record No.: {docInfo.Value.record_no}\n" +
+                    $"Student: {docInfo.Value.student_name}\n" +
+                    $"Course: {docInfo.Value.course}";
+                this.Invoke(() =>
+                {
+                    var toast = new Toast(
+                           "📄 Document Found",
+                           message,
+                           Color.LightGreen, // success color
+                           5000 // 5 seconds
+                       );
+                    toast.Show();
+                });
+
+            }
+            else
+            {
+                this.Invoke(() =>
+                {
+                    var toast = new Toast(
+                       "❌ Not Registered",
+                       "Document not found in database",
+                       Color.LightCoral,
+                       10000 // 10 sec
+                   );
+                    
+                    toast.Show();
+                });
+
+            }
+
             if (docInfo == null)
             {
                 return;
@@ -403,6 +438,17 @@ namespace automatic_door_lock_face_recognition
             {
                 { "document_information_id", docInfo.Value.id }
             });
+            //var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
+            ////MessageBox.Show("Document Type: " + docInfo.Value.id);
+            //if (docInfo == null)
+            //{
+            //    return;
+            //}
+            //_db.AddRecord("document_information_logs", new Dictionary<string, object>
+            //{
+            //    { "document_information_id", docInfo.Value.id }
+            //});
+
         }
 
         private void documentLogsToolStripMenuItem1_Click(object sender, EventArgs e)
