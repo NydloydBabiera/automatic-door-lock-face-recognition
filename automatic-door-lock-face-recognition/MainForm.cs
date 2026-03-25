@@ -207,8 +207,8 @@ namespace automatic_door_lock_face_recognition
                                     {
                                         if (name != "Unknown" && confidence < threshold)
                                         {
-                                            if(confidence < threshold)
-{
+                                            if (confidence < threshold)
+                                            {
                                                 countMatch++;
                                                 if (countMatch >= matchThreshold)
                                                 {
@@ -218,14 +218,14 @@ namespace automatic_door_lock_face_recognition
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
                                                     {
-                                                         CameraService.Instance.OnFrame -= Camera_OnFrame;
-                                                          documentDialog.ShowDialog();
+                                                        CameraService.Instance.OnFrame -= Camera_OnFrame;
+                                                        documentDialog.ShowDialog();
                                                     }
                                                     countMatch = 0;
                                                     CameraService.Instance.OnFrame += Camera_OnFrame;
                                                 }
                                             }
-                                            
+
                                         }
                                         else
                                         {
@@ -260,7 +260,7 @@ namespace automatic_door_lock_face_recognition
 
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
@@ -271,26 +271,56 @@ namespace automatic_door_lock_face_recognition
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            //try daw ulit
             string data = port.ReadExisting();
+            //port.Close();
+            //System.Threading.Thread.Sleep(1000);
             AppendTextToTextBox(data);
             var docInfo = _db.GetDocumentInformation(data.Trim());
-           /// MessageBox.Show("Document Type: " + docInfo.Value);
-            if(docInfo != null)
+            ///MessageBox.Show("Document Type: " + docInfo.Value);
+            if (docInfo != null)
             {
+                string message =
+                    $"Record No.: {docInfo.Value.record_no}\n" +
+                    $"Student: {docInfo.Value.student_name}\n" +
+                    $"Course: {docInfo.Value.course}";
                 this.Invoke(() =>
                 {
-                    MessageBox.Show($"Record no.:{docInfo.Value.record_no}, Student: {docInfo.Value.student_name}, Course: {docInfo.Value.course}");
+                    var toast = new Toast(
+                           "📄 Document Found ",
+                           message,
+                           Color.LightGreen, // success color
+                           2000 // 5 seconds new is 2sec
+                       );
+                    toast.Show();
                 });
-                
-            }else
-            {
-                this.Invoke(() =>
-                {
-                    //MessageBox.Show("Document not registered");
-                });
-                
+
             }
-           
+            else
+            {
+                this.Invoke(() =>
+                {
+                    var toast = new Toast(
+                       "❌ Not Registered",
+                       "Document not found in database",
+                       Color.LightCoral,
+                       5000 // 10 sec new is 5sec
+                   );
+
+                    toast.Show();
+                });
+
+            }
+
+            if (docInfo == null)
+            {
+                return;
+            }
+            _db.AddRecord("document_information_logs", new Dictionary<string, object>
+            {
+                { "document_information_id", docInfo.Value.id }
+            });
+
             if (docInfo == null)
             {
                 return;
@@ -354,7 +384,7 @@ namespace automatic_door_lock_face_recognition
 
         private void documentLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           DocumentLogs documentLogs = new DocumentLogs();
+            DocumentLogs documentLogs = new DocumentLogs();
             documentLogs.ShowDialog();
         }
 
@@ -424,7 +454,7 @@ namespace automatic_door_lock_face_recognition
                        Color.LightCoral,
                        10000 // 10 sec
                    );
-                    
+
                     toast.Show();
                 });
 
@@ -457,6 +487,11 @@ namespace automatic_door_lock_face_recognition
             {
                 enrollmentForm.ShowDialog();
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -25,7 +25,7 @@ namespace automatic_door_lock_face_recognition
             LoadUserGrid();
 
             txtRecordNo.EnableAutoCapitalize();
-            txtRFIDtag.EnableAutoCapitalize();
+            ///txtRFIDtag.EnableAutoCapitalize();
             txtStudentName.EnableAutoCapitalize();
             txtShelfNumber.EnableAutoCapitalize();
             txtStudentID.EnableAutoCapitalize();
@@ -45,7 +45,7 @@ namespace automatic_door_lock_face_recognition
             clearTextBoxes();
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port.Open();
         }
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {

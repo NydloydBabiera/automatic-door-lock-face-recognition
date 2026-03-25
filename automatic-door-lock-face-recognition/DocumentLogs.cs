@@ -76,5 +76,10 @@ namespace automatic_door_lock_face_recognition
         {
 
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

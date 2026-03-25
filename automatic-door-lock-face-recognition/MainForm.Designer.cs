@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             menuStrip1 = new MenuStrip();
             registrationToolStripMenuItem = new ToolStripMenuItem();
             personnelRegistrationToolStripMenuItem = new ToolStripMenuItem();
@@ -41,8 +42,10 @@
             lblFaceScan = new Label();
             txtTag = new TextBox();
             button1 = new Button();
+            ndtclogo = new PictureBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ndtclogo).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -141,6 +144,7 @@
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
+            txtTag.Visible = false;
             // 
             // button1
             // 
@@ -150,7 +154,21 @@
             button1.TabIndex = 5;
             button1.Text = "test add logs";
             button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
             button1.Click += button1_Click;
+            // 
+            // ndtclogo
+            // 
+            ndtclogo.BackColor = Color.Transparent;
+            ndtclogo.BackgroundImageLayout = ImageLayout.None;
+            ndtclogo.Image = (Image)resources.GetObject("ndtclogo.Image");
+            ndtclogo.Location = new Point(222, 27);
+            ndtclogo.Name = "ndtclogo";
+            ndtclogo.Size = new Size(93, 74);
+            ndtclogo.SizeMode = PictureBoxSizeMode.Zoom;
+            ndtclogo.TabIndex = 6;
+            ndtclogo.TabStop = false;
+            ndtclogo.Click += pictureBox2_Click;
             // 
             // MainForm
             // 
@@ -158,12 +176,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.ForestGreen;
             ClientSize = new Size(1344, 721);
+            Controls.Add(pictureBox1);
             Controls.Add(button1);
             Controls.Add(txtTag);
             Controls.Add(lblFaceScan);
             Controls.Add(label1);
-            Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
+            Controls.Add(ndtclogo);
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -174,6 +193,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ndtclogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -193,5 +213,6 @@
         private ToolStripMenuItem reportsToolStripMenuItem;
         private ToolStripMenuItem documentLogsToolStripMenuItem1;
         private Button button1;
+        private PictureBox ndtclogo;
     }
 }
