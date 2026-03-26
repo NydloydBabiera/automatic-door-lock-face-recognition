@@ -214,6 +214,7 @@ namespace automatic_door_lock_face_recognition
                                                 {
                                                     lblFaceScan.ForeColor = Color.Black;
                                                     lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
+                                                    GlobalVariables.personnelEntered = name;
                                                     port.WriteLine("OPEN");
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
@@ -283,16 +284,18 @@ namespace automatic_door_lock_face_recognition
                 string message =
                     $"Record No.: {docInfo.Value.record_no}\n" +
                     $"Student: {docInfo.Value.student_name}\n" +
-                    $"Course: {docInfo.Value.course}";
+                    $"Course: {docInfo.Value.course}\n" +
+                    $"Personnel: {GlobalVariables.personnelEntered}";
                 this.Invoke(() =>
-                {
-                    var toast = new Toast(
-                           "📄 Document Found ",
-                           message,
-                           Color.LightGreen, // success color
-                           2000 // 5 seconds new is 2sec
-                       );
-                    toast.Show();
+                { 
+                    MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //var toast = new Toast(
+                    //       "📄 Document Found ",
+                    //       message,
+                    //       Color.LightGreen, // success color
+                    //       2000 // 5 seconds new is 2sec
+                    //   );
+                    //toast.Show();
                 });
 
             }
@@ -300,14 +303,15 @@ namespace automatic_door_lock_face_recognition
             {
                 this.Invoke(() =>
                 {
-                    var toast = new Toast(
-                       "❌ Not Registered",
-                       "Document not found in database",
-                       Color.LightCoral,
-                       5000 // 10 sec new is 5sec
-                   );
+                    MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // var toast = new Toast(
+                    //    "❌ Not Registered",
+                    //    "Document not found in database",
+                    //    Color.LightCoral,
+                    //    5000 // 10 sec new is 5sec
+                    //);
 
-                    toast.Show();
+                    // toast.Show();
                 });
 
             }
@@ -423,24 +427,32 @@ namespace automatic_door_lock_face_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //using (DocumentDialog documentDialog = new DocumentDialog(port))
+            //{
+            //    //CameraService.Instance.OnFrame -= Camera_OnFrame;
+            //    documentDialog.ShowDialog();
+            //}
             string data = txtTag.Text.Trim();
             var docInfo = _db.GetDocumentInformation(data.Trim());
             /// MessageBox.Show("Document Type: " + docInfo.Value);
+            GlobalVariables.personnelEntered = "Test Personnel"; // Set this to the actual personnel name from face recognition
             if (docInfo != null)
             {
                 string message =
                     $"Record No.: {docInfo.Value.record_no}\n" +
                     $"Student: {docInfo.Value.student_name}\n" +
-                    $"Course: {docInfo.Value.course}";
+                    $"Course: {docInfo.Value.course}\n" +
+                    $"Personnel: {GlobalVariables.personnelEntered}";
                 this.Invoke(() =>
                 {
-                    var toast = new Toast(
-                           "📄 Document Found",
-                           message,
-                           Color.LightGreen, // success color
-                           5000 // 5 seconds
-                       );
-                    toast.Show();
+                    MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //var toast = new Toast(
+                    //       "📄 Document Found",
+                    //       message,
+                    //       Color.LightGreen, // success color
+                    //       5000 // 5 seconds
+                    //   );
+                    //toast.Show();
                 });
 
             }
@@ -448,26 +460,27 @@ namespace automatic_door_lock_face_recognition
             {
                 this.Invoke(() =>
                 {
-                    var toast = new Toast(
-                       "❌ Not Registered",
-                       "Document not found in database",
-                       Color.LightCoral,
-                       10000 // 10 sec
-                   );
+                    MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // var toast = new Toast(
+                    //    "❌ Not Registered",
+                    //    "Document not found in database",
+                    //    Color.LightCoral,
+                    //    10000 // 10 sec
+                    //);
 
-                    toast.Show();
+                    // toast.Show();
                 });
 
             }
 
-            if (docInfo == null)
-            {
-                return;
-            }
-            _db.AddRecord("document_information_logs", new Dictionary<string, object>
-            {
-                { "document_information_id", docInfo.Value.id }
-            });
+            //if (docInfo == null)
+            //{
+            //    return;
+            //}
+            //_db.AddRecord("document_information_logs", new Dictionary<string, object>
+            //{
+            //    { "document_information_id", docInfo.Value.id }
+            //});
             //var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
             ////MessageBox.Show("Document Type: " + docInfo.Value.id);
             //if (docInfo == null)

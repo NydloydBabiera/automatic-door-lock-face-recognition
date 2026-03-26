@@ -35,12 +35,13 @@ namespace automatic_door_lock_face_recognition
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             dgvDocument = new DataGridView();
+            textBox1 = new TextBox();
             document_information_id = new DataGridViewTextBoxColumn();
-            student_name = new DataGridViewTextBoxColumn();
-            student_id = new DataGridViewTextBoxColumn();
             shelf_number = new DataGridViewTextBoxColumn();
             record_no = new DataGridViewTextBoxColumn();
-            textBox1 = new TextBox();
+            student_name = new DataGridViewTextBoxColumn();
+            student_id = new DataGridViewTextBoxColumn();
+            course = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvDocument).BeginInit();
             SuspendLayout();
             // 
@@ -60,7 +61,7 @@ namespace automatic_door_lock_face_recognition
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, student_name, student_id, shelf_number, record_no });
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, shelf_number, record_no, student_name, student_id, course });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -91,28 +92,22 @@ namespace automatic_door_lock_face_recognition
             dgvDocument.CellClick += dgvDocument_CellClick;
             dgvDocument.CellContentClick += dgvDocument_CellContentClick;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(14, 9);
+            textBox1.Margin = new Padding(5, 6, 5, 6);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Search for student name...";
+            textBox1.Size = new Size(1185, 35);
+            textBox1.TabIndex = 7;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
             // document_information_id
             // 
             document_information_id.DataPropertyName = "document_information_id";
             document_information_id.HeaderText = "ID";
             document_information_id.Name = "document_information_id";
             document_information_id.ReadOnly = true;
-            // 
-            // student_name
-            // 
-            student_name.DataPropertyName = "student_name";
-            student_name.HeaderText = "Student";
-            student_name.Name = "student_name";
-            student_name.ReadOnly = true;
-            student_name.Width = 250;
-            // 
-            // student_id
-            // 
-            student_id.DataPropertyName = "student_id";
-            student_id.HeaderText = "Student ID";
-            student_id.Name = "student_id";
-            student_id.ReadOnly = true;
-            student_id.Width = 250;
             // 
             // shelf_number
             // 
@@ -130,15 +125,28 @@ namespace automatic_door_lock_face_recognition
             record_no.Name = "record_no";
             record_no.ReadOnly = true;
             // 
-            // textBox1
+            // student_name
             // 
-            textBox1.Location = new Point(14, 9);
-            textBox1.Margin = new Padding(5, 6, 5, 6);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Search for student name...";
-            textBox1.Size = new Size(1185, 35);
-            textBox1.TabIndex = 7;
-            textBox1.TextChanged += textBox1_TextChanged;
+            student_name.DataPropertyName = "student_name";
+            student_name.HeaderText = "Student";
+            student_name.Name = "student_name";
+            student_name.ReadOnly = true;
+            student_name.Width = 250;
+            // 
+            // student_id
+            // 
+            student_id.DataPropertyName = "student_id";
+            student_id.HeaderText = "Student ID";
+            student_id.Name = "student_id";
+            student_id.ReadOnly = true;
+            student_id.Width = 250;
+            // 
+            // course
+            // 
+            course.DataPropertyName = "course";
+            course.HeaderText = "Course";
+            course.Name = "course";
+            course.ReadOnly = true;
             // 
             // DocumentDialog
             // 
@@ -154,7 +162,7 @@ namespace automatic_door_lock_face_recognition
             MinimizeBox = false;
             Name = "DocumentDialog";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "DocumentDialog";
+            Text = "re";
             Load += DocumentDialog_Load;
             ((System.ComponentModel.ISupportInitialize)dgvDocument).EndInit();
             ResumeLayout(false);
@@ -166,9 +174,10 @@ namespace automatic_door_lock_face_recognition
         private DataGridView dgvDocument;
         private TextBox textBox1;
         private DataGridViewTextBoxColumn document_information_id;
-        private DataGridViewTextBoxColumn student_name;
-        private DataGridViewTextBoxColumn student_id;
         private DataGridViewTextBoxColumn shelf_number;
         private DataGridViewTextBoxColumn record_no;
+        private DataGridViewTextBoxColumn student_name;
+        private DataGridViewTextBoxColumn student_id;
+        private DataGridViewTextBoxColumn course;
     }
 }

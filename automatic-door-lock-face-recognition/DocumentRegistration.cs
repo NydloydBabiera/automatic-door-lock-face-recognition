@@ -297,5 +297,37 @@ namespace automatic_door_lock_face_recognition
         {
             txtRFIDtag.Clear();
         }
+
+        private void txtRecordNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Block non-numeric input
+            }
+        }
+
+        private void txtRecordNo_TextChanged(object sender, EventArgs e)
+        {
+            //if (int.TryParse(txtRecordNo.Text, out int value))
+            //{
+            //    if (value < 10)
+            //    {
+            //        int cursorPosition = txtRecordNo.SelectionStart;
+
+            //        txtRecordNo.TextChanged -= txtRecordNo_TextChanged; // prevent loop
+            //        txtRecordNo.Text = value.ToString("D2"); // format to 2 digits
+            //        txtRecordNo.SelectionStart = txtRecordNo.Text.Length; // keep cursor at end
+            //        txtRecordNo.TextChanged += txtRecordNo_TextChanged;
+            //    }
+            //}
+        }
+
+        private void txtRecordNo_Leave(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtRecordNo.Text, out int value))
+            {
+                txtRecordNo.Text = value.ToString("D2");
+            }
+        }
     }
 }

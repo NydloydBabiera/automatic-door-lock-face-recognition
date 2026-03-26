@@ -60,7 +60,6 @@ namespace automatic_door_lock_face_recognition
 
             string shelf_number = row.Cells["shelf_number"].Value?.ToString();
             string student_name = row.Cells["student_name"].Value?.ToString();
-            MessageBox.Show($"shelf_number:{shelf_number}");
             var isConfirmed = MessageBox.Show(
              $"Get document for student {student_name} in shelf number {shelf_number}",
              "Confirm Deletion",

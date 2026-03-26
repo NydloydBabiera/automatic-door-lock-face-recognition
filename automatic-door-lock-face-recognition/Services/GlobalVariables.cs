@@ -24,6 +24,7 @@ namespace automatic_door_lock_face_recognition.Services
         public static int SelectedDocumentId { get; set; }
         public static string SerialPortName { get; set; } = "COM7";
         public static SerialPort port;
+        public static string personnelEntered { get; set; }
 
 
     }

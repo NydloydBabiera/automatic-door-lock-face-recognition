@@ -144,7 +144,6 @@
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(438, 23);
             txtTag.TabIndex = 4;
-            txtTag.Visible = false;
             // 
             // button1
             // 
@@ -154,7 +153,6 @@
             button1.TabIndex = 5;
             button1.Text = "test add logs";
             button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // ndtclogo

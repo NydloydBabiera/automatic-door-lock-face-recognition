@@ -423,6 +423,9 @@
             txtRecordNo.Name = "txtRecordNo";
             txtRecordNo.Size = new Size(484, 29);
             txtRecordNo.TabIndex = 0;
+            txtRecordNo.TextChanged += txtRecordNo_TextChanged;
+            txtRecordNo.KeyPress += txtRecordNo_KeyPress;
+            txtRecordNo.Leave += txtRecordNo_Leave;
             // 
             // groupBox1
             // 
