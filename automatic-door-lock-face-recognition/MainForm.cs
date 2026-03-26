@@ -28,6 +28,7 @@ namespace automatic_door_lock_face_recognition
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
         private SerialPort port;
         private Image _latestImage;
+        private bool isProcessing = false;
         public MainForm()
         {
             InitializeComponent();
@@ -269,12 +270,8 @@ namespace automatic_door_lock_face_recognition
 
         }
 
-
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private async void ProcessData( string data)
         {
-            //try daw ulit
-            string data = port.ReadExisting();
-            //port.Close();
             //System.Threading.Thread.Sleep(1000);
             AppendTextToTextBox(data);
             var docInfo = _db.GetDocumentInformation(data.Trim());
@@ -287,7 +284,7 @@ namespace automatic_door_lock_face_recognition
                     $"Course: {docInfo.Value.course}\n" +
                     $"Personnel: {GlobalVariables.personnelEntered}";
                 this.Invoke(() =>
-                { 
+                {
                     MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //var toast = new Toast(
                     //       "📄 Document Found ",
@@ -333,6 +330,28 @@ namespace automatic_door_lock_face_recognition
             {
                 { "document_information_id", docInfo.Value.id }
             });
+        }
+
+
+        private async void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (isProcessing) return;
+
+            isProcessing = true;
+            try
+            {
+                string data = port.ReadExisting();
+                //port.Close();
+                await Task.Run(() =>
+                {
+                    ProcessData(data);
+                });
+                
+            } finally
+            {
+
+            }
+            
         }
         private void AppendTextToTextBox(string text)
         {
