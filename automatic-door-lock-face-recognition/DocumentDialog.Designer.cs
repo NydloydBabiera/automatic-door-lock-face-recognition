@@ -108,6 +108,7 @@ namespace automatic_door_lock_face_recognition
             document_information_id.HeaderText = "ID";
             document_information_id.Name = "document_information_id";
             document_information_id.ReadOnly = true;
+            document_information_id.Visible = false;
             // 
             // shelf_number
             // 
@@ -128,7 +129,7 @@ namespace automatic_door_lock_face_recognition
             // student_name
             // 
             student_name.DataPropertyName = "student_name";
-            student_name.HeaderText = "Student";
+            student_name.HeaderText = "Student Name";
             student_name.Name = "student_name";
             student_name.ReadOnly = true;
             student_name.Width = 250;

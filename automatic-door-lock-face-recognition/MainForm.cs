@@ -28,7 +28,24 @@ namespace automatic_door_lock_face_recognition
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
         private SerialPort port;
         private Image _latestImage;
-        private bool isProcessing = false;
+        private int scanCount = 0;
+        private string[] rfidTags =
+        {
+             "e28069150000600f0e023daf",
+             "e28069150000700f0e0525af",
+             "e28069150000700f0e01f5af",
+             "e28069150000600f0e01fdaf",
+             "e28069150000600f0e051daf",
+             "e28069150000700f0e04edaf",
+             "e28069150000600f0e04e5af",
+             "e28069150000600f0e052daf",
+             "e28069150000700f0e022daf",
+             "e20000197408005416606d4e",
+             "e20000197408005116606d55",
+             "e20000197608005216606d4d",
+             "e20000197408006916606d36",
+             "e20000197408007116606d37"
+        };
         public MainForm()
         {
             InitializeComponent();
@@ -217,6 +234,7 @@ namespace automatic_door_lock_face_recognition
                                                     lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
                                                     GlobalVariables.personnelEntered = name;
                                                     port.WriteLine("OPEN");
+                                                    MessageBox.Show($"Welcome {name}");
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
                                                     {
@@ -270,88 +288,68 @@ namespace automatic_door_lock_face_recognition
 
         }
 
-        private async void ProcessData( string data)
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            //if(GlobalVariables.personnelEntered == null)
+            //{
+            //    return;
+            //}
+           
+            string data = port.ReadExisting();
+            //port.Close();
             //System.Threading.Thread.Sleep(1000);
-            AppendTextToTextBox(data);
-            var docInfo = _db.GetDocumentInformation(data.Trim());
-            ///MessageBox.Show("Document Type: " + docInfo.Value);
-            if (docInfo != null)
+            if (rfidTags.Contains(data))
             {
-                string message =
-                    $"Record No.: {docInfo.Value.record_no}\n" +
-                    $"Student: {docInfo.Value.student_name}\n" +
-                    $"Course: {docInfo.Value.course}\n" +
-                    $"Personnel: {GlobalVariables.personnelEntered}";
-                this.Invoke(() =>
+                AppendTextToTextBox(data);
+                var docInfo = _db.GetDocumentInformation(data.Trim());
+                ///MessageBox.Show("Document Type: " + docInfo.Value);
+                if (docInfo != null)
                 {
-                    MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //var toast = new Toast(
-                    //       "📄 Document Found ",
-                    //       message,
-                    //       Color.LightGreen, // success color
-                    //       2000 // 5 seconds new is 2sec
-                    //   );
-                    //toast.Show();
-                });
+                    string message =
+                        $"Record No.: {docInfo.Value.record_no}\n" +
+                        $"Student: {docInfo.Value.student_name}\n" +
+                        $"Course: {docInfo.Value.course}\n" +
+                        $"Personnel: {GlobalVariables.personnelEntered}";
+                    this.Invoke(() =>
+                    {
+                        MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //var toast = new Toast(
+                        //       "📄 Document Found ",
+                        //       message,
+                        //       Color.LightGreen, // success color
+                        //       2000 // 5 seconds new is 2sec
+                        //   );
+                        //toast.Show();
+                    });
 
-            }
-            else
-            {
-                this.Invoke(() =>
+                }
+                else
                 {
-                    MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    // var toast = new Toast(
-                    //    "❌ Not Registered",
-                    //    "Document not found in database",
-                    //    Color.LightCoral,
-                    //    5000 // 10 sec new is 5sec
-                    //);
+                    this.Invoke(() =>
+                    {
+                        MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // var toast = new Toast(
+                        //    "❌ Not Registered",
+                        //    "Document not found in database",
+                        //    Color.LightCoral,
+                        //    5000 // 10 sec new is 5sec
+                        //);
 
-                    // toast.Show();
-                });
+                        // toast.Show();
+                    });
 
-            }
+                }
 
-            if (docInfo == null)
-            {
-                return;
-            }
-            _db.AddRecord("document_information_logs", new Dictionary<string, object>
+                if (docInfo == null)
+                {
+                    return;
+                }
+                _db.AddRecord("document_information_logs", new Dictionary<string, object>
             {
                 { "document_information_id", docInfo.Value.id }
             });
-
-            if (docInfo == null)
-            {
-                return;
             }
-            _db.AddRecord("document_information_logs", new Dictionary<string, object>
-            {
-                { "document_information_id", docInfo.Value.id }
-            });
-        }
-
-
-        private async void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            if (isProcessing) return;
-
-            isProcessing = true;
-            try
-            {
-                string data = port.ReadExisting();
-                //port.Close();
-                await Task.Run(() =>
-                {
-                    ProcessData(data);
-                });
-                
-            } finally
-            {
-
-            }
-            
         }
         private void AppendTextToTextBox(string text)
         {
@@ -446,70 +444,71 @@ namespace automatic_door_lock_face_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //using (DocumentDialog documentDialog = new DocumentDialog(port))
+            port.WriteLine("OPEN");
+            ////using (DocumentDialog documentDialog = new DocumentDialog(port))
+            ////{
+            ////    //CameraService.Instance.OnFrame -= Camera_OnFrame;
+            ////    documentDialog.ShowDialog();
+            ////}
+            //string data = txtTag.Text.Trim();
+            //var docInfo = _db.GetDocumentInformation(data.Trim());
+            ///// MessageBox.Show("Document Type: " + docInfo.Value);
+            //GlobalVariables.personnelEntered = "Test Personnel"; // Set this to the actual personnel name from face recognition
+            //if (docInfo != null)
             //{
-            //    //CameraService.Instance.OnFrame -= Camera_OnFrame;
-            //    documentDialog.ShowDialog();
+            //    string message =
+            //        $"Record No.: {docInfo.Value.record_no}\n" +
+            //        $"Student: {docInfo.Value.student_name}\n" +
+            //        $"Course: {docInfo.Value.course}\n" +
+            //        $"Personnel: {GlobalVariables.personnelEntered}";
+            //    this.Invoke(() =>
+            //    {
+            //        MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        //var toast = new Toast(
+            //        //       "📄 Document Found",
+            //        //       message,
+            //        //       Color.LightGreen, // success color
+            //        //       5000 // 5 seconds
+            //        //   );
+            //        //toast.Show();
+            //    });
+
             //}
-            string data = txtTag.Text.Trim();
-            var docInfo = _db.GetDocumentInformation(data.Trim());
-            /// MessageBox.Show("Document Type: " + docInfo.Value);
-            GlobalVariables.personnelEntered = "Test Personnel"; // Set this to the actual personnel name from face recognition
-            if (docInfo != null)
-            {
-                string message =
-                    $"Record No.: {docInfo.Value.record_no}\n" +
-                    $"Student: {docInfo.Value.student_name}\n" +
-                    $"Course: {docInfo.Value.course}\n" +
-                    $"Personnel: {GlobalVariables.personnelEntered}";
-                this.Invoke(() =>
-                {
-                    MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //var toast = new Toast(
-                    //       "📄 Document Found",
-                    //       message,
-                    //       Color.LightGreen, // success color
-                    //       5000 // 5 seconds
-                    //   );
-                    //toast.Show();
-                });
-
-            }
-            else
-            {
-                this.Invoke(() =>
-                {
-                    MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    // var toast = new Toast(
-                    //    "❌ Not Registered",
-                    //    "Document not found in database",
-                    //    Color.LightCoral,
-                    //    10000 // 10 sec
-                    //);
-
-                    // toast.Show();
-                });
-
-            }
-
-            //if (docInfo == null)
+            //else
             //{
-            //    return;
+            //    this.Invoke(() =>
+            //    {
+            //        MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        // var toast = new Toast(
+            //        //    "❌ Not Registered",
+            //        //    "Document not found in database",
+            //        //    Color.LightCoral,
+            //        //    10000 // 10 sec
+            //        //);
+
+            //        // toast.Show();
+            //    });
+
             //}
-            //_db.AddRecord("document_information_logs", new Dictionary<string, object>
-            //{
-            //    { "document_information_id", docInfo.Value.id }
-            //});
-            //var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
-            ////MessageBox.Show("Document Type: " + docInfo.Value.id);
-            //if (docInfo == null)
-            //{
-            //    return;
-            //}
-            //_db.AddRecord("document_information_logs", new Dictionary<string, object>
-            //{
-            //    { "document_information_id", docInfo.Value.id }
-            //});
+
+            ////if (docInfo == null)
+            ////{
+            ////    return;
+            ////}
+            ////_db.AddRecord("document_information_logs", new Dictionary<string, object>
+            ////{
+            ////    { "document_information_id", docInfo.Value.id }
+            ////});
+            ////var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
+            //////MessageBox.Show("Document Type: " + docInfo.Value.id);
+            ////if (docInfo == null)
+            ////{
+            ////    return;
+            ////}
+            ////_db.AddRecord("document_information_logs", new Dictionary<string, object>
+            ////{
+            ////    { "document_information_id", docInfo.Value.id }
+            ////});
 
         }
 
