@@ -88,7 +88,7 @@
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(158, 22);
+            documentLogsToolStripMenuItem.Size = new Size(180, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
@@ -154,7 +154,6 @@
             button1.TabIndex = 5;
             button1.Text = "test add logs";
             button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // ndtclogo

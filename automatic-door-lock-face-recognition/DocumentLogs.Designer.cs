@@ -35,13 +35,13 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dgvDocumentLogs = new DataGridView();
+            button1 = new Button();
             student_name = new DataGridViewTextBoxColumn();
             course = new DataGridViewTextBoxColumn();
             record_no = new DataGridViewTextBoxColumn();
             row_num = new DataGridViewTextBoxColumn();
             time_log = new DataGridViewTextBoxColumn();
             log_type = new DataGridViewTextBoxColumn();
-            button1 = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDocumentLogs).BeginInit();
             SuspendLayout();
@@ -104,6 +104,18 @@
             dgvDocumentLogs.TabIndex = 0;
             dgvDocumentLogs.CellContentClick += dgvDocumentLogs_CellContentClick;
             // 
+            // button1
+            // 
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(883, 577);
+            button1.Name = "button1";
+            button1.Size = new Size(194, 28);
+            button1.TabIndex = 1;
+            button1.Text = "DELETE ALL";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // student_name
             // 
             student_name.DataPropertyName = "student_name";
@@ -126,7 +138,6 @@
             record_no.HeaderText = "Record no.";
             record_no.Name = "record_no";
             record_no.ReadOnly = true;
-            record_no.Width = 50;
             // 
             // row_num
             // 
@@ -148,21 +159,9 @@
             // 
             log_type.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             log_type.DataPropertyName = "log_type";
-            log_type.HeaderText = "Log Type";
+            log_type.HeaderText = "Log Status";
             log_type.Name = "log_type";
             log_type.ReadOnly = true;
-            // 
-            // button1
-            // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(883, 577);
-            button1.Name = "button1";
-            button1.Size = new Size(194, 28);
-            button1.TabIndex = 1;
-            button1.Text = "DELETE ALL";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // DocumentLogs
             // 

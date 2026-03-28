@@ -57,17 +57,19 @@ namespace automatic_door_lock_face_recognition
 
             // Get the row data
             DataGridViewRow row = dgvDocument.Rows[e.RowIndex];
-
-            string shelf_number = row.Cells["shelf_number"].Value?.ToString();
+            //change sang shelf_number to row (A B C D)
+            //string shelf_number = row.Cells["shelf_number"].Value?.ToString();
+            string row_num = row.Cells["row_num"].Value?.ToString();
             string student_name = row.Cells["student_name"].Value?.ToString();
-            var isConfirmed = MessageBox.Show(
-             $"Get document for student {student_name} in shelf number {shelf_number}",
-             "Confirm Deletion",
-             MessageBoxButtons.YesNo,
-             MessageBoxIcon.Warning
-             );
+           
+            var isConfirmed = CustomMessageBoxService.Show(
+                $"Are you sure you want to retrieve {student_name}'s record in shelf {row_num}?",
+                "Confirm Action",
+                "Info",
+                CustomMessageBoxButtons.YesNo
+            );
 
-            if (isConfirmed.Equals(DialogResult.Yes))
+            if (isConfirmed == CustomDialogResult.Yes)
             {
                 port.WriteLine($"ON{shelf_number}");
             }

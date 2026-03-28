@@ -63,6 +63,16 @@ namespace automatic_door_lock_face_recognition.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _9187604 {
+            get {
+                object obj = ResourceManager.GetObject("9187604", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NEWW {
             get {
                 object obj = ResourceManager.GetObject("NEWW", resourceCulture);

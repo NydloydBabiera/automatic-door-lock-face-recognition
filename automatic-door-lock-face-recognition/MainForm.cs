@@ -1,6 +1,7 @@
 ﻿using automatic_door_lock_face_recognition.Classess;
 using automatic_door_lock_face_recognition.Services;
 using Emgu.CV;
+using FastReport.DevComponents.DotNetBar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -234,7 +235,8 @@ namespace automatic_door_lock_face_recognition
                                                     lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
                                                     GlobalVariables.personnelEntered = name;
                                                     port.WriteLine("OPEN");
-                                                    MessageBox.Show($"Welcome {name}");
+                                                    //MessageBox.Show($"Welcome {name}");
+                                                    CustomMessageBoxService.Show($"Welcome {name}", "Personnel", "Info", CustomMessageBoxButtons.OK);
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
                                                     {
@@ -280,7 +282,7 @@ namespace automatic_door_lock_face_recognition
 
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
@@ -313,14 +315,8 @@ namespace automatic_door_lock_face_recognition
                         $"Personnel: {GlobalVariables.personnelEntered}";
                     this.Invoke(() =>
                     {
-                        MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //var toast = new Toast(
-                        //       "📄 Document Found ",
-                        //       message,
-                        //       Color.LightGreen, // success color
-                        //       2000 // 5 seconds new is 2sec
-                        //   );
-                        //toast.Show();
+                        //MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CustomMessageBoxService.Show(message, "📄 Retrieve Record", "Info", CustomMessageBoxButtons.OK);
                     });
 
                 }
@@ -328,7 +324,8 @@ namespace automatic_door_lock_face_recognition
                 {
                     this.Invoke(() =>
                     {
-                        MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CustomMessageBoxService.Show("Document not found in database", "❌ Not Registered", "Error", CustomMessageBoxButtons.OK);
+                        //MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         // var toast = new Toast(
                         //    "❌ Not Registered",
                         //    "Document not found in database",
@@ -444,7 +441,16 @@ namespace automatic_door_lock_face_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
-            port.WriteLine("OPEN");
+            //string message = $"Personnel name: Personnel\n" +
+            //                 $"Designation: Staff\n";
+            //CustomMessageBoxService.Show("Document not found in database", "❌ Not Registered", "Error", CustomMessageBoxButtons.OK);
+            //CustomMessageBoxService.Show(message, "Welcome", "Info", CustomMessageBoxButtons.OK);
+            string message =
+                       $"Record No.: 2\n" +
+                       $"Student: test student\n" +
+                       $"Course: BSCPE\n" +
+                       $"Personnel: Test personnel";
+            CustomMessageBoxService.Show(message, "📄 Retrieve Record", "Info", CustomMessageBoxButtons.OK);
             ////using (DocumentDialog documentDialog = new DocumentDialog(port))
             ////{
             ////    //CameraService.Instance.OnFrame -= Camera_OnFrame;

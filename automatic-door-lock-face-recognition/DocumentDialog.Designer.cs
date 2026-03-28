@@ -38,6 +38,7 @@ namespace automatic_door_lock_face_recognition
             textBox1 = new TextBox();
             document_information_id = new DataGridViewTextBoxColumn();
             shelf_number = new DataGridViewTextBoxColumn();
+            row_num = new DataGridViewTextBoxColumn();
             record_no = new DataGridViewTextBoxColumn();
             student_name = new DataGridViewTextBoxColumn();
             student_id = new DataGridViewTextBoxColumn();
@@ -61,7 +62,7 @@ namespace automatic_door_lock_face_recognition
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocument.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvDocument.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, shelf_number, record_no, student_name, student_id, course });
+            dgvDocument.Columns.AddRange(new DataGridViewColumn[] { document_information_id, shelf_number, row_num, record_no, student_name, student_id, course });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -117,6 +118,13 @@ namespace automatic_door_lock_face_recognition
             shelf_number.Name = "shelf_number";
             shelf_number.ReadOnly = true;
             shelf_number.Width = 250;
+            // 
+            // row_num
+            // 
+            row_num.DataPropertyName = "row_num";
+            row_num.HeaderText = "Row";
+            row_num.Name = "row_num";
+            row_num.ReadOnly = true;
             // 
             // record_no
             // 
@@ -176,6 +184,7 @@ namespace automatic_door_lock_face_recognition
         private TextBox textBox1;
         private DataGridViewTextBoxColumn document_information_id;
         private DataGridViewTextBoxColumn shelf_number;
+        private DataGridViewTextBoxColumn row_num;
         private DataGridViewTextBoxColumn record_no;
         private DataGridViewTextBoxColumn student_name;
         private DataGridViewTextBoxColumn student_id;
