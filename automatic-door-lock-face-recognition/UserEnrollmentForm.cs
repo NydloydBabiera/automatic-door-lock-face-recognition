@@ -25,6 +25,7 @@ namespace automatic_door_lock_face_recognition
         private Dictionary<int, string> _labelToName = new Dictionary<int, string>();
         private string _trainedModelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "trained_model.yml");
         private bool isEditMode = false;
+        private int personnelFaceId = 0;
         public UserEnrollmentForm()
         {
             InitializeComponent();
@@ -217,7 +218,7 @@ namespace automatic_door_lock_face_recognition
                         using (var faceMat = _faceService.ExtractFace(mat, faces[0]))
                         {
                             string fileName =
-                                $"{txtFirstName.Text.Trim()}_" +
+                                $"{txtFirstName.Text.Trim()}-{txtMiddleName.Text.Trim()}-{txtLastName.Text.Trim()};{txtDesignation.Text}_" +
                                 $"{DateTime.Now:yyyyMMdd_HHmmssfff}_{saved}.png";
 
                             string fullPath = Path.Combine(_samplesDir, fileName);
@@ -228,7 +229,7 @@ namespace automatic_door_lock_face_recognition
                                 new Dictionary<string, object>
                                 {
                             { "personnel_information_id", GlobalVariables.PersonnelId },
-                            { "name", txtFirstName.Text.Trim() },
+                            { "name", $"{txtFirstName.Text.Trim()}-{txtMiddleName.Text.Trim()}-{txtLastName.Text.Trim()};{txtDesignation.Text}" },
                             { "image_path", fullPath }
                                 });
 
@@ -392,6 +393,8 @@ namespace automatic_door_lock_face_recognition
             txtMiddleName.Text = "";
             txtLastName.Text = "";
             txtDesignation.Text = "";
+
+            lblCameraStream.Text = "Camera";
 
 
 
@@ -587,10 +590,11 @@ namespace automatic_door_lock_face_recognition
                     { "last_name", txtLastName.Text.Trim() },
                     { "designation",txtDesignation.Text.Trim() },
                 };
+                var faceColumn = new Dictionary<string, object>
                 {
-
-                }
-                  ;
+                    { "name", $"{txtFirstName.Text.Trim()}-{txtMiddleName.Text.Trim()}-{txtLastName.Text.Trim()};{txtDesignation.Text}" }
+                };
+                
 
                 int updated = await _db.UpdateRowAsync(
                     "personnel_information",
@@ -599,9 +603,17 @@ namespace automatic_door_lock_face_recognition
                     columns
                 );
 
-                if (updated == 1)
+                int updated2 = await _db.UpdateRowAsync(
+                   "personnel_face_records",
+                   "personnel_information_id",
+                   GlobalVariables.SelectedPersonnelId,         // key value
+                   faceColumn
+               );
+
+                if (updated == 1 || updated2 == 1)
                 {
                     MessageBox.Show("Data updated successfully!");
+
                 }
                 else
                 {
@@ -618,16 +630,18 @@ namespace automatic_door_lock_face_recognition
                     { "designation", txtDesignation.Text.Trim() },
                 });
                 MessageBox.Show("✅ Record successfully saved!", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                CameraService.Instance.OnFrame += Camera_OnFrame;
+
+                cameraStream();
             }
 
             LoadUserGrid();
-            CameraService.Instance.OnFrame += Camera_OnFrame;
             btnImageSaving.Enabled = true;
             btnReloadCamera.Enabled = true;
             buttonsDefaultState();
             textboxesDefaultState();
             dgvPersonnels.Enabled = true;
-            cameraStream();
         }
 
         private void btnEdit_Click_1(object sender, EventArgs e)
@@ -636,6 +650,8 @@ namespace automatic_door_lock_face_recognition
             txtMiddleName.Text = dgvPersonnels.CurrentRow.Cells["middle_name"].Value.ToString();
             txtLastName.Text = dgvPersonnels.CurrentRow.Cells["last_name"].Value.ToString();
             txtDesignation.Text = dgvPersonnels.CurrentRow.Cells["designation"].Value.ToString();
+            //var personnelFaceRecord = _db.GetPersonnelFaceInformation(GlobalVariables.SelectedPersonnelId);
+            //personnelFaceId = personnelFaceRecord.Value.personnelInformationId;
 
             txtDesignation.Enabled = true;
             txtFirstName.Enabled = true;

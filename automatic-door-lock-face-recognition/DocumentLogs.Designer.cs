@@ -38,8 +38,9 @@
             button1 = new Button();
             student_name = new DataGridViewTextBoxColumn();
             course = new DataGridViewTextBoxColumn();
-            record_no = new DataGridViewTextBoxColumn();
+            shelf_num = new DataGridViewTextBoxColumn();
             row_num = new DataGridViewTextBoxColumn();
+            record_no = new DataGridViewTextBoxColumn();
             time_log = new DataGridViewTextBoxColumn();
             log_type = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
@@ -53,7 +54,7 @@
             groupBox1.ForeColor = Color.White;
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1065, 559);
+            groupBox1.Size = new Size(1258, 559);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Document Logs";
@@ -75,7 +76,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvDocumentLogs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvDocumentLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDocumentLogs.Columns.AddRange(new DataGridViewColumn[] { student_name, course, record_no, row_num, time_log, log_type });
+            dgvDocumentLogs.Columns.AddRange(new DataGridViewColumn[] { student_name, course, shelf_num, row_num, record_no, time_log, log_type });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -100,7 +101,7 @@
             dgvDocumentLogs.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvDocumentLogs.RowTemplate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDocumentLogs.RowTemplate.DefaultCellStyle.ForeColor = Color.Black;
-            dgvDocumentLogs.Size = new Size(1053, 511);
+            dgvDocumentLogs.Size = new Size(1246, 511);
             dgvDocumentLogs.TabIndex = 0;
             dgvDocumentLogs.CellContentClick += dgvDocumentLogs_CellContentClick;
             // 
@@ -119,7 +120,7 @@
             // student_name
             // 
             student_name.DataPropertyName = "student_name";
-            student_name.HeaderText = "Student";
+            student_name.HeaderText = "Student Name";
             student_name.Name = "student_name";
             student_name.ReadOnly = true;
             student_name.Width = 350;
@@ -132,6 +133,20 @@
             course.ReadOnly = true;
             course.Width = 150;
             // 
+            // shelf_num
+            // 
+            shelf_num.DataPropertyName = "shelf_number";
+            shelf_num.HeaderText = "Shelf no.";
+            shelf_num.Name = "shelf_num";
+            shelf_num.ReadOnly = true;
+            // 
+            // row_num
+            // 
+            row_num.DataPropertyName = "row_num";
+            row_num.HeaderText = "Row no.";
+            row_num.Name = "row_num";
+            row_num.ReadOnly = true;
+            // 
             // record_no
             // 
             record_no.DataPropertyName = "record_no";
@@ -139,27 +154,19 @@
             record_no.Name = "record_no";
             record_no.ReadOnly = true;
             // 
-            // row_num
-            // 
-            row_num.DataPropertyName = "row_num";
-            row_num.HeaderText = "Row";
-            row_num.Name = "row_num";
-            row_num.ReadOnly = true;
-            row_num.Width = 50;
-            // 
             // time_log
             // 
             time_log.DataPropertyName = "time_log";
-            time_log.HeaderText = "Time";
+            time_log.HeaderText = "Date/Time";
             time_log.Name = "time_log";
             time_log.ReadOnly = true;
-            time_log.Width = 300;
+            time_log.Width = 350;
             // 
             // log_type
             // 
             log_type.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             log_type.DataPropertyName = "log_type";
-            log_type.HeaderText = "Log Status";
+            log_type.HeaderText = "Log Type";
             log_type.Name = "log_type";
             log_type.ReadOnly = true;
             // 
@@ -168,10 +175,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.ForestGreen;
-            ClientSize = new Size(1089, 617);
+            ClientSize = new Size(1282, 617);
             Controls.Add(button1);
             Controls.Add(groupBox1);
             ForeColor = Color.Black;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "DocumentLogs";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DocumentLogs";
@@ -188,8 +197,9 @@
         private Button button1;
         private DataGridViewTextBoxColumn student_name;
         private DataGridViewTextBoxColumn course;
-        private DataGridViewTextBoxColumn record_no;
+        private DataGridViewTextBoxColumn shelf_num;
         private DataGridViewTextBoxColumn row_num;
+        private DataGridViewTextBoxColumn record_no;
         private DataGridViewTextBoxColumn time_log;
         private DataGridViewTextBoxColumn log_type;
     }

@@ -92,7 +92,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources._9187604;
-            pictureBox1.Location = new Point(114, 79);
+            pictureBox1.Location = new Point(31, 69);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(156, 124);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -114,6 +114,7 @@
             Name = "MessagePopup";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MessagePopup";
+            Load += MessagePopup_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

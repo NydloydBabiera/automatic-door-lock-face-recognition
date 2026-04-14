@@ -191,7 +191,7 @@ namespace automatic_door_lock_face_recognition
         private async void recognizeFace2()
         {
             int countMatch = 0;
-            double threshold = 60;
+            double threshold = 50;
             int matchThreshold = 3;
             if (_recognizing)
             {
@@ -221,28 +221,36 @@ namespace automatic_door_lock_face_recognition
                                     string name = "Unknown";
                                     if (label >= 0 && _labelToName.ContainsKey(label))
                                         name = _labelToName[label];
-
+                                    
                                     Invoke(new Action(() =>
                                     {
                                         if (name != "Unknown" && confidence < threshold)
                                         {
+                                            lblFaceScan.BackColor = Color.ForestGreen;
                                             if (confidence < threshold)
                                             {
                                                 countMatch++;
                                                 if (countMatch >= matchThreshold)
                                                 {
+                                                    lblFaceScan.BackColor = Color.White;
                                                     lblFaceScan.ForeColor = Color.Black;
-                                                    lblFaceScan.Text = $"Detected: {name}, confidence: {confidence:F1}";
-                                                    GlobalVariables.personnelEntered = name;
+                                                    string[] personnel = name.Split(";");
+                                                    string personnelName = personnel[0].Replace("-", " ");
+                                                    string designation = personnel[1];
+                                                    GlobalVariables.personnelEntered = personnelName;
                                                     port.WriteLine("OPEN");
                                                     //MessageBox.Show($"Welcome {name}");
-                                                    CustomMessageBoxService.Show($"Welcome {name}", "Personnel", "Info", CustomMessageBoxButtons.OK);
+                                                    string message = $"{personnelName}\n" +
+                                                    $"{designation}";
+                                                    lblFaceScan.Text = $"{message}";
+                                                    CustomMessageBoxService.Show(message, "Welcome", "Info", CustomMessageBoxButtons.OK);
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
                                                     {
                                                         CameraService.Instance.OnFrame -= Camera_OnFrame;
                                                         documentDialog.ShowDialog();
                                                     }
+                                                    lblFaceScan.Visible = true;
                                                     countMatch = 0;
                                                     CameraService.Instance.OnFrame += Camera_OnFrame;
                                                 }
@@ -251,7 +259,8 @@ namespace automatic_door_lock_face_recognition
                                         }
                                         else
                                         {
-                                            lblFaceScan.ForeColor = Color.Red;
+                                            lblFaceScan.BackColor = Color.Red;
+                                            lblFaceScan.ForeColor = Color.White;
                                             lblFaceScan.Text = $"Unknown face (conf: {confidence:F1})";
                                         }
                                     }));
@@ -260,8 +269,9 @@ namespace automatic_door_lock_face_recognition
                         }
                         else
                         {
-                            Invoke(() =>
+                        Invoke(() =>
                             {
+                                lblFaceScan.BackColor = Color.ForestGreen;
                                 lblFaceScan.ForeColor = Color.Black;
                                 lblFaceScan.Text = "No face detected";
                             });
@@ -282,7 +292,7 @@ namespace automatic_door_lock_face_recognition
 
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            //port.Open();
+            port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
@@ -301,22 +311,42 @@ namespace automatic_door_lock_face_recognition
             string data = port.ReadExisting();
             //port.Close();
             //System.Threading.Thread.Sleep(1000);
-            if (rfidTags.Contains(data))
+            //if (rfidTags.Contains(data))
+            if (data != "")
             {
                 AppendTextToTextBox(data);
                 var docInfo = _db.GetDocumentInformation(data.Trim());
                 ///MessageBox.Show("Document Type: " + docInfo.Value);
                 if (docInfo != null)
                 {
+                    string headerPopUp = "📄 Retrieved Record";
+                    string popUpType = "Info";
+                    var docLatestStatus = _db.GetLatestDocumentLog(data.Trim());
+                    if (docLatestStatus != null)
+                    {
+                        if (docLatestStatus.Value.logType == "in")
+                        {
+                            headerPopUp = "📄 Retrieved Record";
+                            popUpType = "Retrieved";
+                        }
+                        else if (docLatestStatus.Value.logType == "out")
+                        {
+                            headerPopUp = "📄 Return Record";
+                            popUpType = "Return";
+                        }
+                    }
+
                     string message =
-                        $"Record No.: {docInfo.Value.record_no}\n" +
-                        $"Student: {docInfo.Value.student_name}\n" +
-                        $"Course: {docInfo.Value.course}\n" +
-                        $"Personnel: {GlobalVariables.personnelEntered}";
+                    $"Shelf no.: {docInfo.Value.shelf_number}\n" +
+                    $"Row no.: {docInfo.Value.row_num.ToString().Replace("ROW", "")}\n" +
+                    $"Record No.: {docInfo.Value.record_no}\n" +
+                    $"Student: {docInfo.Value.student_name}\n" +
+                    $"Course: {docInfo.Value.course}\n" +
+                    $"Personnel: {GlobalVariables.personnelEntered}";
                     this.Invoke(() =>
                     {
                         //MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CustomMessageBoxService.Show(message, "📄 Retrieve Record", "Info", CustomMessageBoxButtons.OK);
+                        CustomMessageBoxService.Show(message, headerPopUp, popUpType, CustomMessageBoxButtons.OK);
                     });
 
                 }
@@ -441,80 +471,72 @@ namespace automatic_door_lock_face_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string message = $"Personnel name: Personnel\n" +
-            //                 $"Designation: Staff\n";
-            //CustomMessageBoxService.Show("Document not found in database", "❌ Not Registered", "Error", CustomMessageBoxButtons.OK);
-            //CustomMessageBoxService.Show(message, "Welcome", "Info", CustomMessageBoxButtons.OK);
-            string message =
-                       $"Record No.: 2\n" +
-                       $"Student: test student\n" +
-                       $"Course: BSCPE\n" +
-                       $"Personnel: Test personnel";
-            CustomMessageBoxService.Show(message, "📄 Retrieve Record", "Info", CustomMessageBoxButtons.OK);
-            ////using (DocumentDialog documentDialog = new DocumentDialog(port))
-            ////{
-            ////    //CameraService.Instance.OnFrame -= Camera_OnFrame;
-            ////    documentDialog.ShowDialog();
-            ////}
-            //string data = txtTag.Text.Trim();
-            //var docInfo = _db.GetDocumentInformation(data.Trim());
-            ///// MessageBox.Show("Document Type: " + docInfo.Value);
-            //GlobalVariables.personnelEntered = "Test Personnel"; // Set this to the actual personnel name from face recognition
-            //if (docInfo != null)
-            //{
-            //    string message =
-            //        $"Record No.: {docInfo.Value.record_no}\n" +
-            //        $"Student: {docInfo.Value.student_name}\n" +
-            //        $"Course: {docInfo.Value.course}\n" +
-            //        $"Personnel: {GlobalVariables.personnelEntered}";
-            //    this.Invoke(() =>
-            //    {
-            //        MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        //var toast = new Toast(
-            //        //       "📄 Document Found",
-            //        //       message,
-            //        //       Color.LightGreen, // success color
-            //        //       5000 // 5 seconds
-            //        //   );
-            //        //toast.Show();
-            //    });
+            string data = txtTag.Text.Trim();
+            if (rfidTags.Contains(data))
+            {
+                //AppendTextToTextBox(data);
+                var docInfo = _db.GetDocumentInformation(data.Trim());
+                ///MessageBox.Show("Document Type: " + docInfo.Value);
+                if (docInfo != null)
+                {
+                    string headerPopUp = "📄 Retrieved Record";
+                    string popUpType = "Info";
+                    var docLatestStatus = _db.GetLatestDocumentLog(txtTag.Text.Trim());
+                    if (docLatestStatus != null)
+                    {
+                        if (docLatestStatus.Value.logType == "in")
+                        {
+                            headerPopUp = "📄 Retrieved Record";
+                            popUpType = "Retrieved";
+                        }
+                        else if (docLatestStatus.Value.logType == "out")
+                        {
+                            headerPopUp = "📄 Return Record";
+                            popUpType = "Return";
+                        }
+                    }
 
-            //}
-            //else
-            //{
-            //    this.Invoke(() =>
-            //    {
-            //        MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        // var toast = new Toast(
-            //        //    "❌ Not Registered",
-            //        //    "Document not found in database",
-            //        //    Color.LightCoral,
-            //        //    10000 // 10 sec
-            //        //);
+                    string message =
+                    $"Shelf no.: {docInfo.Value.shelf_number}\n" +
+                    $"Row no.: {docInfo.Value.row_num.ToString().Replace("ROW", "")}\n" +
+                    $"Record No.: {docInfo.Value.record_no}\n" +
+                    $"Student: {docInfo.Value.student_name}\n" +
+                    $"Course: {docInfo.Value.course}\n" +
+                    $"Personnel: {GlobalVariables.personnelEntered}";
+                    this.Invoke(() =>
+                    {
+                        //MessageBox.Show(message, "📄 Document Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CustomMessageBoxService.Show(message, headerPopUp, popUpType, CustomMessageBoxButtons.OK);
+                    });
 
-            //        // toast.Show();
-            //    });
+                }
+                else
+                {
+                    this.Invoke(() =>
+                    {
+                        CustomMessageBoxService.Show("Document not found in database", "❌ Not Registered", "Error", CustomMessageBoxButtons.OK);
+                        //MessageBox.Show("Document not found in database", "❌ Not Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // var toast = new Toast(
+                        //    "❌ Not Registered",
+                        //    "Document not found in database",
+                        //    Color.LightCoral,
+                        //    5000 // 10 sec new is 5sec
+                        //);
 
-            //}
+                        // toast.Show();
+                    });
 
-            ////if (docInfo == null)
-            ////{
-            ////    return;
-            ////}
-            ////_db.AddRecord("document_information_logs", new Dictionary<string, object>
-            ////{
-            ////    { "document_information_id", docInfo.Value.id }
-            ////});
-            ////var docInfo = _db.GetDocumentInformation(txtTag.Text.Trim());
-            //////MessageBox.Show("Document Type: " + docInfo.Value.id);
-            ////if (docInfo == null)
-            ////{
-            ////    return;
-            ////}
-            ////_db.AddRecord("document_information_logs", new Dictionary<string, object>
-            ////{
-            ////    { "document_information_id", docInfo.Value.id }
-            ////});
+                }
+
+                if (docInfo == null)
+                {
+                    return;
+                }
+                _db.AddRecord("document_information_logs", new Dictionary<string, object>
+            {
+                { "document_information_id", docInfo.Value.id }
+            });
+            }
 
         }
 

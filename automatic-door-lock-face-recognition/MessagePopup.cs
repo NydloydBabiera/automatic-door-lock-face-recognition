@@ -49,7 +49,11 @@ namespace automatic_door_lock_face_recognition
             {
                 pictureBox1.Visible = true;
 
-                lblMessage.Location = new Point(currentX + 200, currentY - 20);
+                lblMessage.Location = new Point(currentX + 200, currentY - 10);
+            }
+            if(title == "📄 Retrieved Record" || title == "📄 Return Record")
+            {
+                lblMessage.Font = new Font(lblMessage.Font.FontFamily, 13);
             }
         }
 
@@ -59,7 +63,7 @@ namespace automatic_door_lock_face_recognition
         }
         private void HeaderColor(string type)
         {
-            switch(type)
+            switch (type)
             {
                 case "Error":
                     panel1.BackColor = Color.Red;
@@ -71,6 +75,12 @@ namespace automatic_door_lock_face_recognition
                 case "Info":
                     panel1.BackColor = Color.Beige;
                     break;
+                case "Retrieve":
+                    panel1.BackColor = Color.FromArgb(186, 224, 202);
+                    break;
+                case "Return":
+                    panel1.BackColor = Color.FromArgb(159, 237, 232);
+                    break;
                 default:
                     panel1.BackColor = Color.FromArgb(0, 120, 215);
                     break;
@@ -78,7 +88,7 @@ namespace automatic_door_lock_face_recognition
         }
         private void ConfigureButtons(CustomMessageBoxButtons buttons)
         {
-            btn1.Visible = btn2.Visible  = false;
+            btn1.Visible = btn2.Visible = false;
 
             switch (buttons)
             {
@@ -112,6 +122,11 @@ namespace automatic_door_lock_face_recognition
                 Result = result;
                 this.Close();
             };
+        }
+
+        private void MessagePopup_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

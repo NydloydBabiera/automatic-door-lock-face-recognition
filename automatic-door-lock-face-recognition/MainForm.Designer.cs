@@ -88,7 +88,7 @@
             // documentLogsToolStripMenuItem
             // 
             documentLogsToolStripMenuItem.Name = "documentLogsToolStripMenuItem";
-            documentLogsToolStripMenuItem.Size = new Size(180, 22);
+            documentLogsToolStripMenuItem.Size = new Size(158, 22);
             documentLogsToolStripMenuItem.Text = "Document Logs";
             documentLogsToolStripMenuItem.Click += documentLogsToolStripMenuItem_Click;
             // 
@@ -108,9 +108,9 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(61, 100);
+            pictureBox1.Location = new Point(309, 100);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1237, 516);
+            pictureBox1.Size = new Size(714, 516);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             pictureBox1.Paint += pictureBox1_Paint;
@@ -129,31 +129,32 @@
             // 
             // lblFaceScan
             // 
-            lblFaceScan.AutoSize = true;
             lblFaceScan.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFaceScan.Location = new Point(574, 619);
+            lblFaceScan.Location = new Point(309, 619);
             lblFaceScan.Name = "lblFaceScan";
-            lblFaceScan.Size = new Size(105, 45);
+            lblFaceScan.Size = new Size(714, 93);
             lblFaceScan.TabIndex = 3;
             lblFaceScan.Text = "label2";
             lblFaceScan.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtTag
             // 
-            txtTag.Location = new Point(532, 686);
+            txtTag.Location = new Point(1058, 211);
+            txtTag.Multiline = true;
             txtTag.Name = "txtTag";
-            txtTag.Size = new Size(438, 23);
+            txtTag.Size = new Size(258, 379);
             txtTag.TabIndex = 4;
             txtTag.Visible = false;
             // 
             // button1
             // 
-            button1.Location = new Point(1022, 680);
+            button1.Location = new Point(1137, 607);
             button1.Name = "button1";
             button1.Size = new Size(118, 33);
             button1.TabIndex = 5;
             button1.Text = "test add logs";
             button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // ndtclogo

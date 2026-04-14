@@ -268,11 +268,12 @@
             // 
             lblCameraStream.AutoSize = true;
             lblCameraStream.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCameraStream.Location = new Point(1044, 14);
+            lblCameraStream.Location = new Point(1036, 9);
             lblCameraStream.Name = "lblCameraStream";
             lblCameraStream.Size = new Size(54, 21);
             lblCameraStream.TabIndex = 33;
             lblCameraStream.Text = "label6";
+            lblCameraStream.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 

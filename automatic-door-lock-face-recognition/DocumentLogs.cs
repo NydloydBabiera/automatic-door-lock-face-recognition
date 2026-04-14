@@ -25,7 +25,7 @@ namespace automatic_door_lock_face_recognition
                 return;
             }
 
-            if (_db == null)
+            if (_db == null )
             {
                 //MessageBox.Show("_db (database class) is null!");
                 return;
