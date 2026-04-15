@@ -72,6 +72,8 @@ namespace automatic_door_lock_face_recognition.Classess
             }
             return list;
         }
+
+
         public List<(int id, string name, string imagePath)> GetAllUntrainedImage()
         {
             var list = new List<(int, string, string)>();
@@ -331,6 +333,25 @@ namespace automatic_door_lock_face_recognition.Classess
             return null;
         }
 
+        public int GetPersonnelInformationIdByName(string name)
+        {
+            using (var conn = new NpgsqlConnection(_connStr))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand(
+                    "SELECT personnel_information_id FROM personnel_information WHERE name = @name LIMIT 1", conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", name);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                }
+            }
+            // Return -1 if no row found
+            return -1;
+        }
         public (int personnelInformationId, string name)? GetPersonnelFaceInformation(int personnelInformationId)
         {
             using (var conn = new NpgsqlConnection(_connStr))
@@ -450,6 +471,34 @@ namespace automatic_door_lock_face_recognition.Classess
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
+                        gridView.DataSource = dt;
+                        gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"❌ Error loading data:\n{ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void LoadPersonnelLogs(DataGridView gridView)
+        {
+            using (var conn = new NpgsqlConnection(_connStr))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "select " +
+                        "CONCAT(inf.first_name,inf.middle_name,inf.last_name) as personnel_name," +
+                        "logs.log_type," +
+                        "TO_CHAR(logs.time_log, 'YYYY-MM-DD HH12:MI:SS') as time_log" +
+                        "from personnel_door_logs logs" +
+                        "inner join personnel_information inf on inf.personnel_information_id = logs.personnel_information_id";
+                    using (var da = new NpgsqlDataAdapter(query, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
                         gridView.DataSource = dt;
                         gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     }

@@ -26,6 +26,8 @@ namespace automatic_door_lock_face_recognition.Services
         public static SerialPort port;
         public static string personnelEntered { get; set; }
 
+        public static string reportType { get; set; }
+
 
     }
 }

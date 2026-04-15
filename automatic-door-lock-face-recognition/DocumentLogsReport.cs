@@ -22,6 +22,7 @@ namespace automatic_door_lock_face_recognition
 
         private void DocumentLogsReport_Load(object sender, EventArgs e)
         {
+            this.Text = GlobalVariables.reportType == "document" ? "Document Logs Report" : "Personnel Logs Report";
             dateTimeStart.Format = DateTimePickerFormat.Custom;
             dateTimeStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 
@@ -69,15 +70,15 @@ namespace automatic_door_lock_face_recognition
                 //    connection.ConnectionString = "your_runtime_connection_string_here";
                 //}
                 //MessageBox.Show($"{start}- {end}");
-                report.SetParameterValue("StartDate", start);
-                report.SetParameterValue("EndDate", end);
+               
 
                 report.Refresh();
-                report.Load("Reports/DocumentLogsReport.frx");
-                var conn = report.Dictionary.Connections[0];
-                conn.ConnectionString =
-                "Driver={PostgreSQL Unicode};Server=localhost;Port=5432;Database=records_system;Uid=postgres;Pwd=postgres1234;";
-
+                report.Load(GlobalVariables.reportType == "document" ? "Reports/DocumentLogsReport.frx" : "Reports/PersonnelLogsReport.frx");
+                //var conn = report.Dictionary.Connections[0];
+                //conn.ConnectionString =
+                //"Driver={PostgreSQL Unicode};Server=localhost;Port=5432;Database=records_system;Uid=postgres;Pwd=postgres1234;";
+                report.SetParameterValue("StartDate", start);
+                report.SetParameterValue("EndDate", end);
                 // 3. Prepare the report (Executes your custom SQL query)
                 if (report.Prepare())
                 {

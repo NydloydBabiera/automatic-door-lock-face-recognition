@@ -30,6 +30,7 @@ namespace automatic_door_lock_face_recognition
         private SerialPort port;
         private Image _latestImage;
         private int scanCount = 0;
+        private int personnelEnteredId;
         private string[] rfidTags =
         {
              "e28069150000600f0e023daf",
@@ -221,7 +222,7 @@ namespace automatic_door_lock_face_recognition
                                     string name = "Unknown";
                                     if (label >= 0 && _labelToName.ContainsKey(label))
                                         name = _labelToName[label];
-                                    
+
                                     Invoke(new Action(() =>
                                     {
                                         if (name != "Unknown" && confidence < threshold)
@@ -247,6 +248,16 @@ namespace automatic_door_lock_face_recognition
                                                     System.Threading.Thread.Sleep(3000);
                                                     using (DocumentDialog documentDialog = new DocumentDialog(port))
                                                     {
+                                                        personnelEnteredId = _db.GetPersonnelInformationIdByName(name);
+                                                        _db.AddRecord("personnel_logs", new Dictionary<string, object>
+                                                        {
+                                                            { "personnel_information_id", personnelEnteredId },
+                                                            { "log_type", "in" }
+                                                        });
+                                                        //_db.AddRecord("document_information_logs", new Dictionary<string, object>
+                                                        //    {
+                                                        //        { "document_information_id", docInfo.Value.id }
+                                                        //    });
                                                         CameraService.Instance.OnFrame -= Camera_OnFrame;
                                                         documentDialog.ShowDialog();
                                                     }
@@ -269,12 +280,12 @@ namespace automatic_door_lock_face_recognition
                         }
                         else
                         {
-                        Invoke(() =>
-                            {
-                                lblFaceScan.BackColor = Color.ForestGreen;
-                                lblFaceScan.ForeColor = Color.Black;
-                                lblFaceScan.Text = "No face detected";
-                            });
+                            Invoke(() =>
+                                {
+                                    lblFaceScan.BackColor = Color.ForestGreen;
+                                    lblFaceScan.ForeColor = Color.Black;
+                                    lblFaceScan.Text = "No face detected";
+                                });
                         }
                     }
 
@@ -292,7 +303,7 @@ namespace automatic_door_lock_face_recognition
 
             port = new SerialPort(GlobalVariables.SerialPortName, 115200);
             port.DataReceived += SerialPort_DataReceived;
-            port.Open();
+            //port.Open();
             trainData();
             System.Threading.Thread.Sleep(1000);
             CameraService.Instance.OnFrame += Camera_OnFrame;
@@ -307,7 +318,7 @@ namespace automatic_door_lock_face_recognition
             //{
             //    return;
             //}
-           
+
             string data = port.ReadExisting();
             //port.Close();
             //System.Threading.Thread.Sleep(1000);
@@ -542,6 +553,7 @@ namespace automatic_door_lock_face_recognition
 
         private void documentLogsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            GlobalVariables.reportType = "document";
             using (DocumentLogsReport enrollmentForm = new DocumentLogsReport())
             {
                 enrollmentForm.ShowDialog();
@@ -551,6 +563,15 @@ namespace automatic_door_lock_face_recognition
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void personnelLogsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            GlobalVariables.reportType = "personnel";
+            using (DocumentLogsReport enrollmentForm = new DocumentLogsReport())
+            {
+                enrollmentForm.ShowDialog();
+            }
         }
     }
 }

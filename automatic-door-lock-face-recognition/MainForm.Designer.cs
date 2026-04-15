@@ -43,6 +43,7 @@
             txtTag = new TextBox();
             button1 = new Button();
             ndtclogo = new PictureBox();
+            personnelLogsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ndtclogo).BeginInit();
@@ -94,7 +95,7 @@
             // 
             // reportsToolStripMenuItem
             // 
-            reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { documentLogsToolStripMenuItem1 });
+            reportsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { documentLogsToolStripMenuItem1, personnelLogsToolStripMenuItem });
             reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
             reportsToolStripMenuItem.Size = new Size(59, 20);
             reportsToolStripMenuItem.Text = "Reports";
@@ -102,7 +103,7 @@
             // documentLogsToolStripMenuItem1
             // 
             documentLogsToolStripMenuItem1.Name = "documentLogsToolStripMenuItem1";
-            documentLogsToolStripMenuItem1.Size = new Size(158, 22);
+            documentLogsToolStripMenuItem1.Size = new Size(180, 22);
             documentLogsToolStripMenuItem1.Text = "Document Logs";
             documentLogsToolStripMenuItem1.Click += documentLogsToolStripMenuItem1_Click;
             // 
@@ -170,6 +171,13 @@
             ndtclogo.TabStop = false;
             ndtclogo.Click += pictureBox2_Click;
             // 
+            // personnelLogsToolStripMenuItem
+            // 
+            personnelLogsToolStripMenuItem.Name = "personnelLogsToolStripMenuItem";
+            personnelLogsToolStripMenuItem.Size = new Size(180, 22);
+            personnelLogsToolStripMenuItem.Text = "Personnel Logs";
+            personnelLogsToolStripMenuItem.Click += personnelLogsToolStripMenuItem_Click_1;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -214,5 +222,6 @@
         private ToolStripMenuItem documentLogsToolStripMenuItem1;
         private Button button1;
         private PictureBox ndtclogo;
+        private ToolStripMenuItem personnelLogsToolStripMenuItem;
     }
 }
